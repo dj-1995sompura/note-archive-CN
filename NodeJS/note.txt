@@ -250,3 +250,8 @@ To start the REPL, simply type node in your terminal and press Enter:
 ```
 $ node```
 You will see a prompt (>) where you can start typing JavaScript code.
+
+7) Global object and module:
+The global object in Node.js provides a way to define variables and functions that are accessible across different modules without importing them explicitly.
+Global modules defined using the global object can be useful for sharing utility functions or constants across modules, but caution should be exercised to avoid polluting the global namespace.
+Best practices in Node.js development often favor encapsulation and dependency injection over extensive use of global variables and modules to promote modularity and maintainability.
