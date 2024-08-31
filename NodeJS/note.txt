@@ -1,4 +1,4 @@
-=================== Getting started with node JS=======================
+=================== 1. Getting started with node JS=======================
 1) Defination:
 Node.js is an open-source, cross-platform JavaScript runtime environment that allows developers to run JavaScript on the server side. It uses the V8 JavaScript engine, which is the same engine used by Google Chrome. Node.js is designed for building scalable network applications, particularly those that require real-time interactions, such as chat applications, gaming servers, and collaborative tools.
 
@@ -302,12 +302,707 @@ JavaScript (JS) can operate in two primary environments: the browser and Node.js
 - **Modules:** Node.js uses CommonJS (prior to ES6) or ES Modules (ES6+). Browser JS traditionally used `<script>` tags or module loaders (now supports ES Modules).
 - **Concurrency:** Node.js operates with single-threaded, event-driven architecture (supports concurrency via async operations). Browsers handle concurrency with multi-threaded environments (e.g., Web Workers).
 
-**************Notes topics***********************
+
+
+========================= 2.Modules in NodeJS========================================
+
+1) CommonJS vs. ES6 Modules in Node.js
+In Node.js, modules are a way to encapsulate code into separate files and reuse them across the application. There are two main module systems in use:
+
+CommonJS Modules:
+
+Usage: CommonJS is the older module system used in Node.js. It uses require to import modules and module.exports or exports to export them.
+Syntax:
+Importing: const math = require('./math.js');
+Exporting: module.exports = { sum, mean };
+Behavior: Synchronously loads modules, making it well-suited for server-side development.
+ES6 Modules:
+
+Usage: ES6 (ECMAScript 2015) introduced a new standardized module system that is also supported in Node.js. It uses import and export statements.
+Syntax:
+Importing: import { sum, mean } from './math.js';
+Exporting: export { sum, mean };
+
+Behavior: Supports asynchronous module loading and can be used in both client-side and server-side JavaScript.
+Key Differences
+Syntax: CommonJS uses require and module.exports, while ES6 uses import and export.
+Asynchronous Loading: ES6 modules are designed to support asynchronous loading, whereas CommonJS modules are synchronous.
+Tree Shaking: ES6 modules support tree shaking, which allows bundlers to eliminate unused code.
 
 
 
+========================= 14.Javascript : (Promises and Asyc/Await )========================================
+1) Promise in js:
+### Brief on Promises in JavaScript
 
-=========================Inventory management Project==========================
+**Promises** in JavaScript are objects representing the eventual completion (or failure) of an asynchronous operation and its resulting value. They are used to handle asynchronous operations in a more readable and manageable way than traditional callbacks.
+
+A promise can be in one of the following states:
+- **Pending**: The initial state, neither fulfilled nor rejected.
+- **Fulfilled**: The operation was completed successfully.
+- **Rejected**: The operation failed.
+
+When a promise is fulfilled or rejected, it will call the appropriate handler (provided with `.then()` or `.catch()`), allowing you to manage asynchronous operations effectively.
+
+#### Example: Basic Usage of a Promise
+
+```javascript
+// Create a new Promise
+const myPromise = new Promise((resolve, reject) => {
+    let success = true; // Simulating success or failure
+
+    if (success) {
+        resolve("The operation was successful!");
+    } else {
+        reject("The operation failed.");
+    }
+});
+
+// Handle the Promise
+myPromise
+    .then(result => {
+        console.log(result); // Output: The operation was successful!
+    })
+    .catch(error => {
+        console.log(error); // If the promise was rejected
+    });
+```
+
+### 15 Interview Questions on Promises in JavaScript
+
+1. **What is a Promise in JavaScript?**
+   - *Answer*: A Promise is an object representing the eventual completion or failure of an asynchronous operation.
+
+2. **Explain the states of a Promise.**
+   - *Answer*: A promise can be in three states: pending, fulfilled, or rejected.
+
+3. **How do you create a Promise?**
+   - *Answer*: A Promise is created using the `new Promise()` constructor, which takes a function with `resolve` and `reject` as arguments.
+
+4. **What are `.then()`, `.catch()`, and `.finally()` in Promises?**
+   - *Answer*: `.then()` is used to handle fulfilled promises, `.catch()` is for handling rejections, and `.finally()` is executed regardless of the promise's outcome.
+
+5. **Can you chain Promises? How?**
+   - *Answer*: Yes, promises can be chained using `.then()` to handle the result of the previous promise and return a new promise.
+
+6. **What happens if you don't handle a rejected Promise?**
+   - *Answer*: If a rejected promise is not handled, it may cause unhandled promise rejections, which can lead to errors in the application.
+
+7. **Explain the difference between callbacks and Promises.**
+   - *Answer*: Promises provide a more structured and readable way to handle asynchronous operations compared to callbacks, which can lead to "callback hell."
+
+8. **What is the purpose of `Promise.all()`?**
+   - *Answer*: `Promise.all()` runs multiple promises in parallel and returns a single promise that resolves when all of the input promises have resolved.
+   
+   ```// Simulating asynchronous tasks with Promises
+const task1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Task 1 completed");
+    }, 1000); // Task 1 takes 1 second
+});
+
+const task2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Task 2 completed");
+    }, 2000); // Task 2 takes 2 seconds
+});
+
+const task3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Task 3 completed");
+    }, 1500); // Task 3 takes 1.5 seconds
+});
+
+// Using Promise.all to wait for all tasks to complete
+Promise.all([task1, task2, task3])
+    .then(results => {
+        console.log("All tasks completed:");
+        console.log(results); // Output: ["Task 1 completed", "Task 3 completed", "Task 2 completed"]
+    })
+    .catch(error => {
+        console.log("One of the tasks failed:", error);
+    });```
+
+
+9. **How does `Promise.race()` work?**
+   - *Answer*: `Promise.race()` returns a promise that resolves or rejects as soon as one of the input promises resolves or rejects.
+   
+   ```// Simulating asynchronous tasks with Promises
+const task1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Task 1 completed");
+    }, 3000); // Task 1 takes 3 seconds
+});
+
+const task2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Task 2 completed");
+    }, 2000); // Task 2 takes 2 seconds
+});
+
+const task3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject("Task 3 failed");
+    }, 1000); // Task 3 takes 1 second and fails
+});
+
+// Using Promise.race to get the first settled promise
+Promise.race([task1, task2, task3])
+    .then(result => {
+        console.log("First settled task:", result);
+    })
+    .catch(error => {
+        console.log("First settled task failed:", error);
+    });```
+
+
+10. **What is a `Promise.resolve()`?**
+    - *Answer*: `Promise.resolve()` creates a promise that is immediately resolved with the given value.
+
+11. **What is `Promise.reject()`?**
+    - *Answer*: `Promise.reject()` creates a promise that is immediately rejected with the given reason.
+
+12. **How can you convert a callback-based function to return a Promise?**
+    - *Answer*: You can wrap the callback function inside a `new Promise()` and call `resolve` or `reject` based on the callback’s outcome.
+
+13. **What is an async function in JavaScript, and how does it relate to Promises?**
+    - *Answer*: An async function returns a Promise and allows you to write asynchronous code using `await`, making it look synchronous.
+
+14. **How would you handle multiple asynchronous operations that need to happen sequentially?**
+    - *Answer*: You can chain promises using `.then()` to ensure that each operation happens after the previous one has completed.
+
+15. **Explain the concept of "Promise chaining".**
+    - *Answer*: Promise chaining is the process of linking multiple promise handlers in a sequence, where each `.then()` or `.catch()` passes its result to the next.
+
+### 15 Tricky Challenges/Questions on Promises in JavaScript
+
+1. **How would you handle a Promise that may take too long to resolve? Implement a timeout mechanism.**
+
+2. **Create a function that retries a Promise-based operation up to three times if it fails.**
+
+3. **How would you implement `Promise.allSettled()` if it wasn't built into JavaScript?**
+
+4. **What would happen if you returned a non-promise value inside a `.then()` handler?**
+
+5. **How would you ensure that a sequence of promises completes in order, even if the promises themselves resolve out of order?**
+
+6. **Implement a function that limits the number of concurrently running promises.**
+
+7. **Create a `Promise.any()` function that resolves as soon as any of the input promises resolves, or rejects if all of them reject.**
+
+8. **Write a function that ensures that a promise resolves with a minimum delay, even if the operation is fast.**
+
+9. **What are the implications of returning a rejected promise inside a `.then()` handler?**
+
+10. **Explain and implement a debounce function that returns a Promise.**
+
+11. **How would you implement a `Promise.map()` method that runs an array of promises in sequence?**
+
+12. **Create a function that chains a series of promises and cancels the chain if one of the promises fails.**
+
+13. **What happens if you `await` a non-promise value?**
+
+14. **How would you handle errors in a chain of promises without stopping the entire chain?**
+
+15. **Explain how to convert an array of callback-based functions into a chain of promises.**
+
+2) Why promise status show fulfilled after it reject?
+
+### Understanding the "Fulfilled" Status in the Console
+
+When you inspect a promise in the browser's developer console, you might see something like this:
+
+```javascript
+Promise {<rejected>: "The operation failed."}
+```
+
+However, in the console, you might see the following structure when expanding the promise object:
+
+```javascript
+[[PromiseStatus]]: "fulfilled"
+[[PromiseResult]]: "The operation failed."
+```
+
+This can be confusing, but here's what actually happens:
+
+### Explanation
+
+- **Promise Status in Console:**
+  - The term "fulfilled" in the console doesn't refer to the success of the operation but rather indicates that the promise has "settled"—meaning it is no longer in the "pending" state. The promise has finished its execution and has either been resolved or rejected.
+  - The `[[PromiseStatus]]` in the console reflects that the promise has finished processing, which is why it says "fulfilled." 
+
+- **PromiseResult:**
+  - The `[[PromiseResult]]` shows what the promise resolved or rejected with. In this case, it shows `"The operation failed."`, indicating that the promise was rejected.
+
+- The console uses the term "fulfilled" to indicate that the promise has completed, regardless of whether it was resolved or rejected.
+- To determine if a promise was rejected, you should look at the `[[PromiseResult]]` and see the value it holds. If it’s a rejection message, that confirms the promise was rejected.
+
+3) How status changing during api call?
+When an API call is made in JavaScript using promises, the underlying process involves several steps that handle the asynchronous nature of the operation. Understanding how the browser or JavaScript engine handles these steps can shed light on how it knows whether the operation is successful or has failed.
+
+### 1. **Initiating the API Call**
+   - When you use a method like `fetch()` to make an API call, the JavaScript engine sends an HTTP request to the specified server. This request is sent asynchronously, meaning it doesn't block the execution of other code.
+   - At this point, a `Promise` object is created, and its initial state is `pending`.
+
+### 2. **Event Loop and Web APIs**
+   - The actual API call is handled by the browser's Web APIs (in a browser environment) or the event loop and libuv (in Node.js).
+   - The JavaScript engine hands off the request to these lower-level systems, which manage the communication with the server. The promise remains in a `pending` state.
+
+### 3. **Receiving the Response**
+   - The server processes the request and sends back a response. This response could be a success (with data) or an error (like a 404 or 500 status code).
+   - Once the response is received by the Web APIs or event loop, it's queued for processing by the JavaScript engine.
+
+### 4. **Callback Queues and Microtasks**
+   - Once the response is ready, a callback function associated with the `fetch()` method (or other similar methods) is placed in the **microtask queue**.
+   - The event loop monitors both the **call stack** and the **microtask queue**. When the call stack is clear, the event loop picks the next microtask (which includes the callback from the `fetch()` response) to process.
+
+### 5. **Promise Resolution**
+   - The callback function associated with the promise (like `.then()` for success or `.catch()` for errors) is executed based on the nature of the response:
+     - **If the response is successful** (status code 200-299), the `resolve()` function is called within the promise, changing its state from `pending` to `fulfilled`. The value (response data) is passed along as the promise's result.
+     - **If the response fails** (status code outside 200-299, network error, etc.), the `reject()` function is called, changing the promise's state from `pending` to `rejected`. The error or rejection reason is passed along as the promise's result.
+
+### 6. **Handling the Result**
+   - The result of the promise (whether fulfilled or rejected) is then handled by the associated `.then()` or `.catch()` callbacks.
+   - The JavaScript engine automatically updates the promise's state based on whether `resolve()` or `reject()` was called.
+
+### Example Flow
+
+```javascript
+const apiCall = new Promise((resolve, reject) => {
+    // Step 1: Initiating the API call
+    fetch('https://api.example.com/data')
+        .then(response => {
+            // Step 5a: If successful, resolve the promise
+            if (response.ok) {
+                return response.json();
+            } else {
+                // Step 5b: If not successful, reject the promise
+                throw new Error(`Error: ${response.statusText}`);
+            }
+        })
+        .then(data => {
+            // Step 6a: Handle successful data
+            resolve(data);
+        })
+        .catch(error => {
+            // Step 6b: Handle the error
+            reject(error);
+        });
+});
+
+// Usage
+apiCall
+    .then(data => console.log("Data received:", data))
+    .catch(error => console.log("Failed to fetch data:", error));
+```
+
+### What Happens Internally
+
+- **`fetch()` Execution:** The JavaScript engine offloads the HTTP request to the browser's Web API, and the promise is created with a `pending` state.
+- **Response Handling:** Once the server responds, the browser's Web API or event loop schedules the response handler in the microtask queue.
+- **Promise State Change:** The promise's state is updated based on whether the operation succeeded (`resolve()`) or failed (`reject()`).
+- **Result Handling:** The appropriate callback (`.then()` or `.catch()`) is executed, handling the result of the promise.
+
+### Conclusion
+
+The JavaScript engine and its event loop, together with Web APIs or libuv (in Node.js), manage the asynchronous operation. The key lies in the `resolve()` and `reject()` functions within the `Promise` constructor, which the JavaScript engine automatically invokes based on the outcome of the asynchronous task. This is how the promise transitions from `pending` to `fulfilled` or `rejected`, and how it "knows" whether the operation succeeded or failed.
+
+4) Event-looping:
+
+The event loop is a fundamental concept in JavaScript that allows asynchronous operations to be processed without blocking the execution of other code. JavaScript is single-threaded, meaning it can only execute one task at a time in a single thread. However, with the help of the event loop, JavaScript can handle multiple operations efficiently, giving the illusion of multitasking.
+
+#### How the Event Loop Works
+
+1. **Call Stack:**
+   - The call stack is a data structure that tracks the execution of functions. When a function is called, it is added to the top of the stack, and when it returns, it is removed from the stack.
+
+2. **Web APIs:**
+   - In a browser environment, Web APIs (like `setTimeout`, `DOM events`, `fetch`, etc.) handle tasks asynchronously. These tasks are offloaded to the Web APIs, freeing up the call stack to continue executing other code.
+
+3. **Callback Queue (Task Queue):**
+   - Once an asynchronous task (like a `setTimeout` or an API call) is completed, its callback function is added to the callback queue.
+
+4. **Event Loop:**
+   - The event loop continuously checks if the call stack is empty. If it is, the event loop picks the next function from the callback queue and pushes it onto the call stack for execution.
+
+5. **Microtask Queue:**
+   - Promises and some other operations are handled using the microtask queue, which has a higher priority than the callback queue. Microtasks are processed right after the currently executing task completes and before the event loop moves on to the next task in the callback queue.
+
+#### Visualizing the Event Loop
+
+Here's a simplified diagram:
+
+```
++-------------------+
+|    Call Stack     | <-- Executes one task at a time
++-------------------+
+        |
+        v
++-------------------+
+|  Web APIs/Threads | <-- Handles async operations like setTimeout, fetch, etc.
++-------------------+
+        |
+        v
++-------------------+          +-------------------+
+|  Callback Queue   | <----+   |  Microtask Queue  | <-- Higher priority
++-------------------+      |   +-------------------+
+        |                  |
+        v                  |
++-------------------+      |
+|   Event Loop      | <----+
++-------------------+
+```
+
+#### Example: Understanding the Event Loop
+
+```javascript
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Timeout callback");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Promise callback");
+});
+
+console.log("End");
+```
+
+**Expected Output:**
+```
+Start
+End
+Promise callback
+Timeout callback
+```
+
+**Explanation:**
+1. `console.log("Start")` is executed first and logged to the console.
+2. `setTimeout()` is called, but its callback is added to the callback queue after 0 milliseconds. This doesn't run immediately because it's handled by the Web APIs and then added to the callback queue.
+3. The promise is resolved immediately, and its `.then()` callback is added to the microtask queue.
+4. `console.log("End")` is executed and logged to the console.
+5. The event loop finds the call stack empty and processes the microtask queue first, executing the promise callback (`Promise callback`).
+6. Finally, the event loop picks the `setTimeout` callback from the callback queue and executes it (`Timeout callback`).
+
+### Interview Questions on Event Loop
+
+1. **What is the event loop in JavaScript?**
+   - **Answer:** The event loop is a mechanism that allows JavaScript to perform non-blocking I/O operations, despite being single-threaded. It continuously checks the call stack and callback/microtask queues to manage the execution of functions.
+
+2. **How does JavaScript handle asynchronous operations with the event loop?**
+   - **Answer:** JavaScript uses the event loop to offload asynchronous operations to the Web APIs or Node.js's libuv, which manage these operations. Once completed, the event loop processes their callbacks in the appropriate queue.
+
+3. **What is the difference between the callback queue and the microtask queue?**
+   - **Answer:** The microtask queue (for promises and other microtasks) has higher priority and is processed before the callback queue (for `setTimeout`, `setInterval`, etc.).
+
+4. **Why is the output of the following code `1, 3, 2`?**
+   ```javascript
+   console.log(1);
+   setTimeout(() => console.log(2), 0);
+   console.log(3);
+   ```
+   - **Answer:** The `setTimeout` callback is added to the callback queue and only executed after the call stack is empty. Hence, `1` and `3` are logged first, followed by `2`.
+
+5. **Can you explain what happens when a promise is resolved?**
+   - **Answer:** When a promise is resolved, its `.then()` callback is added to the microtask queue. The event loop processes this queue before moving on to the callback queue.
+
+6. **What is the significance of the event loop in Node.js?**
+   - **Answer:** In Node.js, the event loop is crucial for handling I/O operations, allowing the server to handle many connections simultaneously without blocking the execution of code.
+
+### Tricky Challenges
+
+1. **Predict the output:**
+   ```javascript
+   setTimeout(() => console.log('timeout'), 0);
+   Promise.resolve().then(() => console.log('promise'));
+   console.log('sync');
+   ```
+   - **Expected Output:** `sync`, `promise`, `timeout`
+
+2. **Explain the behavior:**
+   ```javascript
+   setTimeout(() => console.log('timeout'), 0);
+   setImmediate(() => console.log('immediate'));
+   ```
+   - **Expected Output:** This depends on the environment (browser vs. Node.js).
+
+3. **What will the following code output?**
+   ```javascript
+   Promise.resolve().then(() => console.log('promise1'));
+   Promise.resolve().then(() => console.log('promise2'));
+   console.log('sync');
+   ```
+   - **Expected Output:** `sync`, `promise1`, `promise2`
+
+4. **Describe the output and order of execution:**
+   ```javascript
+   process.nextTick(() => console.log('tick'));
+   Promise.resolve().then(() => console.log('promise'));
+   setTimeout(() => console.log('timeout'), 0);
+   ```
+   - **Expected Output:** `tick`, `promise`, `timeout`
+
+5. **Why does this code output `1, 4, 3, 2`?**
+   ```javascript
+   console.log(1);
+   setTimeout(() => console.log(2), 1000);
+   setTimeout(() => console.log(3), 0);
+   console.log(4);
+   ```
+   - **Expected Output:** `1`, `4`, `3`, `2`
+
+6. **What is the purpose of `process.nextTick()` in Node.js?**
+   - **Answer:** It defers the execution of a function until the current operation completes, but before the event loop continues.
+
+5) Prototype chaining:
+
+Prototype chaining is a fundamental concept in JavaScript that enables objects to inherit properties and methods from other objects. This mechanism is essential for implementing inheritance in JavaScript.
+
+#### What is Prototype Chaining?
+
+Prototype chaining refers to the ability of objects to delegate property and method lookups to their prototype objects. When you access a property or method of an object, JavaScript first looks for it on the object itself. If it doesn't find it there, it looks up the prototype chain, which is a series of prototypes that the object is linked to.
+
+### Key Concepts
+
+1. **Prototype:**
+   - Every JavaScript object has an internal property called `[[Prototype]]` (often accessed via `__proto__` in older code or via `Object.getPrototypeOf()`).
+   - This prototype is itself an object, and it may have its own prototype, forming a chain.
+
+2. **Prototype Chain:**
+   - The prototype chain is a series of objects linked together. When a property or method is accessed, JavaScript traverses this chain to find the property or method.
+
+3. **`Object.prototype`:**
+   - At the top of every prototype chain is `Object.prototype`. If a property or method is not found on the object or its prototypes, JavaScript will check `Object.prototype`. If it's still not found, it returns `undefined`.
+
+4. **Inheritance:**
+   - Prototype chaining allows objects to inherit properties and methods from other objects. This mechanism is used to create inheritance hierarchies.
+
+### Example of Prototype Chaining
+
+```javascript
+// Define a constructor function
+function Animal(name) {
+    this.name = name;
+}
+
+// Add a method to the Animal prototype
+Animal.prototype.speak = function() {
+    console.log(`${this.name} makes a noise.`);
+};
+
+// Define another constructor function
+function Dog(name, breed) {
+    Animal.call(this, name); // Call the parent constructor
+    this.breed = breed;
+}
+
+// Set up prototype chaining
+Dog.prototype = Object.create(Animal.prototype); // Inherit from Animal
+Dog.prototype.constructor = Dog; // Set the constructor property
+
+// Add a method to the Dog prototype
+Dog.prototype.bark = function() {
+    console.log(`${this.name} barks.`);
+};
+
+// Create instances
+const dog = new Dog('Rex', 'German Shepherd');
+
+// Access methods and properties
+dog.speak(); // Inherited from Animal
+dog.bark();  // Defined in Dog
+```
+
+**Explanation:**
+1. **Animal Constructor Function:** Defines an `Animal` with a `name` and a `speak` method.
+2. **Dog Constructor Function:** Inherits from `Animal` and adds its own property `breed` and method `bark`.
+3. **Prototype Chain Setup:** `Dog.prototype` is set to an object created from `Animal.prototype`. This makes `Dog` inherit from `Animal`.
+4. **Creating Instances:** `dog` is an instance of `Dog` and has access to both `speak` (inherited) and `bark` (own method).
+
+### Understanding Prototype Chain Lookup
+
+When you access `dog.speak()`, JavaScript performs the following steps:
+
+1. **Check `dog`:** Look for the `speak` method directly on `dog`. It's not found.
+2. **Check `Dog.prototype`:** Look for the `speak` method on `Dog.prototype`. It's not there.
+3. **Check `Animal.prototype`:** Look for the `speak` method on `Animal.prototype`. It's found and executed.
+4. **Check `Object.prototype`:** If the method were not found, JavaScript would check `Object.prototype`.
+
+### Interview Questions on Prototype Chaining
+
+1. **What is prototype chaining in JavaScript?**
+   - **Answer:** Prototype chaining is the mechanism by which JavaScript objects inherit properties and methods from other objects through their prototype chain.
+
+2. **How do you set up inheritance using prototype chaining?**
+   - **Answer:** Inherit from a parent constructor by setting the prototype of the child constructor to an object created from the parent’s prototype, and set the child's prototype constructor to the child constructor.
+
+3. **What is the role of `Object.create()` in prototype chaining?**
+   - **Answer:** `Object.create()` creates a new object with the specified prototype object and properties, allowing for easy setup of inheritance.
+
+4. **Explain how `Object.prototype` fits into prototype chaining.**
+   - **Answer:** `Object.prototype` is at the end of every prototype chain. If a property or method is not found on the object or its prototypes, JavaScript checks `Object.prototype`.
+
+5. **How can you access an object's prototype?**
+   - **Answer:** You can access an object's prototype using `Object.getPrototypeOf(object)` or `object.__proto__` (though the latter is deprecated).
+
+### Tricky Challenges
+
+1. **What will be the output of this code?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype.sound = 'roar';
+   const animal = new Animal();
+   console.log(animal.sound); // 'roar'
+   Animal.prototype.sound = 'growl';
+   console.log(animal.sound); // 'growl'
+   ```
+   - **Expected Output:** `roar`, `growl`
+
+2. **Describe the output:**
+   ```javascript
+   function Parent() {}
+   function Child() {}
+   Child.prototype = Object.create(Parent.prototype);
+   Child.prototype.constructor = Child;
+
+   const instance = new Child();
+   console.log(instance instanceof Child); // true
+   console.log(instance instanceof Parent); // true
+   console.log(instance instanceof Object); // true
+   ```
+
+3. **Explain why the following code outputs `true` and `false`:**
+   ```javascript
+   function Person(name) {
+       this.name = name;
+   }
+
+   Person.prototype.greet = function() {
+       return 'Hello, ' + this.name;
+   };
+
+   const p = new Person('John');
+   console.log(p.__proto__ === Person.prototype); // true
+   console.log(p.__proto__.__proto__ === Object.prototype); // true
+   ```
+
+4. **What will be the output of this code and why?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype = { sound: 'roar' };
+   const animal = new Animal();
+   console.log(animal.sound); // 'roar'
+   Animal.prototype.sound = 'growl';
+   console.log(animal.sound); // 'roar'
+   ```
+
+5. **Explain why this code results in an error:**
+   ```javascript
+   function Parent() {}
+   Parent.prototype.method = function() {};
+   function Child() {}
+   Child.prototype = Parent.prototype;
+   const child = new Child();
+   child.method = function() {};
+   console.log(new Parent().method); // Function() {}
+   ```
+
+Prototype chaining is a powerful feature in JavaScript that allows for efficient inheritance and property sharing. Understanding how it works is essential for mastering JavaScript's object-oriented programming capabilities.
+
+6) Predefined Promises:
+Certainly! JavaScript provides several built-in (or predefined) promises and functions that return promises. These are particularly useful for handling asynchronous operations. Here’s a list of some common predefined promises and promise-related functions in JavaScript:
+
+### 1. **`Promise.resolve(value)`**
+   - **Description:** Returns a promise that is resolved with the given value.
+   - **Example:**
+     ```javascript
+     const promise = Promise.resolve('Resolved value');
+     promise.then(value => console.log(value)); // Output: 'Resolved value'
+     ```
+
+### 2. **`Promise.reject(reason)`**
+   - **Description:** Returns a promise that is rejected with the given reason.
+   - **Example:**
+     ```javascript
+     const promise = Promise.reject(new Error('Rejected reason'));
+     promise.catch(error => console.log(error.message)); // Output: 'Rejected reason'
+     ```
+
+### 3. **`Promise.all(iterable)`**
+   - **Description:** Returns a single promise that resolves when all of the promises in the iterable have resolved or rejects if any of the promises reject.
+   - **Example:**
+     ```javascript
+     const p1 = Promise.resolve(1);
+     const p2 = Promise.resolve(2);
+     const p3 = Promise.resolve(3);
+
+     Promise.all([p1, p2, p3])
+       .then(values => console.log(values)); // Output: [1, 2, 3]
+     ```
+
+### 4. **`Promise.allSettled(iterable)`**
+   - **Description:** Returns a promise that resolves after all of the given promises have either resolved or rejected, with an array of objects describing the outcome of each promise.
+   - **Example:**
+     ```javascript
+     const p1 = Promise.resolve(1);
+     const p2 = Promise.reject(new Error('Failed'));
+     const p3 = Promise.resolve(3);
+
+     Promise.allSettled([p1, p2, p3])
+       .then(results => console.log(results));
+     // Output: [{ status: 'fulfilled', value: 1 }, { status: 'rejected', reason: Error: Failed }, { status: 'fulfilled', value: 3 }]
+     ```
+
+### 5. **`Promise.any(iterable)`**
+   - **Description:** Returns a promise that resolves as soon as one of the promises in the iterable resolves, or rejects if no promises in the iterable resolve.
+   - **Example:**
+     ```javascript
+     const p1 = Promise.reject('Fail 1');
+     const p2 = Promise.resolve('Success');
+     const p3 = Promise.reject('Fail 2');
+
+     Promise.any([p1, p2, p3])
+       .then(value => console.log(value)); // Output: 'Success'
+     ```
+
+### 6. **`Promise.race(iterable)`**
+   - **Description:** Returns a promise that resolves or rejects as soon as one of the promises in the iterable resolves or rejects, with the value or reason from that promise.
+   - **Example:**
+     ```javascript
+     const p1 = new Promise((resolve, reject) => setTimeout(resolve, 500, 'First'));
+     const p2 = new Promise((resolve, reject) => setTimeout(resolve, 100, 'Second'));
+
+     Promise.race([p1, p2])
+       .then(value => console.log(value)); // Output: 'Second'
+     ```
+
+### 7. **`Promise.resolve().then()`**
+   - **Description:** A way to use the `Promise.resolve()` to immediately resolve a promise and schedule a callback to be executed asynchronously.
+   - **Example:**
+     ```javascript
+     Promise.resolve().then(() => console.log('Executed asynchronously'));
+     // Output: 'Executed asynchronously'
+     ```
+
+### 8. **`Promise.finally(onFinally)`**
+   - **Description:** Adds a final callback that will be executed regardless of whether the promise is fulfilled or rejected.
+   - **Example:**
+     ```javascript
+     const p = Promise.resolve('Done');
+
+     p.then(value => console.log(value))
+      .finally(() => console.log('Final block executed'));
+     // Output: 'Done'
+     // Output: 'Final block executed'
+     ```
+
+### Summary
+
+These predefined promises and promise-related methods provide a robust set of tools for handling asynchronous operations and coordinating multiple promises in JavaScript. They are crucial for managing asynchronous workflows and ensuring predictable outcomes in modern JavaScript applications.
+
+
+========================= Project:- Inventory management Project==========================
 1) MVC in Nodejs:-
 
 MVC (Model-View-Controller) is a design pattern used in software development, and it's especially common in web applications. It helps organize code into three interconnected components: Model, View, and Controller. Here's how MVC works in Node.js:
