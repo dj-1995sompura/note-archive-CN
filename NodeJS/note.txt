@@ -329,6 +329,1154 @@ Syntax: CommonJS uses require and module.exports, while ES6 uses import and expo
 Asynchronous Loading: ES6 modules are designed to support asynchronous loading, whereas CommonJS modules are synchronous.
 Tree Shaking: ES6 modules support tree shaking, which allows bundlers to eliminate unused code.
 
+2) Axios package:
+**Axios** is a popular promise-based HTTP client used in Node.js to make HTTP requests. It simplifies the process of interacting with REST APIs by allowing you to send asynchronous HTTP requests to REST endpoints and handle their responses effectively.
+
+**Key Features:**
+- Supports promises, allowing chaining with `.then()` and `.catch()`.
+- Automatically transforms the response data to JSON.
+- Allows making requests like `GET`, `POST`, `PUT`, `DELETE`, etc.
+- Supports request and response interception.
+- Simplifies handling of query strings and URL parameters.
+
+### Installation
+You can install Axios in your Node.js project via npm:
+
+```bash
+npm install axios
+```
+
+### Basic Example: `GET` Request
+
+```javascript
+const axios = require('axios');
+
+axios.get('https://jsonplaceholder.typicode.com/posts')
+  .then(response => {
+    console.log(response.data); // Response data is automatically parsed
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+```
+
+### `POST` Request Example
+
+```javascript
+const axios = require('axios');
+
+axios.post('https://jsonplaceholder.typicode.com/posts', {
+    title: 'New Post',
+    body: 'This is the body of the new post',
+    userId: 1
+  })
+  .then(response => {
+    console.log('Post Created:', response.data);
+  })
+  .catch(error => {
+    console.error('Error posting data:', error);
+  });
+```
+
+---
+
+### Interview Questions:
+
+1. **What is Axios in Node.js?**
+   *Axios is a promise-based HTTP client for Node.js that simplifies making HTTP requests to REST endpoints and handling responses.*
+
+2. **How does Axios differ from the native `fetch` API?**
+   *Axios automatically transforms JSON data and supports interceptors, while the native `fetch` API requires manual response parsing.*
+
+3. **What are the advantages of using Axios over `http` module in Node.js?**
+   *Axios supports promise-based syntax, automatic JSON parsing, request/response interceptors, and simplifies the syntax for HTTP requests.*
+
+4. **Can you explain the difference between `.then()` and `.catch()` in Axios?**
+   *`.then()` is used to handle successful responses, while `.catch()` is used to handle errors or rejected promises.*
+
+5. **How do you send headers in an Axios request?**
+   *Headers can be sent using the `headers` property in the Axios request config object:*
+   ```javascript
+   axios.get(url, { headers: { 'Authorization': 'Bearer token' } });
+   ```
+
+6. **What is the use of interceptors in Axios?**
+   *Interceptors allow you to perform actions (e.g., adding headers, logging) before requests or responses are handled.*
+
+7. **How can you handle timeout in Axios?**
+   *You can set a timeout using the `timeout` option in the Axios config:*
+   ```javascript
+   axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds
+   ```
+
+8. **How do you handle errors in Axios?**
+   *Axios errors can be handled using `.catch()` for promises or try-catch blocks when using `async/await`.*
+
+9. **How do you perform parallel requests in Axios?**
+   *Using `axios.all()` or `Promise.all()`, you can send multiple requests in parallel:*
+   ```javascript
+   axios.all([axios.get(url1), axios.get(url2)])
+     .then(axios.spread((response1, response2) => { /* handle responses */ }));
+   ```
+
+10. **What does `axios.CancelToken` do?**
+    *`CancelToken` is used to cancel requests when they are no longer needed.*
+
+11. **What is the default method used in Axios if none is specified?**
+    *The default method in Axios is `GET`.*
+
+12. **How can you transform request and response data in Axios?**
+    *You can use `transformRequest` and `transformResponse` in the config object to transform the data.*
+
+13. **Explain how Axios automatically parses JSON responses.**
+    *Axios checks the `Content-Type` header and automatically parses JSON data if it's detected as JSON.*
+
+14. **How do you retry a failed request in Axios?**
+    *You can implement a retry mechanism using interceptors or a package like `axios-retry`.*
+
+15. **How do you pass query parameters in an Axios `GET` request?**
+    *Query parameters can be passed using the `params` option:*
+    ```javascript
+    axios.get(url, { params: { id: 1 } });
+    ```
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **How would you implement a retry mechanism in Axios if a request fails due to a network error?**
+2. **Create an interceptor that adds an `Authorization` header to every Axios request.**
+3. **Write an Axios request that automatically retries 3 times if the server responds with a 500 status code.**
+4. **How do you cancel an Axios request before it completes? Provide an example.**
+5. **Handle a large response stream using Axios and limit the memory footprint.**
+6. **Simulate a timeout for an Axios request and handle it gracefully.**
+7. **How would you handle batch requests (sending multiple requests together) and combine their results?**
+8. **Use Axios to upload a file to a server, handling progress events.**
+9. **Explain how you would configure Axios to retry requests with exponential backoff.**
+10. **How would you handle rate-limited API requests using Axios?**
+11. **Create a utility function that wraps Axios requests with retry logic and handles errors in a custom way.**
+12. **What would you do if an API you are requesting data from sends paginated results?**
+13. **Write a function using Axios that makes 3 requests simultaneously and cancels the remaining requests once one of them completes (similar to `Promise.race`).**
+14. **Design an Axios request to handle chunked responses for large datasets.**
+15. **What are some ways to optimize Axios requests for performance in a high-traffic Node.js server?**
+
+3) Package Manager:
+Node.js uses a **package manager** to handle third-party libraries, modules, and dependencies for your project. The two most commonly used package managers in Node.js are **npm (Node Package Manager)** and **Yarn**. They allow developers to install, manage, and share reusable code modules, enabling efficient project development.
+
+#### 1. **npm (Node Package Manager)**
+
+**npm** is the default package manager for Node.js. It comes pre-installed when you install Node.js. It allows you to download and manage libraries and dependencies for your projects.
+
+**Key Features:**
+- Access to the **npm registry**, a vast repository of open-source packages.
+- Allows developers to easily install packages and their dependencies.
+- Handles version control and updates for packages.
+
+### Common `npm` Commands:
+
+1. **Initialize a project**:
+   ```bash
+   npm init
+   ```
+   This creates a `package.json` file that manages project dependencies.
+
+2. **Install a package**:
+   ```bash
+   npm install axios
+   ```
+   This command installs a package and adds it to the `node_modules` folder.
+
+3. **Install a package globally**:
+   ```bash
+   npm install -g nodemon
+   ```
+   Installs the package globally on your system, so it can be used across all projects.
+
+4. **Install a specific version of a package**:
+   ```bash
+   npm install axios@0.21.1
+   ```
+
+5. **Update all installed packages**:
+   ```bash
+   npm update
+   ```
+
+6. **Uninstall a package**:
+   ```bash
+   npm uninstall axios
+   ```
+
+7. **List installed packages**:
+   ```bash
+   npm list
+   ```
+
+---
+
+#### 2. **Yarn**
+
+**Yarn** is an alternative package manager developed by Facebook. It is faster than npm in most cases and focuses on reliability and deterministic installs.
+
+**Key Features:**
+- Uses **lock files** (`yarn.lock`) for deterministic and consistent dependency resolution.
+- Parallel installation of packages, making it faster than npm.
+- Compatible with npm, meaning packages from the npm registry can be installed with Yarn.
+
+### Common `Yarn` Commands:
+
+1. **Initialize a project**:
+   ```bash
+   yarn init
+   ```
+
+2. **Add a package**:
+   ```bash
+   yarn add axios
+   ```
+
+3. **Add a global package**:
+   ```bash
+   yarn global add nodemon
+   ```
+
+4. **Remove a package**:
+   ```bash
+   yarn remove axios
+   ```
+
+5. **Update a package**:
+   ```bash
+   yarn upgrade axios
+   ```
+
+6. **Install all project dependencies**:
+   ```bash
+   yarn install
+   ```
+
+### Example:
+
+**Using npm to install Axios**:
+
+```bash
+npm install axios
+```
+
+**Using Yarn to install Axios**:
+
+```bash
+yarn add axios
+```
+
+Both commands install the Axios package but with different package managers.
+
+---
+
+### Interview Questions:
+
+1. **What is npm in Node.js?**
+   *npm is the default package manager for Node.js, allowing developers to manage and install third-party libraries and packages.*
+
+2. **What is the difference between npm and Yarn?**
+   *Yarn offers faster installation and better deterministic dependency management, while npm is the default package manager with a broader user base.*
+
+3. **What is the purpose of `package.json` in Node.js?**
+   *`package.json` stores metadata about the project, including dependencies, scripts, version, and more.*
+
+4. **How does npm handle versioning for packages?**
+   *npm uses semantic versioning (semver) to manage package versions, using major, minor, and patch versions.*
+
+5. **Explain what the `node_modules` folder is.**
+   *The `node_modules` folder contains all the installed dependencies for a Node.js project.*
+
+6. **What is the purpose of the `package-lock.json` file in npm?**
+   *The `package-lock.json` file ensures deterministic installs by locking the exact versions of packages and dependencies used in the project.*
+
+7. **How do you install a package as a development dependency using npm?**
+   *By using the `--save-dev` flag:*
+   ```bash
+   npm install nodemon --save-dev
+   ```
+
+8. **What does the `-g` flag do in npm and Yarn?**
+   *The `-g` flag installs a package globally, making it accessible system-wide.*
+
+9. **What is a `peerDependency` in `package.json`?**
+   *A `peerDependency` is a package that your package needs, but the consuming project is expected to install.*
+
+10. **How do you uninstall a package using npm?**
+    *Use the `npm uninstall` command followed by the package name:*
+    ```bash
+    npm uninstall axios
+    ```
+
+11. **What is `yarn.lock`, and how does it differ from `package-lock.json`?**
+    *`yarn.lock` ensures that every developer working on the project has the same dependencies, similar to `package-lock.json`, but it's specific to Yarn.*
+
+12. **Can you install npm packages with Yarn?**
+    *Yes, Yarn can install packages from the npm registry.*
+
+13. **How do you update npm or Yarn to the latest version?**
+    *For npm:*
+    ```bash
+    npm install -g npm
+    ```
+    *For Yarn:*
+    ```bash
+    yarn set version latest
+    ```
+
+14. **What is `npm ci`, and how does it differ from `npm install`?**
+    *`npm ci` is faster and meant for automated environments (e.g., CI/CD), ensuring consistent installs based on `package-lock.json`.*
+
+15. **How do you publish a package to the npm registry?**
+    *Use the `npm publish` command after configuring the package metadata.*
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **What happens if you delete the `node_modules` folder and `package-lock.json`? How do you restore it?**
+2. **Explain how `peerDependencies` work and when you would use them.**
+3. **Can two versions of the same package exist in `node_modules`? If yes, how is it managed?**
+4. **How would you configure npm to install private packages from a private registry?**
+5. **Simulate a situation where npm installs a package globally, but it's not found on your system path. How would you fix it?**
+6. **Why is it important to commit the `package-lock.json` or `yarn.lock` file to version control?**
+7. **What are the differences between `npm install` and `npm ci`, and when should you use each one?**
+8. **How would you handle dependency conflicts in a project where two modules depend on different versions of the same package?**
+9. **What would you do if you need to revert to an earlier version of a package after updating it?**
+10. **Explain how you would automate the installation of global npm packages across multiple development environments.**
+11. **How would you debug a situation where an installed npm package isn’t working as expected?**
+12. **What is the difference between `dependencies`, `devDependencies`, and `peerDependencies` in `package.json`?**
+13. **How do you optimize npm or Yarn installs for a CI/CD pipeline?**
+14. **Explain the purpose of `npm link` and when you would use it.**
+15. **Create a script using npm that runs multiple commands in parallel for testing and building a Node.js project.**
+
+4) Package.json file:
+### `package.json` in Node.js
+
+The `package.json` file is an essential part of any Node.js project. It is a JSON file located in the root directory of a Node.js project and serves as the manifest for the project, holding important metadata about the project, such as its dependencies, version, entry point, scripts, and other configurations.
+
+### Key Features of `package.json`:
+
+1. **Project Metadata**:
+   - **name**: The name of your project.
+   - **version**: The current version of your project.
+   - **description**: A brief description of the project.
+   - **main**: The entry point for the project (e.g., `index.js`).
+
+2. **Dependencies**:
+   - Specifies external modules and packages your project depends on.
+   - **dependencies**: Packages required for your project to run.
+   - **devDependencies**: Packages needed only during development (e.g., testing frameworks).
+   - **peerDependencies**: Specifies the version of dependencies required by your project for compatibility.
+
+3. **Scripts**:
+   - Defines custom commands that can be run via `npm run`.
+   - Example: `npm start`, `npm test`.
+
+4. **Engines**:
+   - Specifies the version of Node.js or npm required to run the project.
+
+5. **License**:
+   - Specifies the license for the project.
+
+### Basic Structure of `package.json`:
+
+```json
+{
+  "name": "my-node-project",
+  "version": "1.0.0",
+  "description": "A simple Node.js project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT"
+}
+```
+
+### Key Sections of `package.json`:
+
+1. **Name & Version**:
+   ```json
+   "name": "my-node-project",
+   "version": "1.0.0"
+   ```
+   Every Node.js project has a unique name and version. The version follows **semantic versioning** (`MAJOR.MINOR.PATCH`).
+
+2. **Scripts**:
+   ```json
+   "scripts": {
+     "start": "node index.js",
+     "test": "echo \"Error: no test specified\" && exit 1"
+   }
+   ```
+   Scripts allow you to define commands that can be run using `npm run <script>`. In this case:
+   - `npm start` runs `node index.js`.
+   - `npm test` is a placeholder for tests.
+
+3. **Dependencies**:
+   ```json
+   "dependencies": {
+     "express": "^4.17.1",
+     "axios": "^0.21.1"
+   }
+   ```
+   These are the packages your project requires in production. When you run `npm install`, npm will install these dependencies.
+
+4. **DevDependencies**:
+   ```json
+   "devDependencies": {
+     "nodemon": "^2.0.7"
+   }
+   ```
+   These are packages only needed for development purposes, such as testing libraries or tools like `nodemon`.
+
+5. **Engines**:
+   ```json
+   "engines": {
+     "node": ">=14.0.0"
+   }
+   ```
+   This ensures the project runs on a specific version of Node.js or newer.
+
+### Example: Adding a Dependency
+
+You can add dependencies to your `package.json` by running the following commands:
+
+```bash
+npm install express --save  # Adds to dependencies
+npm install nodemon --save-dev  # Adds to devDependencies
+```
+
+This automatically updates the `dependencies` and `devDependencies` sections of your `package.json` with the installed packages and their versions.
+
+---
+
+### Interview Questions:
+
+1. **What is `package.json` in Node.js?**
+   *`package.json` is a configuration file that holds the metadata, dependencies, and scripts for a Node.js project.*
+
+2. **What is the difference between `dependencies` and `devDependencies`?**
+   *`dependencies` are needed in production, while `devDependencies` are only required during development.*
+
+3. **How does `package.json` handle semantic versioning?**
+   *Semantic versioning uses a `MAJOR.MINOR.PATCH` format, where updates to the major version break backward compatibility, minor updates add features, and patch updates fix bugs.*
+
+4. **What is the purpose of `scripts` in `package.json`?**
+   *Scripts define commands that can be run with `npm run`, such as `start`, `test`, and custom commands.*
+
+5. **What are `peerDependencies` and how are they different from `dependencies`?**
+   *`peerDependencies` specify that a certain version of a package must be installed by the consumer of your package, while `dependencies` are installed directly.*
+
+6. **How do you install only production dependencies from `package.json`?**
+   *Use the `--production` flag:*
+   ```bash
+   npm install --production
+   ```
+
+7. **What is the purpose of the `package-lock.json` file?**
+   *It ensures consistent installation of dependencies by locking their versions, avoiding potential conflicts during installation.*
+
+8. **How do you install a specific version of a package in `package.json`?**
+   *You can specify the version by running:*
+   ```bash
+   npm install express@4.17.1
+   ```
+
+9. **What happens if `package.json` has conflicting versions of the same package?**
+   *Npm tries to resolve the conflict by creating a flat dependency tree, but it may install different versions in the `node_modules` folder if needed.*
+
+10. **How do you ensure your Node.js app only runs on specific versions of Node?**
+    *You can specify the required Node.js version in the `engines` field of `package.json`.*
+
+11. **Can you explain what tilde (`~`) and caret (`^`) symbols mean in `package.json` versions?**
+    *The tilde (`~`) allows patch updates (`1.2.x`), and the caret (`^`) allows both minor and patch updates (`1.x.x`).*
+
+12. **What is the difference between `package.json` and `package-lock.json`?**
+    *`package.json` contains a list of package dependencies, while `package-lock.json` locks down the exact versions of installed dependencies for consistency.*
+
+13. **What are `optionalDependencies` in `package.json`?**
+    *`optionalDependencies` are dependencies that your project can work without. If they fail to install, it doesn't break your application.*
+
+14. **How can you define project metadata like the author and license in `package.json`?**
+    *You can add an `author` field and a `license` field to specify the project’s author and license type.*
+
+15. **How do you create a `package.json` file from scratch?**
+    *Use the command `npm init` and follow the prompts.*
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **How would you resolve version conflicts between dependencies in `package.json`?**
+2. **What happens if you manually edit the `package-lock.json` file? Is it a good practice?**
+3. **Explain how npm resolves dependencies if two packages have conflicting versions of the same module.**
+4. **Why is it important to check in the `package-lock.json` file to version control?**
+5. **How do you create and use a custom script in `package.json` to automate tasks?**
+6. **How do you handle security vulnerabilities in packages listed in `package.json`?**
+7. **What happens if you delete the `node_modules` folder and run `npm install`?**
+8. **Explain the benefits of using `npm ci` over `npm install` in a continuous integration (CI) environment.**
+9. **Can you have multiple versions of the same package in a project? How does npm manage this?**
+10. **How would you troubleshoot a project where `npm install` fails due to incompatible dependencies?**
+11. **How do you handle transitive dependencies in a project where one of the dependencies is out of date or deprecated?**
+12. **Write a script in `package.json` to run two npm commands in parallel.**
+13. **How would you update all dependencies in `package.json` to their latest versions?**
+14. **Can you install packages directly from a GitHub repository in `package.json`? How?**
+15. **Explain the use of `npm shrinkwrap` and how it compares to `package-lock.json`.**
+
+5) Package-lock.json:
+### `package-lock.json` in Node.js
+
+The `package-lock.json` file is automatically generated by npm when you run `npm install` in a project that has a `package.json` file. It is used to lock down the versions of the installed dependencies, ensuring that the same versions are installed every time, across all environments. This file helps to maintain consistency and prevent version conflicts, especially when collaborating on a project or deploying an application.
+
+### Purpose of `package-lock.json`:
+
+1. **Version Locking**:
+   - Ensures that all collaborators, CI/CD pipelines, and production environments use the exact same versions of dependencies.
+   - Prevents potential issues caused by differences in package versions that might occur if the versions in `package.json` allow flexibility (e.g., using caret `^` or tilde `~` version ranges).
+
+2. **Faster Installs**:
+   - `package-lock.json` contains a complete dependency tree, making future installations faster since npm doesn’t have to resolve versions from scratch.
+
+3. **Deterministic Installs**:
+   - Makes sure that the project will work the same way regardless of when and where it is installed, avoiding "it works on my machine" issues.
+
+4. **Ensures Compatibility**:
+   - Prevents issues caused by incompatible versions of packages being installed. The locked versions ensure that all dependencies are compatible with each other.
+
+### Key Properties of `package-lock.json`:
+
+- **name**: The name of the project.
+- **version**: The version of the project.
+- **lockfileVersion**: The version of the lock file format (e.g., `lockfileVersion: 2` for npm 7+).
+- **dependencies**: A nested structure that lists the exact versions of all installed dependencies, including transitive dependencies (i.e., the dependencies of your dependencies).
+- **integrity**: A hash to ensure the integrity of the package.
+- **resolved**: The resolved URL where the package was fetched from (e.g., a CDN or npm registry).
+
+### Example `package-lock.json` File:
+
+```json
+{
+  "name": "my-node-project",
+  "version": "1.0.0",
+  "lockfileVersion": 2,
+  "requires": true,
+  "dependencies": {
+    "express": {
+      "version": "4.17.1",
+      "resolved": "https://registry.npmjs.org/express/-/express-4.17.1.tgz",
+      "integrity": "sha512-...",
+      "requires": {
+        "accepts": "~1.3.7",
+        "body-parser": "~1.19.0",
+        "debug": "~2.6.9"
+      }
+    },
+    "axios": {
+      "version": "0.21.1",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
+      "integrity": "sha512-...",
+      "requires": {
+        "follow-redirects": "^1.10.0"
+      }
+    }
+  }
+}
+```
+
+### When is `package-lock.json` Created/Updated?
+
+- Created automatically when you run `npm install` for the first time in a project with a `package.json`.
+- Updated whenever you add, remove, or update dependencies using `npm install`, `npm uninstall`, or `npm update`.
+  
+### Benefits of Using `package-lock.json`:
+
+1. **Version Consistency**: Ensures that every developer working on the project installs the exact same versions of all dependencies and their transitive dependencies.
+   
+2. **Faster Installations**: Speeds up package installation because npm doesn't have to resolve versions of dependencies from scratch.
+
+3. **Better Security**: Guarantees that the exact packages with the expected integrity (verified by their hashes) are installed, reducing the risk of malicious code sneaking into your project via third-party libraries.
+
+4. **Reproducible Builds**: Makes deployments and continuous integration (CI) processes more predictable and consistent across different environments.
+
+### Differences Between `package.json` and `package-lock.json`:
+
+| Feature                | `package.json`                                      | `package-lock.json`                                  |
+|------------------------|----------------------------------------------------|------------------------------------------------------|
+| Purpose                | Contains a list of project dependencies, metadata, and scripts. | Contains the exact versions of dependencies installed and their resolved URLs. |
+| Flexibility            | Allows semver ranges (`^`, `~`) for package versions. | Locks dependencies to specific versions for deterministic installs. |
+| Generated By           | Created manually or via `npm init`.                | Automatically generated/updated by npm during `npm install`. |
+| File Size              | Typically smaller and more human-readable.         | Larger, contains the entire dependency tree.          |
+| Required for Install   | Required to install dependencies in the project.   | Ensures consistent installs but not strictly required to install packages. |
+
+### Example:
+
+1. **With `package.json` only:**
+
+   The `package.json` may contain:
+   ```json
+   "dependencies": {
+     "express": "^4.17.1"
+   }
+   ```
+
+   Without a `package-lock.json` file, npm may install the latest version compatible with `^4.17.1`, which could be `4.18.0`, causing differences in environments.
+
+2. **With `package-lock.json`:**
+
+   The `package-lock.json` will lock down the version like:
+   ```json
+   "express": {
+     "version": "4.17.1",
+     "resolved": "https://registry.npmjs.org/express/-/express-4.17.1.tgz",
+     "integrity": "sha512-..."
+   }
+   ```
+
+   This ensures that the exact version `4.17.1` is always installed.
+
+---
+
+### Interview Questions:
+
+1. **What is the purpose of `package-lock.json` in Node.js?**
+   *It ensures that the exact same versions of dependencies are installed, providing deterministic builds and consistent environments.*
+
+2. **How is `package-lock.json` different from `package.json`?**
+   *`package.json` defines project dependencies with version ranges, while `package-lock.json` locks down the specific versions of dependencies installed.*
+
+3. **When is `package-lock.json` updated?**
+   *It is updated whenever you install, remove, or update a dependency using `npm install`, `npm uninstall`, or `npm update`.*
+
+4. **What happens if you delete `package-lock.json` and run `npm install` again?**
+   *Npm will generate a new `package-lock.json` based on the `package.json` file, potentially installing different versions within the version ranges specified.*
+
+5. **How does `package-lock.json` improve project security?**
+   *It locks specific versions of dependencies, ensuring that no unexpected or malicious code is introduced through version changes.*
+
+6. **Can you manually edit the `package-lock.json` file?**
+   *While it is possible to edit it manually, it is generally not recommended because npm automatically manages this file.*
+
+7. **What is the role of the `integrity` field in `package-lock.json`?**
+   *The `integrity` field contains a hash that ensures the integrity of the package being installed, protecting against tampering.*
+
+8. **How does `package-lock.json` affect CI/CD pipelines?**
+   *It ensures that the exact same versions of dependencies are installed in all environments, making builds and deployments more predictable.*
+
+9. **What is the difference between `npm install` and `npm ci` in relation to `package-lock.json`?**
+   *`npm ci` installs dependencies based on the exact versions in `package-lock.json`, ensuring that the install process is faster and more predictable, especially for CI/CD pipelines.*
+
+10. **Why should you commit `package-lock.json` to version control?**
+    *It ensures that all contributors and environments install the same dependency versions, providing consistent behavior across the project.*
+
+11. **What happens if a version conflict arises between `package-lock.json` and `package.json`?**
+    *npm gives priority to `package-lock.json` and installs the versions specified there.*
+
+12. **Can `package-lock.json` prevent breaking changes in dependencies?**
+    *Yes, by locking the exact versions, it prevents the project from automatically adopting breaking changes that may be introduced in newer versions.*
+
+13. **How does npm handle transitive dependencies in `package-lock.json`?**
+    *npm includes all direct and transitive (sub)dependencies in the `package-lock.json` file to ensure consistency across the entire dependency tree.*
+
+14. **What is `lockfileVersion`, and why is it important?**
+    *It indicates the version of the lockfile format. Different versions of npm use different formats, and this helps npm understand how to read the file.*
+
+15. **How does `package-lock.json` handle updates to dependencies?**
+    *When a dependency is updated, the `package-lock.json` file is updated to reflect the new version and its associated transitive dependencies.*
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **What happens if two different packages require conflicting versions of the same dependency in `package-lock.json`?**
+2. **How would you resolve issues with package integrity when hashes in `package-lock.json` don’t match?**
+3. **If `package.json` specifies a flexible version range for a dependency, can `package-lock.json` still enforce a specific version?**
+4. **How would you manage package version updates while maintaining stability across environments?**
+5. **What could go wrong if `package-lock.json` is not included in version control?**
+6. **How would you troubleshoot a mismatch between installed dependencies and those listed in `package-lock.json`?**
+
+6) NVM (Node Version Manager):
+### NVM (Node Version Manager)
+
+NVM (Node Version Manager) is a tool that allows developers to manage multiple versions of Node.js on a single machine. This is useful when different projects require different versions of Node.js, as it allows for switching between versions seamlessly without conflicts.
+
+### Key Features of NVM:
+
+1. **Multiple Node.js Versions**: 
+   - You can install and use multiple versions of Node.js simultaneously.
+   - Easily switch between Node.js versions per project or globally on your system.
+
+2. **Version Switching**:
+   - Switch to a specific Node.js version when working on a particular project.
+   - Set a default Node.js version to be used globally.
+
+3. **Supports `.nvmrc`**:
+   - Projects can have a `.nvmrc` file that specifies the required Node.js version. NVM can automatically use the correct version when you enter a project directory.
+
+4. **Easy Node.js Installation**:
+   - Simplifies installing new Node.js versions with a single command.
+   - Handles binary versions and compilation automatically.
+
+5. **Works in Shell**:
+   - NVM is a shell-based tool (supports bash, zsh, etc.), making it easy to use on Linux and macOS. It can also be used on Windows via Windows Subsystem for Linux (WSL).
+
+---
+
+### NVM Installation:
+
+On **macOS** or **Linux**, install NVM via curl:
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+Then, add NVM to your shell configuration file (e.g., `~/.bashrc`, `~/.zshrc`) and source the file to enable it:
+```bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+On **Windows**, you can use [nvm-windows](https://github.com/coreybutler/nvm-windows) to install and manage Node.js versions.
+
+---
+
+### Key NVM Commands:
+
+1. **Install a specific Node.js version**:
+   ```bash
+   nvm install <version>
+   ```
+   Example:
+   ```bash
+   nvm install 16.13.0  # Installs Node.js v16.13.0
+   ```
+
+2. **List installed Node.js versions**:
+   ```bash
+   nvm ls
+   ```
+
+3. **Use a specific Node.js version**:
+   ```bash
+   nvm use <version>
+   ```
+   Example:
+   ```bash
+   nvm use 14.17.0  # Switches to Node.js v14.17.0
+   ```
+
+4. **Set a default Node.js version**:
+   ```bash
+   nvm alias default <version>
+   ```
+   Example:
+   ```bash
+   nvm alias default 16.13.0
+   ```
+
+5. **Check current Node.js version**:
+   ```bash
+   nvm current
+   ```
+
+6. **Uninstall a Node.js version**:
+   ```bash
+   nvm uninstall <version>
+   ```
+   Example:
+   ```bash
+   nvm uninstall 14.17.0  # Removes Node.js v14.17.0
+   ```
+
+7. **Use `.nvmrc` file**:
+   Create a `.nvmrc` file in your project folder with the Node.js version you want to use (e.g., `16.13.0`). Then run:
+   ```bash
+   nvm use
+   ```
+
+### Example:
+
+1. **Installing and Switching Node.js Versions**:
+   ```bash
+   nvm install 16.13.0
+   nvm install 14.17.0
+   nvm use 16.13.0
+   node -v  # Outputs: v16.13.0
+   ```
+
+2. **Setting Default Version**:
+   ```bash
+   nvm alias default 14.17.0
+   ```
+
+3. **Using `.nvmrc` for a Project**:
+   In your project directory, create a `.nvmrc` file with the following content:
+   ```
+   16.13.0
+   ```
+   Then, run:
+   ```bash
+   nvm use
+   ```
+
+---
+
+### Benefits of NVM:
+
+1. **Easily Manage Multiple Versions**: Useful for maintaining different Node.js versions required by different projects.
+2. **Avoid Compatibility Issues**: Prevents version conflicts by allowing you to specify the Node.js version per project.
+3. **Version Consistency**: Ensures that everyone on a project uses the same Node.js version, which is critical for debugging and deployment.
+4. **Quick Switching**: Instantly switch between different versions without uninstalling and reinstalling Node.js.
+
+---
+
+### Interview Questions:
+
+1. **What is NVM in Node.js?**
+   *NVM (Node Version Manager) is a tool that allows managing multiple versions of Node.js on the same machine.*
+
+2. **How do you install a specific Node.js version using NVM?**
+   *You can install a specific version using:*
+   ```bash
+   nvm install <version>
+   ```
+
+3. **How do you switch between Node.js versions with NVM?**
+   *Use the command:*
+   ```bash
+   nvm use <version>
+   ```
+
+4. **What is the purpose of `.nvmrc` file?**
+   *The `.nvmrc` file specifies the required Node.js version for a project. NVM can automatically switch to this version.*
+
+5. **How do you set a default Node.js version in NVM?**
+   *You can set a default version using:*
+   ```bash
+   nvm alias default <version>
+   ```
+
+6. **How do you uninstall a Node.js version with NVM?**
+   *Run the following command to uninstall a specific version:*
+   ```bash
+   nvm uninstall <version>
+   ```
+
+7. **Can you use NVM on Windows?**
+   *Yes, via [nvm-windows](https://github.com/coreybutler/nvm-windows), an NVM version built for Windows.*
+
+8. **How can you list all installed Node.js versions in NVM?**
+   *Use the command:*
+   ```bash
+   nvm ls
+   ```
+
+9. **What is the advantage of using NVM in a team project?**
+   *NVM ensures all team members use the same Node.js version, reducing compatibility issues.*
+
+10. **What happens if you enter a project directory with an `.nvmrc` file and run `nvm use`?**
+    *NVM automatically switches to the Node.js version specified in the `.nvmrc` file.*
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **What happens if you use `nvm use` in a directory without an `.nvmrc` file?**
+2. **How do you handle dependencies that require different Node.js versions within a single project?**
+3. **How does NVM affect global npm packages when switching between Node.js versions?**
+4. **Can you configure NVM to automatically switch versions based on the `.nvmrc` file when you enter a directory?**
+5. **What are the risks of using different Node.js versions across development, staging, and production environments?**
+6. **How would you ensure that your continuous integration (CI) pipeline uses a specific Node.js version via NVM?**
+7. **Can you use NVM with multiple Node.js versions in parallel within the same project? How?**
+8. **What are the trade-offs between using NVM and Docker for managing Node.js versions across projects?**
+9. **Explain how global npm packages are affected when switching between Node.js versions with NVM.**
+10. **How would you troubleshoot issues where NVM doesn't correctly switch Node.js versions?**
+11. **What happens to Node.js binary paths in your environment when you switch versions with NVM?** 
+12. **How would you ensure that every contributor to a project uses the correct Node.js version without manually setting it?**
+13. **What are some alternatives to NVM for managing Node.js versions? Compare them briefly.**
+14. **How does NVM interact with native Node.js modules that are compiled for a specific Node.js version?**
+15. **How do you handle dependency issues when a Node.js version supported by NVM is deprecated?**
+
+NVM is widely used by developers to streamline development and avoid Node.js versioning issues across projects.
+
+7) Readline module:
+### `readline` in Node.js
+
+The `readline` module in Node.js provides an interface for reading data from a `Readable` stream (such as `process.stdin` for standard input) one line at a time. It's typically used to create interactive command-line applications, prompts, and for handling user input from the terminal.
+
+### Key Features of `readline`:
+1. **Command-line Input**: 
+   - Allows reading input from the terminal or any readable stream.
+   - Processes input line-by-line, making it ideal for interactive programs.
+
+2. **Customizable Prompts**: 
+   - You can configure custom prompts, like when asking users for input or confirmation.
+
+3. **Read/Write Streams**: 
+   - Handles both input and output streams, allowing flexible control over how data is read and displayed.
+
+4. **Event-based Interface**: 
+   - Provides events like `line`, `close`, `pause`, and `resume` to handle input processing.
+
+---
+
+### Example: Simple User Input Program
+
+This example demonstrates how to create a basic prompt using `readline` to ask the user for their name and greet them.
+
+```javascript
+const readline = require('readline');
+
+// Create an interface for reading from the process stdin (input) and stdout (output)
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Ask a question to the user
+rl.question("What's your name? ", (answer) => {
+  console.log(`Hello, ${answer}!`);
+
+  // Close the readline interface to prevent further input
+  rl.close();
+});
+```
+
+#### Explanation:
+- **`readline.createInterface()`**: Creates an interface for reading input and output from `stdin` and `stdout`.
+- **`rl.question()`**: Displays a question to the user and waits for their input.
+- **`rl.close()`**: Closes the input stream, preventing any further input.
+
+### Key Methods:
+
+1. **`rl.question(query, callback)`**:
+   - Asks a question and waits for the user's input.
+   - Example:
+     ```javascript
+     rl.question('Enter your age: ', (age) => {
+       console.log(`You are ${age} years old.`);
+     });
+     ```
+
+2. **`rl.on('line', callback)`**:
+   - Reads input line-by-line (useful for large inputs or continuous input).
+   - Example:
+     ```javascript
+     rl.on('line', (input) => {
+       console.log(`Received: ${input}`);
+     });
+     ```
+
+3. **`rl.close()`**:
+   - Closes the `readline` interface, stopping further input.
+   - Example:
+     ```javascript
+     rl.close();
+     ```
+
+---
+
+### Example: Multi-Step Input
+
+This example shows how you can ask multiple questions sequentially using `readline`.
+
+```javascript
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let user = {};
+
+rl.question("What's your name? ", (name) => {
+  user.name = name;
+
+  rl.question("What's your age? ", (age) => {
+    user.age = age;
+
+    console.log(`Hello, ${user.name}. You are ${user.age} years old.`);
+    rl.close();
+  });
+});
+```
+
+#### Explanation:
+- The program first asks the user's name, then asks for their age. After collecting both inputs, it outputs a greeting and then closes the `readline` interface.
+
+---
+
+### Handling Events in `readline`
+
+The `readline` module is event-driven and emits several events that can be used to control input and output behavior.
+
+1. **`line`**: Emitted when the input stream receives a new line (i.e., the user presses Enter).
+   ```javascript
+   rl.on('line', (input) => {
+     console.log(`Received: ${input}`);
+   });
+   ```
+
+2. **`close`**: Emitted when the input stream is closed.
+   ```javascript
+   rl.on('close', () => {
+     console.log('Readline interface closed.');
+   });
+   ```
+
+3. **`pause`**: Emitted when the input stream is paused.
+   ```javascript
+   rl.pause();
+   ```
+
+4. **`resume`**: Emitted when the input stream is resumed.
+   ```javascript
+   rl.resume();
+   ```
+
+---
+
+### Example: Handling Continuous Input
+
+In this example, the program reads multiple lines of input from the user until they type "exit".
+
+```javascript
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+console.log("Type 'exit' to quit.");
+
+rl.on('line', (input) => {
+  if (input.trim() === 'exit') {
+    rl.close();
+  } else {
+    console.log(`You typed: ${input}`);
+  }
+});
+
+rl.on('close', () => {
+  console.log('Goodbye!');
+});
+```
+
+#### Explanation:
+- The `rl.on('line')` event listens for new lines of input. If the input is "exit", it closes the interface; otherwise, it echoes the user's input back to them.
+- The `rl.on('close')` event triggers a goodbye message when the input stream is closed.
+
+---
+
+### Advanced Example: Command-Line Calculator
+
+Here's a more advanced example where we implement a simple calculator using `readline`.
+
+```javascript
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+console.log("Simple Calculator");
+console.log("Enter an expression like '5 + 3' or type 'exit' to quit.");
+
+rl.on('line', (input) => {
+  if (input.trim().toLowerCase() === 'exit') {
+    rl.close();
+  } else {
+    try {
+      // Evaluate the user's input as a mathematical expression
+      let result = eval(input);
+      console.log(`Result: ${result}`);
+    } catch (error) {
+      console.log('Invalid expression. Try again.');
+    }
+  }
+});
+
+rl.on('close', () => {
+  console.log('Calculator closed.');
+});
+```
+
+#### Explanation:
+- This calculator accepts input like `5 + 3`, evaluates it using `eval()`, and returns the result.
+- The program handles invalid expressions and exits gracefully when the user types "exit".
+
+---
+
+### Interview Questions:
+
+1. **What is the `readline` module in Node.js used for?**
+   *The `readline` module allows reading data from a Readable stream, like user input from the terminal, one line at a time.*
+
+2. **How do you create a readline interface in Node.js?**
+   *By using the `readline.createInterface()` method, passing the input and output streams:*
+   ```javascript
+   const rl = readline.createInterface({
+     input: process.stdin,
+     output: process.stdout
+   });
+   ```
+
+3. **What does `rl.question()` do in the `readline` module?**
+   *It asks the user a question, waits for their input, and passes that input to a callback function.*
+
+4. **What events are available in the `readline` module?**
+   *Key events include `line`, `close`, `pause`, and `resume`.*
+
+5. **How would you handle continuous input using the `readline` module?**
+   *Use the `rl.on('line')` event to listen for multiple lines of input.*
+
+6. **How can you gracefully close a `readline` interface?**
+   *By calling the `rl.close()` method when you're done with the input.*
+
+7. **What is a common use case for the `readline` module?**
+   *Creating command-line applications that interact with the user, like CLI prompts or simple games.*
+
+8. **How would you validate user input in a `readline` prompt?**
+   *By checking the input in the callback or event handler and responding accordingly (e.g., with conditional logic).*
+
+9. **How does the `readline` module interact with streams?**
+   *It uses `process.stdin` as the readable input stream and `process.stdout` as the writable output stream by default.*
+
+10. **Can you pause and resume the input stream in `readline`?**
+    *Yes, using `rl.pause()` and `rl.resume()`.*
+
+---
+
+### Tricky Challenges/Questions:
+
+1. **How would you implement input history in a command-line interface using `readline`?**
+2. **How can you add autocompletion to a `readline` interface?**
+3. **What are the limitations of the `readline` module when handling large inputs?**
+4. **How would you modify the prompt behavior dynamically based on user input?**
+5. **How can you handle input streams other than `process.stdin` using `readline`?**
+6. **How would you implement a password prompt using the `readline` module?**
+7. **Can you use `readline` in combination with other streams, such as file streams?**
+8. **What would happen if you try to use `rl.question()` multiple times without closing the interface in between?**
+9. **How do you handle input timeouts in the `readline` module?**
+10. **How would you integrate the `readline` module with promises for cleaner asynchronous input handling?**
+
+
 
 
 ========================= 14.Javascript : (Promises and Asyc/Await )========================================
@@ -1001,6 +2149,179 @@ Certainly! JavaScript provides several built-in (or predefined) promises and fun
 
 These predefined promises and promise-related methods provide a robust set of tools for handling asynchronous operations and coordinating multiple promises in JavaScript. They are crucial for managing asynchronous workflows and ensuring predictable outcomes in modern JavaScript applications.
 
+7) Async/Await:
+
+`async` and `await` are syntactic sugars introduced in ES2017 (ES8) that make working with asynchronous code in JavaScript more straightforward and readable. They are built on top of Promises and provide a cleaner and more concise way to handle asynchronous operations.
+
+### Key Concepts
+
+1. **`async` Function:**
+   - An `async` function is a function declared with the `async` keyword. It always returns a promise.
+   - If the function returns a value, the promise is resolved with that value.
+   - If the function throws an error, the promise is rejected with that error.
+
+2. **`await` Expression:**
+   - The `await` keyword can only be used inside `async` functions. It pauses the execution of the `async` function and waits for the promise to resolve or reject.
+   - It then resumes the execution of the function and returns the resolved value or throws the rejected error.
+
+### Syntax
+
+#### Declaring an `async` Function
+
+```javascript
+async function myAsyncFunction() {
+  // Function body
+}
+```
+
+#### Using `await`
+
+```javascript
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+```
+
+### Example
+
+Here’s a complete example demonstrating the use of `async` and `await`:
+
+```javascript
+// A function that simulates fetching data from an API
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Data fetched successfully!');
+    }, 1000); // Simulate a delay
+  });
+}
+
+// An async function that uses await to handle the promise
+async function getData() {
+  try {
+    const result = await fetchData();
+    console.log(result); // Output after 1 second: 'Data fetched successfully!'
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Call the async function
+getData();
+```
+
+### Error Handling
+
+Errors in `async` functions are handled using `try...catch` blocks, similar to synchronous code:
+
+```javascript
+async function example() {
+  try {
+    const result = await someAsyncOperation();
+    console.log(result);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+```
+
+### Parallel Execution
+
+To run multiple asynchronous operations in parallel, use `Promise.all()`:
+
+```javascript
+async function fetchAll() {
+  try {
+    const [data1, data2] = await Promise.all([
+      fetch('https://api.example.com/data1').then(response => response.json()),
+      fetch('https://api.example.com/data2').then(response => response.json())
+    ]);
+    console.log(data1, data2);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+```
+
+### Summary
+
+- **`async` Function:** A function that returns a promise. It makes asynchronous code look synchronous and easier to understand.
+- **`await` Keyword:** Pauses the execution of an `async` function until the promise is settled, making it possible to write asynchronous code that looks like synchronous code.
+
+### Interview Questions on Async/Await
+
+1. **What is an `async` function in JavaScript?**
+   - **Answer:** An `async` function is a function declared with the `async` keyword that always returns a promise. The function's return value is automatically wrapped in a promise.
+
+2. **How does `await` work in an `async` function?**
+   - **Answer:** The `await` keyword pauses the execution of an `async` function until the promise is settled and then resumes execution, returning the resolved value or throwing the rejected error.
+
+3. **Can you use `await` outside of an `async` function?**
+   - **Answer:** No, `await` can only be used inside `async` functions. It will cause a syntax error if used outside.
+
+4. **What happens if you `await` a non-promise value?**
+   - **Answer:** If you `await` a non-promise value, it will be treated as a resolved promise with that value. Essentially, `await` converts the value into a resolved promise.
+
+5. **How do you handle errors in an `async` function?**
+   - **Answer:** Errors in an `async` function are handled using `try...catch` blocks, similar to synchronous code.
+
+### Tricky Challenges
+
+1. **What is the output of this code?**
+   ```javascript
+   async function foo() {
+     return 'Hello';
+   }
+
+   foo().then(console.log); // Output?
+   ```
+
+2. **Explain why this code might not behave as expected:**
+   ```javascript
+   async function getData() {
+     const data = await fetch('https://api.example.com/data');
+     console.log(data);
+   }
+
+   getData(); // Will this log the response object or the JSON data?
+   ```
+
+3. **Describe what happens in this code:**
+   ```javascript
+   async function example() {
+     const result = await Promise.resolve('Done');
+     console.log(result);
+   }
+
+   example();
+   ```
+
+4. **How do you execute multiple asynchronous tasks sequentially using `async`/`await`?**
+   - **Answer:** Sequential execution can be achieved by awaiting each task in sequence:
+     ```javascript
+     async function sequentialTasks() {
+       const result1 = await task1();
+       const result2 = await task2(result1);
+       console.log(result2);
+     }
+     ```
+
+5. **What will this code output and why?**
+   ```javascript
+   async function foo() {
+     return new Error('An error');
+   }
+
+   foo().then(console.log);
+   ```
+8) what is function suspension in js?
+Function suspension refers to the ability to pause the execution of a function at a certain point and resume it later, maintaining its state between pauses. In JavaScript, this concept is primarily implemented using generator functions and the yield keyword.
 
 ========================= Project:- Inventory management Project==========================
 1) MVC in Nodejs:-
