@@ -3237,4 +3237,963 @@ greet(person); // "Hello Bob, you are 40 years old!"
 
 15. **Use object destructuring in combination with the rest operator to remove specific properties from an object, returning a new object without those properties.**
 
--------------------------------------------------------------------------------------------------------------
+
+
+========================= ES6 classes =========================
+### Brief Explanation: Properties Inside Class in ES6
+
+In ES6 (ECMAScript 2015), JavaScript introduced classes, which are syntactical sugar over JavaScript's prototype-based inheritance model. A class can have properties (variables) and methods (functions). Properties in a class refer to the state or data associated with the instances (objects) of the class. ES6 does not directly support declaring instance properties inside the class body, but they are typically assigned inside the constructor.
+
+You can declare instance properties inside the constructor, while static properties can be declared directly on the class itself. Static properties are shared among all instances of the class, while instance properties are unique to each instance.
+
+Here’s an example:
+
+```javascript
+class Person {
+  // Constructor to initialize properties
+  constructor(name, age) {
+    this.name = name;  // Instance property
+    this.age = age;    // Instance property
+  }
+
+  // Method
+  greet() {
+    return `Hello, my name is ${this.name}.`;
+  }
+
+  // Static property (ES6+)
+  static species = "Homo sapiens";  // Shared by all instances
+}
+
+const person1 = new Person("John", 30);
+console.log(person1.greet());  // Output: Hello, my name is John.
+console.log(Person.species);   // Output: Homo sapiens
+```
+
+### Key Points:
+1. **Instance Properties**: These are declared inside the constructor and are specific to each instance of the class.
+2. **Static Properties**: These are declared directly on the class and shared across all instances.
+3. **Getter and Setter**: You can also define custom getters and setters for properties.
+4. **Private Fields**: ES2020 introduced private fields using the `#` symbol, ensuring encapsulation.
+
+---
+
+### 15 Interview Questions on Properties Inside Class in ES6
+
+1. **What are classes in ES6, and how are they different from function constructors in pre-ES6?**
+2. **How do you declare properties inside a class in ES6? Where are instance properties usually declared?**
+3. **What are static properties in an ES6 class? How do you declare and access them?**
+4. **Explain the difference between instance and static properties in an ES6 class.**
+5. **How can you initialize default values for properties in an ES6 class?**
+6. **What is the purpose of the `constructor` method in an ES6 class?**
+7. **Can you declare properties outside the constructor in ES6? If so, how?**
+8. **What is the `super()` method used for in ES6 classes? How does it relate to properties?**
+9. **How do you define private properties inside an ES6 class (using newer syntax)?**
+10. **What are getters and setters, and how are they used in an ES6 class?**
+11. **How do you handle property inheritance in ES6 classes?**
+12. **Can you directly modify a static property of a class from an instance? Why or why not?**
+13. **How do you dynamically add properties to an ES6 class instance?**
+14. **Explain the concept of prototype in relation to ES6 classes and how properties are tied to the prototype.**
+15. **How do ES6 classes ensure encapsulation with properties? How can you simulate private properties?**
+
+---
+
+### 15 Tricky Problems/Challenges on Properties Inside Class in ES6
+
+1. **Create a class `Car` with a property `speed`. Add a method to get and update the `speed`, but ensure the speed can never be negative.**
+   - Challenge: Use getters and setters.
+
+2. **Implement a class `Circle` that has a private field `#radius`. Write methods to calculate the area and circumference based on the radius.**
+   - Challenge: Use private fields and encapsulate radius changes.
+
+3. **Write a class `User` with a static property `role` and a method to change the role for all instances.**
+   - Challenge: Static property usage and manipulation.
+
+4. **Define a class `BankAccount` with a private field `#balance`. Write methods to deposit, withdraw, and check balance, ensuring withdrawal cannot overdraw the account.**
+   - Challenge: Private properties with logical constraints.
+
+5. **Create a class `Counter` that has a static property to keep track of how many times an instance of `Counter` has been created.**
+   - Challenge: Use static properties to track instances.
+
+6. **Write a class `Person` that has a `name` property and a method to update the name. Prevent modification of the `name` property after the first update.**
+   - Challenge: Use conditional logic to lock property updates.
+
+7. **Create a `Student` class that stores `grades` in an array as a private property. Add methods to add new grades and calculate the average grade.**
+   - Challenge: Private array manipulation inside the class.
+
+8. **Write a `Product` class with a method that dynamically adds a property `discountedPrice` when a discount is applied, without initially declaring the property.**
+   - Challenge: Dynamically create new properties on an instance.
+
+9. **Create a class `Employee` with a `salary` property. Write a method to give a bonus but restrict it to a maximum increase of 20%.**
+   - Challenge: Property validation inside methods.
+
+10. **Design a class `Shape` with a `dimensions` property. Create a subclass `Rectangle` that uses `dimensions` to calculate the area.**
+    - Challenge: Inherit and manipulate properties in subclasses.
+
+11. **Write a class `Stock` that holds `quantity` as a static property shared across all instances. Implement a method to track the total quantity across instances.**
+    - Challenge: Static property for shared tracking.
+
+12. **Create a class `Logger` that logs messages with timestamps. Use a private property to limit the number of log messages stored.**
+    - Challenge: Implement a private log storage with a limit.
+
+13. **Write a class `Polygon` with a getter for `sides`. Create subclasses like `Triangle` and `Square` that modify the sides count.**
+    - Challenge: Use getters in inheritance.
+
+14. **Create a class `Robot` that accepts an initial state (e.g., 'idle'). Add a method to change the state but reject invalid states (e.g., 'error').**
+    - Challenge: Validate and restrict property changes.
+
+15. **Write a class `CarRental` with a static property `fleetSize`. Add methods to rent and return cars, and update the fleet size accordingly.**
+    - Challenge: Static property manipulation with real-time updates across instances.
+
+---------------------------------------------------------------------------------------
+### Brief Explanation: Getters and Setters in ES6 Classes
+
+In ES6, **getters** and **setters** are special methods that allow you to define how object properties are accessed and modified. They provide a way to control the values of properties and add custom logic when retrieving or updating a property’s value.
+
+- **Getters** (`get`) are used to access (retrieve) the value of a property.
+- **Setters** (`set`) are used to change (modify) the value of a property.
+
+Getters and setters can be defined within ES6 classes and allow encapsulation and validation of property data. They are invoked implicitly when properties are accessed or set, rather than being called explicitly like regular methods.
+
+### Syntax:
+
+```javascript
+class Example {
+  constructor(value) {
+    this._value = value;  // The actual property stored with a private convention (_value)
+  }
+
+  // Getter method to retrieve the value
+  get value() {
+    return this._value;
+  }
+
+  // Setter method to set or modify the value
+  set value(newValue) {
+    if (newValue > 0) {  // Validation can be added
+      this._value = newValue;
+    } else {
+      console.error('Value must be positive');
+    }
+  }
+}
+
+const example = new Example(10);
+console.log(example.value);  // Calls the getter -> Output: 10
+
+example.value = 20;  // Calls the setter
+console.log(example.value);  // Output: 20
+
+example.value = -5;  // Setter throws an error -> Output: "Value must be positive"
+```
+
+### Key Points:
+1. **Getters and setters** allow defining custom behavior when accessing or modifying a property.
+2. **Getters** are defined using the `get` keyword, and **setters** are defined using the `set` keyword.
+3. They are accessed as if they are regular properties, not methods, making the code more intuitive and cleaner.
+4. Getters and setters allow **data encapsulation** and **validation** without directly exposing the internal properties.
+5. **Private naming convention** (e.g., `_value`) is often used for internal properties to distinguish them from getter/setter names.
+
+---
+
+### 15 Interview Questions on Getters and Setters in ES6 Classes
+
+1. **What are getters and setters in ES6 classes, and why are they used?**
+2. **How do you define a getter and setter in an ES6 class?**
+3. **What is the main difference between a getter method and a regular method in a class?**
+4. **How do getters and setters help in controlling access to class properties?**
+5. **What happens if a setter method is not defined for a property, and you try to assign a value to it?**
+6. **Can getters and setters be used for static properties in ES6 classes? If so, how?**
+7. **Explain how getters and setters help with encapsulation and validation in classes.**
+8. **Is it possible to call a getter/setter as a function? Why or why not?**
+9. **How would you prevent an invalid value from being assigned to a property using a setter?**
+10. **What is the advantage of using getters and setters compared to directly accessing properties?**
+11. **How does the `this` keyword behave inside a getter or setter?**
+12. **Can a class have a getter without a corresponding setter, and what is the use case for that?**
+13. **How do you declare a getter or setter for a computed property (a property that depends on other properties)?**
+14. **Explain how you can override a getter or setter in a subclass of an ES6 class.**
+15. **What is the naming convention for internal class properties when using getters and setters?**
+
+---
+
+### 15 Tricky Problems/Challenges on Getters and Setters in ES6 Classes
+
+1. **Create a class `Rectangle` with private properties `width` and `height`. Implement getters for `area` and `perimeter` that calculate these values dynamically based on `width` and `height`.**
+   - Challenge: The getters should not store values but calculate them on each access.
+
+2. **Write a class `User` that has a private property `_age`. Use a setter to prevent the age from being set below 0, and a getter to display a custom message depending on the age.**
+   - Challenge: Implement custom validation logic in the setter.
+
+3. **Define a class `Temperature` that stores temperature in Celsius. Use a getter and setter to convert the temperature between Celsius and Fahrenheit.**
+   - Challenge: Use a conversion formula inside the getter and setter.
+
+4. **Create a class `Person` with a private property `_name`. Implement a setter that ensures the name cannot be shorter than 3 characters, and a getter that returns the name in uppercase.**
+   - Challenge: Combine string manipulation and validation.
+
+5. **Design a class `BankAccount` with a private balance property. Use a getter to check the balance and a setter to ensure no overdrafts (balance should never go below 0).**
+   - Challenge: Use encapsulation to secure the balance property.
+
+6. **Write a class `Circle` with a private property `_radius`. Add a getter to calculate and return the circumference based on the radius, and a setter to update the radius, ensuring it cannot be negative.**
+   - Challenge: Implement the formula `2 * Math.PI * radius` in the getter.
+
+7. **Create a class `Employee` with a private `_salary` property. Use a setter to add a validation rule: the salary cannot be set lower than the current salary.**
+   - Challenge: The setter should prevent salary reduction.
+
+8. **Implement a class `Person` with a `birthYear` property and a getter for `age` that calculates the current age based on the current year.**
+   - Challenge: The `age` getter should dynamically compute the age.
+
+9. **Write a class `Inventory` with a private property `_stock`. Add a setter to ensure that stock cannot be a negative value, and a getter to return the stock with a custom message like "Items in stock: X".**
+   - Challenge: Combine validation and custom display logic in the getter.
+
+10. **Create a class `Book` with a private `_price` property. Implement a setter that prevents setting the price below a minimum threshold and a getter that returns the price with a currency symbol.**
+    - Challenge: Ensure data integrity with pricing rules.
+
+11. **Design a class `Order` with a private `_total` property. Use a setter that adds a tax to the total and a getter that returns the total price including tax.**
+    - Challenge: The getter should calculate tax only when the total is retrieved.
+
+12. **Write a class `Vehicle` with a private `_speed` property. Use a setter to prevent the speed from exceeding 200 km/h, and a getter to display "Speed: X km/h".**
+    - Challenge: Enforce a maximum speed limit using the setter.
+
+13. **Create a class `Smartphone` with private properties `_batteryLevel` and `_charge`. Implement a setter that limits the charge to 100%, and a getter that returns the battery level as a percentage.**
+    - Challenge: Prevent overcharging via the setter.
+
+14. **Define a class `Store` that tracks the inventory level with a private property `_inventory`. Use a getter to indicate if the store is out of stock or in stock based on the inventory level.**
+    - Challenge: Use conditional logic in the getter to return "In Stock" or "Out of Stock".
+
+15. **Write a class `Student` with a private `_grades` array. Use a getter to calculate the average grade and a setter that adds a new grade only if it is within a valid range (0-100).**
+    - Challenge: Combine array operations and validation in the setter and getter.
+
+------------------------------------------------------------------------------------------------
+### Brief Explanation: Private Fields in ES6 Classes
+
+Private fields in ES6 classes, introduced with ES2022, provide a way to create truly private class members that cannot be accessed or modified outside the class itself. This helps enforce encapsulation, a key principle of object-oriented programming. Private fields are defined by prefixing the field name with a `#` symbol and are only accessible from within the class that defines them.
+
+Unlike public properties, private fields cannot be accessed directly from outside the class (even via inheritance) and will throw an error if attempted. This is different from the common convention of using an underscore (`_`) to indicate private-like behavior, which is only a naming convention and does not prevent access.
+
+### Syntax:
+
+```javascript
+class Person {
+  // Private field
+  #name;
+
+  constructor(name) {
+    this.#name = name;  // Set private field
+  }
+
+  // Getter for the private field
+  getName() {
+    return this.#name;
+  }
+
+  // Setter for the private field
+  setName(newName) {
+    if (newName.length > 0) {
+      this.#name = newName;
+    } else {
+      console.error('Name must not be empty');
+    }
+  }
+}
+
+const person = new Person('John');
+console.log(person.getName());  // Output: 'John'
+person.setName('Alice');
+console.log(person.getName());  // Output: 'Alice'
+
+// Trying to access private field directly throws an error
+console.log(person.#name);  // SyntaxError: Private field '#name' must be declared in an enclosing class
+```
+
+### Key Points:
+1. **Private fields** are denoted using `#` (e.g., `#name`) and are scoped only to the class where they are defined.
+2. **Encapsulation**: Private fields cannot be accessed or modified from outside the class, ensuring that data stays protected.
+3. They can only be accessed from within the methods of the class (including getters and setters).
+4. **Inheritance**: Private fields are not inherited and are not accessible in subclasses.
+5. JavaScript engines enforce privacy; attempting to access or modify private fields directly results in an error.
+
+---
+
+### 15 Interview Questions on Private Fields in ES6 Classes
+
+1. **What are private fields in ES6 classes, and how do they differ from regular class fields?**
+2. **How do you declare a private field in an ES6 class, and why would you use it?**
+3. **What is the purpose of the `#` symbol in class properties, and how does it enforce privacy?**
+4. **Can private fields be accessed outside the class? If not, why?**
+5. **How do private fields help with data encapsulation in object-oriented programming?**
+6. **What happens if you try to access a private field directly from outside the class?**
+7. **How do private fields behave when the class is inherited?**
+8. **Can private fields be initialized directly in the constructor, or must they always be declared at the top of the class?**
+9. **How would you implement getters and setters for a private field in an ES6 class?**
+10. **Is it possible to create a private method in ES6 classes? How would you do it?**
+11. **Explain the difference between private fields and protected fields in ES6 classes.**
+12. **What is the best practice for handling validation with private fields in a class?**
+13. **How can private fields improve the security and robustness of your code?**
+14. **Is it possible to use private fields in static methods or with static properties in a class?**
+15. **How would you migrate a class using the traditional `_` prefix for "private" fields to using true private fields with `#`?**
+
+---
+
+### 15 Tricky Problems/Challenges on Private Fields in ES6 Classes
+
+1. **Create a class `Car` with a private field `#speed`. Implement a method to accelerate the car and ensure that the speed cannot be negative.**
+   - Challenge: Use encapsulation to protect the speed property from invalid values.
+
+2. **Write a class `BankAccount` with private fields `#balance` and `#pin`. Create a method that checks the PIN before allowing a balance withdrawal.**
+   - Challenge: Implement basic security by validating the private `#pin` field.
+
+3. **Design a class `User` with a private field `#password`. Write a method to update the password, ensuring it meets a minimum length requirement and is not easily guessable.**
+   - Challenge: Use private fields to protect sensitive information like passwords.
+
+4. **Implement a class `Rectangle` with private fields `#width` and `#height`. Provide methods to get the area and perimeter, ensuring the fields remain private.**
+   - Challenge: Create methods that calculate values based on private properties.
+
+5. **Create a class `Employee` with private fields `#salary` and `#bonus`. Use methods to calculate the total compensation without exposing the individual salary and bonus values.**
+   - Challenge: Encapsulate financial details using private fields.
+
+6. **Write a class `Counter` with a private field `#count`. Implement methods to increment, decrement, and reset the count, ensuring no direct access to the `#count` field is possible.**
+   - Challenge: Ensure the count cannot be directly modified outside the class.
+
+7. **Design a class `Warehouse` that stores a private field `#inventory` (an array of items). Create methods to add items to the inventory and check stock without exposing the array directly.**
+   - Challenge: Secure the inventory data with private fields.
+
+8. **Implement a class `Thermostat` with a private field `#temperature`. Use a setter method to validate the temperature range (e.g., between 0 and 100) before updating the private field.**
+   - Challenge: Use setters to enforce constraints on private fields.
+
+9. **Write a class `Player` with private fields `#health` and `#stamina`. Provide methods to reduce health or stamina during gameplay, ensuring these fields cannot be modified externally.**
+   - Challenge: Protect gameplay state using private fields.
+
+10. **Create a class `SecureVault` with a private field `#code`. Implement a method to set and validate the vault code, ensuring the code is only accessible internally.**
+    - Challenge: Implement code validation and protection mechanisms.
+
+11. **Design a class `CryptoWallet` with private fields `#balance` and `#privateKey`. Ensure that the private key is never exposed and balance is only modified through secure methods.**
+    - Challenge: Use private fields for securing sensitive information.
+
+12. **Write a class `APIConnector` that stores a private field `#apiKey`. Implement a method that allows the API key to be updated, but only if it passes specific validation rules (e.g., length, format).**
+    - Challenge: Control access to sensitive API keys using private fields.
+
+13. **Create a class `EmailAccount` with a private field `#inbox` (an array). Write methods to send and receive messages, but prevent direct manipulation of the inbox array.**
+    - Challenge: Secure message storage using private fields.
+
+14. **Implement a class `AccessLog` with a private field `#logs` (an array of timestamps). Add a method to record access and another to retrieve the logs, ensuring that the `#logs` field is not directly accessible.**
+    - Challenge: Use encapsulation to manage the log history securely.
+
+15. **Design a class `GameSettings` with private fields `#volume` and `#brightness`. Use getter and setter methods to ensure valid ranges for these settings (e.g., volume between 0 and 100).**
+    - Challenge: Implement validation logic in the setter methods while keeping settings private.
+
+---------------------------------------------------------------------------------------------------
+
+### Brief Explanation: Refactoring in Classes
+
+**Refactoring** refers to the process of restructuring existing code without changing its external behavior. The goal of refactoring is to improve code readability, maintainability, and performance by reducing complexity, removing redundancy, and adhering to coding best practices. When refactoring **classes** in JavaScript (or any object-oriented language), the focus is often on optimizing the design, improving encapsulation, removing duplicate code, and adhering to the **Single Responsibility Principle (SRP)**.
+
+Key areas for refactoring in classes include:
+1. **Method extraction**: Breaking down large methods into smaller, reusable ones.
+2. **Field encapsulation**: Converting public fields into private or protected ones.
+3. **Constructor refactoring**: Simplifying constructors by moving logic into methods or factory functions.
+4. **Inheritance refactoring**: Extracting common functionality into a base class or abstract class.
+5. **Naming conventions**: Ensuring consistent and meaningful names for methods and variables.
+
+The benefits of refactoring include better readability, easier debugging, improved testability, and future-proofing the code for extensions or modifications.
+
+### Refactoring Examples:
+
+1. **Simplifying Method Logic**:
+   If a method in the class is too complex or doing too many things, it can be broken into smaller methods that follow the **Single Responsibility Principle**.
+
+   Before Refactoring:
+   ```javascript
+   class Order {
+     constructor(items) {
+       this.items = items;
+     }
+
+     calculateTotal() {
+       let total = 0;
+       for (let item of this.items) {
+         total += item.price * item.quantity;
+       }
+       if (this.items.length > 5) {
+         total *= 0.9; // Apply discount for more than 5 items
+       }
+       return total;
+     }
+   }
+   ```
+
+   After Refactoring:
+   ```javascript
+   class Order {
+     constructor(items) {
+       this.items = items;
+     }
+
+     calculateTotal() {
+       let total = this.getSubtotal();
+       if (this.isDiscountEligible()) {
+         total = this.applyDiscount(total);
+       }
+       return total;
+     }
+
+     getSubtotal() {
+       return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+     }
+
+     isDiscountEligible() {
+       return this.items.length > 5;
+     }
+
+     applyDiscount(amount) {
+       return amount * 0.9;
+     }
+   }
+   ```
+
+2. **Extracting Duplicate Code**:
+   If you find repeated code across methods, it can be extracted into a helper method or moved to a base class if multiple classes share the logic.
+
+   Before Refactoring:
+   ```javascript
+   class User {
+     constructor(name, email) {
+       this.name = name;
+       this.email = email;
+     }
+
+     updateEmail(newEmail) {
+       this.email = newEmail;
+       this.sendEmailUpdateNotification();
+     }
+
+     sendEmailUpdateNotification() {
+       console.log(`An email notification has been sent to ${this.email}`);
+     }
+   }
+
+   class Admin {
+     constructor(name, email) {
+       this.name = name;
+       this.email = email;
+     }
+
+     updateEmail(newEmail) {
+       this.email = newEmail;
+       this.sendEmailUpdateNotification();
+     }
+
+     sendEmailUpdateNotification() {
+       console.log(`An email notification has been sent to ${this.email}`);
+     }
+   }
+   ```
+
+   After Refactoring:
+   ```javascript
+   class User {
+     constructor(name, email) {
+       this.name = name;
+       this.email = email;
+     }
+
+     updateEmail(newEmail) {
+       this.email = newEmail;
+       this.sendEmailUpdateNotification();
+     }
+
+     sendEmailUpdateNotification() {
+       console.log(`An email notification has been sent to ${this.email}`);
+     }
+   }
+
+   class Admin extends User {
+     // Inherits updateEmail and sendEmailUpdateNotification from User
+   }
+   ```
+
+3. **Replacing Constructor Logic with Factory Methods**:
+   Sometimes constructors get cluttered with logic that can be better handled by factory methods or separated methods.
+
+   Before Refactoring:
+   ```javascript
+   class Vehicle {
+     constructor(type, speed) {
+       if (type === 'car') {
+         this.wheels = 4;
+         this.speed = speed;
+       } else if (type === 'motorcycle') {
+         this.wheels = 2;
+         this.speed = speed;
+       } else {
+         this.wheels = 0;
+         this.speed = 0;
+       }
+     }
+   }
+   ```
+
+   After Refactoring:
+   ```javascript
+   class Vehicle {
+     constructor(wheels, speed) {
+       this.wheels = wheels;
+       this.speed = speed;
+     }
+
+     static createCar(speed) {
+       return new Vehicle(4, speed);
+     }
+
+     static createMotorcycle(speed) {
+       return new Vehicle(2, speed);
+     }
+   }
+
+   const car = Vehicle.createCar(120);
+   const motorcycle = Vehicle.createMotorcycle(180);
+   ```
+
+### 15 Interview Questions on Refactoring in Classes
+
+1. **What is refactoring, and why is it important in software development?**
+2. **What are some common signs that a class needs to be refactored?**
+3. **How does refactoring help in improving code readability and maintainability?**
+4. **Explain how the Single Responsibility Principle applies to refactoring classes.**
+5. **What is the difference between refactoring and rewriting code?**
+6. **Can you give an example of how to break down a complex method in a class into smaller, more manageable methods?**
+7. **What are some techniques for simplifying a class constructor during refactoring?**
+8. **How do you handle duplicate code in multiple classes during refactoring?**
+9. **Explain how inheritance or composition can help in refactoring classes to reduce redundancy.**
+10. **When refactoring, how do you ensure that you're not introducing bugs or changing functionality?**
+11. **What is the role of unit testing in the refactoring process?**
+12. **How would you refactor a class that violates the Single Responsibility Principle?**
+13. **What is method extraction, and when would you use it in refactoring?**
+14. **How can encapsulation be improved during class refactoring?**
+15. **What tools or techniques can be used to automate or aid in the refactoring process?**
+
+---
+
+### 15 Tricky Problems/Challenges on Refactoring in Classes
+
+1. **Refactor a class that handles both user authentication and user profile updates into separate classes that adhere to the Single Responsibility Principle.**
+   - Challenge: Ensure that the authentication logic is isolated from profile management.
+
+2. **Given a class with a constructor that contains conditional logic for different object types, refactor it using factory methods.**
+   - Challenge: Create clear factory methods for each type of object.
+
+3. **Extract duplicate logic for calculating discounts in an `Order` and `Invoice` class into a shared utility method.**
+   - Challenge: Maintain encapsulation while eliminating redundancy.
+
+4. **Refactor a class with methods that have deeply nested loops and conditionals to use helper functions.**
+   - Challenge: Improve readability and reduce cyclomatic complexity.
+
+5. **Refactor a class that uses public fields to access and modify data to use private fields with getters and setters.**
+   - Challenge: Implement encapsulation without breaking existing functionality.
+
+6. **Split a large `Product` class, which handles inventory, pricing, and product reviews, into smaller, more focused classes.**
+   - Challenge: Ensure the new classes communicate efficiently while maintaining separation of concerns.
+
+7. **Refactor a class that has several methods sharing a large number of parameters by using an options object or a class to group parameters logically.**
+   - Challenge: Reduce the number of parameters passed around.
+
+8. **Move common functionality from two related classes (e.g., `Car` and `Truck`) into a shared base class.**
+   - Challenge: Implement the base class while preserving the specific functionality of each subclass.
+
+9. **Refactor a class that has a long method with several switch cases by using the strategy pattern.**
+   - Challenge: Replace the switch-case logic with a cleaner, more maintainable solution.
+
+10. **Refactor a `Game` class with methods that directly manipulate the internal state of another class `Player` to use proper encapsulation.**
+    - Challenge: Ensure that changes to the `Player` class are done through well-defined methods.
+
+11. **Refactor a monolithic class that handles multiple responsibilities like logging, API requests, and data parsing into separate service classes.**
+    - Challenge: Maintain clean interfaces and ensure each service class is easily testable.
+
+12. **Refactor a class with large, untestable methods by breaking them into smaller methods, ensuring that each new method is independently testable.**
+    - Challenge: Write unit tests for each new method after refactoring.
+
+13. **Refactor a class with too many constructor parameters by introducing the Builder pattern.**
+    - Challenge: Keep the class initialization flexible and readable.
+
+14. **Refactor a class that violates the Open/Closed Principle (e.g., adding new features by modifying existing code) to support extension without modification.**
+    - Challenge: Make the class easier to extend without changing its core logic.
+
+15. **Refactor a class with deeply nested callbacks to use Promises or async/await for better readability and error handling.**
+    - Challenge: Eliminate callback hell and improve flow control.
+
+------------------------------------------------------------------------------------------------
+### Brief Explanation: Private Methods and Public Methods in Classes
+
+In JavaScript, particularly with the introduction of ES6 classes, methods within classes can be defined as **public** or **private**. This distinction is crucial for encapsulating behavior and data within a class.
+
+#### Public Methods
+- **Definition**: Public methods are accessible from outside the class. They are the primary interface through which objects of the class can be interacted with.
+- **Usage**: Public methods allow external code to perform actions or retrieve data from an instance of the class.
+- **Example**:
+    ```javascript
+    class Car {
+        constructor(brand, model) {
+            this.brand = brand;
+            this.model = model;
+        }
+
+        // Public method
+        startEngine() {
+            console.log(`${this.brand} ${this.model} engine started.`);
+        }
+    }
+
+    const myCar = new Car('Toyota', 'Corolla');
+    myCar.startEngine(); // Output: Toyota Corolla engine started.
+    ```
+
+#### Private Methods
+- **Definition**: Private methods are intended to be used only within the class itself. They cannot be accessed or called from outside the class. In JavaScript, private methods are defined using a `#` prefix.
+- **Usage**: Private methods are useful for encapsulating logic that should not be exposed outside the class, enhancing security and preventing unintended interactions with the class's internal workings.
+- **Example**:
+    ```javascript
+    class Car {
+        constructor(brand, model) {
+            this.brand = brand;
+            this.model = model;
+        }
+
+        // Public method
+        startEngine() {
+            this.#ignite(); // Call private method
+        }
+
+        // Private method
+        #ignite() {
+            console.log(`${this.brand} ${this.model} engine ignited.`);
+        }
+    }
+
+    const myCar = new Car('Honda', 'Civic');
+    myCar.startEngine(); // Output: Honda Civic engine ignited.
+    // myCar.#ignite(); // Uncaught SyntaxError: Private field '#ignite' must be declared in an enclosing class
+    ```
+
+### Key Differences
+- **Accessibility**: Public methods can be accessed from outside the class, while private methods cannot.
+- **Encapsulation**: Private methods help encapsulate functionality and prevent external code from interacting with internal logic directly.
+- **Syntax**: Private methods are prefixed with `#`, which is not needed for public methods.
+
+### 15 Interview Questions on Private and Public Methods in Classes
+
+1. **What is the difference between public and private methods in a class?**
+2. **How do you define a private method in a JavaScript class?**
+3. **Can you access a private method from outside the class? Why or why not?**
+4. **What are the benefits of using private methods in a class?**
+5. **How does the use of public methods contribute to the interface of a class?**
+6. **Can you give an example where private methods are preferable over public methods?**
+7. **Explain how encapsulation is achieved through private methods.**
+8. **How do private methods affect unit testing?**
+9. **Can you create private properties in a class, and how does that relate to private methods?**
+10. **What happens if you try to access a private method from outside the class?**
+11. **How would you refactor a class to use private methods instead of public methods for internal logic?**
+12. **What is the impact of using private methods on code maintainability?**
+13. **In what scenarios might you prefer public methods over private methods?**
+14. **How can private methods improve security in a class?**
+15. **Explain how private methods interact with inheritance in JavaScript classes.**
+
+---
+
+### 15 Tricky Problems/Challenges on Private and Public Methods in Classes
+
+1. **Create a class that implements a simple bank account. Include public methods for depositing and withdrawing funds, and private methods for calculating fees.**
+   - Challenge: Ensure that fees are applied correctly without exposing the calculation logic.
+
+2. **Refactor a class that handles user authentication to separate public methods (login, logout) from private methods (validation, token management).**
+   - Challenge: Maintain functionality while improving code organization.
+
+3. **Implement a class that simulates a basic game. Use private methods to handle game logic and public methods to interact with the user.**
+   - Challenge: Ensure that game state is not directly accessible outside the class.
+
+4. **Design a class with a public method that exposes an internal array, but uses a private method to manage the array's state.**
+   - Challenge: Prevent external modification of the array while allowing controlled access.
+
+5. **Create a class that represents a product catalog. Use private methods for sorting and filtering products, while exposing public methods for retrieving the product list.**
+   - Challenge: Ensure that sorting and filtering logic cannot be accessed directly.
+
+6. **Refactor a class that has multiple public methods that share common internal logic into private methods.**
+   - Challenge: Maintain the behavior of the public methods while eliminating redundancy.
+
+7. **Create a class that implements a simple calculator. Use private methods for operations like addition and multiplication, while exposing public methods for complex calculations.**
+   - Challenge: Ensure that private methods are well-tested without direct access.
+
+8. **Design a class that keeps track of user sessions, with public methods to start and end sessions, and private methods for session validation.**
+   - Challenge: Maintain session security by not allowing external access to validation logic.
+
+9. **Refactor a class that has too many public methods by introducing private methods to handle repetitive tasks within those methods.**
+   - Challenge: Reduce public method count while preserving functionality.
+
+10. **Implement a class that simulates a traffic light. Use private methods to manage light transitions and public methods to get the current light status.**
+    - Challenge: Ensure that transitions happen only through the internal logic.
+
+11. **Create a class that manages a to-do list, using private methods for task management and public methods for user interaction.**
+    - Challenge: Ensure users cannot manipulate tasks directly.
+
+12. **Design a class that handles event listeners, using public methods to register listeners and private methods to invoke them.**
+    - Challenge: Ensure that listeners are called appropriately without exposing invocation logic.
+
+13. **Refactor a class that fetches data from an API to separate the fetching logic (private) from the data processing logic (public).**
+    - Challenge: Ensure that API details remain hidden from the class user.
+
+14. **Create a class that manages user profiles, with private methods for data validation and public methods for profile updates.**
+    - Challenge: Maintain data integrity through private validation methods.
+
+15. **Design a class that implements a basic inventory system, using private methods for inventory management and public methods for item transactions.**
+    - Challenge: Ensure the inventory cannot be manipulated directly from outside the class.
+
+--------------------------------------------------------------------------------------------------------
+### Brief Explanation: Superclass in Classes
+
+In JavaScript, a **superclass** (also known as a parent class) is a class from which another class (the subclass or child class) inherits properties and methods. The concept of inheritance is fundamental in object-oriented programming, allowing for code reuse and the creation of more complex structures based on simpler ones.
+
+#### Key Features of Superclass
+
+1. **Inheritance**: The subclass inherits all the properties and methods from the superclass. This allows the subclass to access and use functionality defined in the superclass without rewriting code.
+  
+2. **Constructor**: The constructor of the superclass can be called within the subclass using the `super()` function. This initializes the properties inherited from the superclass.
+
+3. **Method Overriding**: Subclasses can override methods defined in the superclass, allowing for specialized behavior while maintaining the same method signature.
+
+4. **Encapsulation**: Superclasses can contain both public and private methods and properties, which can influence how subclasses interact with them.
+
+#### Example of Superclass in JavaScript
+
+```javascript
+// Superclass
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    // Method in superclass
+    speak() {
+        console.log(`${this.name} makes a noise.`);
+    }
+}
+
+// Subclass
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name); // Call the constructor of the superclass
+        this.breed = breed;
+    }
+
+    // Overriding method
+    speak() {
+        console.log(`${this.name} barks.`);
+    }
+}
+
+// Usage
+const dog = new Dog('Buddy', 'Golden Retriever');
+dog.speak(); // Output: Buddy barks.
+```
+
+### Key Points
+- **`extends` Keyword**: The `extends` keyword is used to create a subclass that inherits from a superclass.
+- **`super()` Function**: Calls the constructor of the superclass to ensure proper initialization of inherited properties.
+- **Polymorphism**: Subclasses can redefine methods to provide specific implementations while keeping the interface consistent.
+
+### 15 Interview Questions on Superclass in Classes
+
+1. **What is a superclass in JavaScript?**
+2. **How do you create a subclass that extends a superclass?**
+3. **What is the purpose of the `super()` function in a subclass constructor?**
+4. **Can a subclass call methods from the superclass? How?**
+5. **Explain method overriding in the context of superclasses and subclasses.**
+6. **What happens if a subclass does not call `super()` in its constructor?**
+7. **Can a superclass have private methods, and can subclasses access them?**
+8. **How does inheritance improve code reusability in JavaScript?**
+9. **Explain how you would override a method from a superclass in a subclass.**
+10. **What is the significance of the `extends` keyword?**
+11. **Can a subclass inherit from multiple superclasses in JavaScript? Why or why not?**
+12. **What are the potential pitfalls of using inheritance with superclasses?**
+13. **How does the prototype chain work with superclasses and subclasses?**
+14. **What is the difference between composition and inheritance? When would you prefer one over the other?**
+15. **Can a superclass have static methods? If so, how do they differ from instance methods?**
+
+---
+
+### 15 Tricky Problems/Challenges on Superclass in Classes
+
+1. **Create a superclass `Vehicle` with properties like `brand` and `model`. Create subclasses `Car` and `Bike` that inherit from `Vehicle`. Implement methods to display vehicle details.**
+   - Challenge: Ensure both subclasses correctly utilize the `Vehicle` properties.
+
+2. **Refactor a class hierarchy for `Shape`, `Circle`, and `Square`, where `Shape` is the superclass. Ensure `Circle` and `Square` implement their area calculation methods.**
+   - Challenge: Use method overriding effectively for the area calculations.
+
+3. **Design a class structure with a `User` superclass and `Admin` and `Guest` subclasses. Implement login functionality in the superclass and additional permissions in the subclasses.**
+   - Challenge: Ensure that permissions are enforced correctly based on the user type.
+
+4. **Implement a `BankAccount` superclass with methods for deposit and withdrawal. Create a subclass `SavingsAccount` that adds interest calculations.**
+   - Challenge: Ensure that the `SavingsAccount` can still use the methods from `BankAccount`.
+
+5. **Create a `Product` superclass with properties like `name` and `price`. Derive a subclass `Electronics` that adds warranty properties and methods.**
+   - Challenge: Make sure the `Electronics` class properly initializes the `Product` properties.
+
+6. **Design a class hierarchy with a `Person` superclass and `Student` and `Teacher` subclasses. Implement methods to display role-specific information.**
+   - Challenge: Ensure that role-specific details are displayed correctly.
+
+7. **Create a superclass for `Appliance` with common features. Implement `WashingMachine` and `Refrigerator` subclasses that override specific functionalities.**
+   - Challenge: Make sure the subclasses utilize the common features while providing their own specific behavior.
+
+8. **Refactor a class that calculates statistics. Use a `Statistics` superclass and create subclasses for `Mean` and `Median`. Implement their specific calculation methods.**
+   - Challenge: Ensure correct functionality while maintaining clean code.
+
+9. **Implement a superclass `Account` that has methods for balance management. Derive subclasses `CheckingAccount` and `SavingsAccount`, each with unique features.**
+   - Challenge: Ensure that each subclass manages its own unique features while using common account management methods.
+
+10. **Design a `Game` superclass with basic gameplay methods. Create subclasses for `BoardGame` and `CardGame` that implement specific game logic.**
+    - Challenge: Ensure that gameplay methods are correctly called within each subclass.
+
+11. **Create a `Notification` superclass with a method for sending alerts. Derive subclasses `EmailNotification` and `SMSNotification`, implementing their sending mechanisms.**
+    - Challenge: Ensure the sending mechanism is customized correctly for each notification type.
+
+12. **Implement a `Device` superclass with a method for turning on/off. Create subclasses `Laptop` and `Smartphone` with additional features like screen size and battery life.**
+    - Challenge: Ensure the subclasses utilize the power management methods while adding their specific features.
+
+13. **Design a `LibraryItem` superclass that has properties like `title` and `author`. Create subclasses for `Book` and `Magazine` with additional unique properties.**
+    - Challenge: Ensure each subclass correctly initializes inherited properties.
+
+14. **Create a class hierarchy for a `Food` superclass and `Fruit` and `Vegetable` subclasses. Implement methods for nutritional information specific to each type.**
+    - Challenge: Make sure that the subclasses can utilize the common methods of `Food`.
+
+15. **Implement a `Shape` superclass with a method for calculating area. Create subclasses `Rectangle` and `Triangle` that implement specific area calculations.**
+    - Challenge: Ensure that the area calculations are correctly overridden in each subclass.
+
+--------------------------------------------------------------------------------------------------------
+### Brief Explanation: Inheritance Chaining in ES6
+
+**Inheritance chaining** refers to the process by which a class can inherit properties and methods from a superclass, and that superclass can, in turn, inherit from another superclass. This creates a chain of inheritance where a derived class can access properties and methods from multiple levels of parent classes. In JavaScript, this is achieved using the `extends` keyword, allowing for a clear and concise way to implement inheritance in ES6 classes.
+
+#### Key Features of Inheritance Chaining
+
+1. **Multiple Levels of Inheritance**: A class can inherit from another class, which can also inherit from a different class, forming a hierarchy.
+
+2. **Constructor Chaining**: When a subclass calls the constructor of its superclass using `super()`, it can access properties and methods defined in that superclass.
+
+3. **Method Overriding**: Subclasses can override methods defined in their superclasses, allowing for customized behavior.
+
+4. **Prototype Chain**: JavaScript uses prototypal inheritance, so when you call a method or access a property, JavaScript traverses the prototype chain until it finds the desired property or method.
+
+#### Example of Inheritance Chaining in JavaScript
+
+```javascript
+// Superclass
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        console.log(`${this.name} makes a noise.`);
+    }
+}
+
+// Intermediate Class
+class Mammal extends Animal {
+    constructor(name, habitat) {
+        super(name); // Call the constructor of Animal
+        this.habitat = habitat;
+    }
+
+    describeHabitat() {
+        console.log(`${this.name} lives in the ${this.habitat}.`);
+    }
+}
+
+// Subclass
+class Dog extends Mammal {
+    constructor(name, breed) {
+        super(name, 'domestic'); // Call the constructor of Mammal
+        this.breed = breed;
+    }
+
+    speak() {
+        console.log(`${this.name} barks.`);
+    }
+}
+
+// Usage
+const dog = new Dog('Buddy', 'Golden Retriever');
+dog.speak(); // Output: Buddy barks.
+dog.describeHabitat(); // Output: Buddy lives in the domestic.
+```
+
+### Key Points
+- **`extends` Keyword**: Used to establish inheritance. Each class can extend only one class but can have multiple levels of inheritance.
+- **Chaining Constructors**: Subclasses can chain constructors by calling `super()` to ensure proper initialization of inherited properties.
+- **Prototype Lookup**: JavaScript looks up methods and properties through the prototype chain, enabling access to overridden and inherited functionalities.
+
+### 15 Interview Questions on Inheritance Chaining in ES6
+
+1. **What is inheritance chaining in JavaScript ES6?**
+2. **How does the `extends` keyword work in ES6 classes?**
+3. **Can a subclass directly call the constructor of a grandparent class? Explain.**
+4. **What happens if a subclass does not call `super()` in its constructor?**
+5. **Explain how method overriding works in the context of inheritance chaining.**
+6. **Can a class inherit from multiple superclasses in JavaScript? Why or why not?**
+7. **How does JavaScript resolve method calls in an inheritance chain?**
+8. **What is the difference between class inheritance and prototypal inheritance?**
+9. **What are the benefits of using inheritance chaining?**
+10. **Can you have an inheritance chain with multiple levels? Provide an example.**
+11. **Explain the prototype chain and how it relates to inheritance chaining.**
+12. **How would you implement a class hierarchy with multiple levels of inheritance?**
+13. **What issues might arise when using deep inheritance chains?**
+14. **How do you ensure that the properties of all parent classes are initialized correctly?**
+15. **Can you override a method in a superclass that has been overridden in a subclass of a subclass? How?**
+
+---
+
+### 15 Tricky Problems/Challenges on Inheritance Chaining in ES6
+
+1. **Create a class hierarchy with a `Shape` superclass, an `Ellipse` intermediate class, and a `Circle` subclass. Implement methods for calculating area and circumference in each class.**
+   - Challenge: Ensure correct calculations at each level of the chain.
+
+2. **Design a class hierarchy for `Vehicle`, `Car`, and `ElectricCar`. Implement unique properties for `ElectricCar` and ensure proper constructor chaining.**
+   - Challenge: Ensure that all properties are accessible and initialized properly.
+
+3. **Implement a `Person` superclass with properties like `name` and `age`, and create subclasses `Employee` and `Manager`. Include methods that return specific information about each type.**
+   - Challenge: Ensure that all subclasses correctly access and utilize properties from the `Person` superclass.
+
+4. **Create a `Game` superclass and a `BoardGame` subclass. Further create a `Chess` subclass from `BoardGame` with specific rules. Ensure methods are correctly inherited and overridden.**
+   - Challenge: Implement gameplay logic in a way that utilizes the inheritance structure.
+
+5. **Refactor a class hierarchy for `Appliance`, `WashingMachine`, and `SmartWashingMachine`. Implement a method to display functionality specific to the smart appliance.**
+   - Challenge: Ensure that the `SmartWashingMachine` can access and utilize methods from both `Appliance` and `WashingMachine`.
+
+6. **Implement a superclass `Account` with methods for deposit and withdrawal. Create a subclass `SavingsAccount` and a subclass `CheckingAccount`, ensuring unique behavior for each.**
+   - Challenge: Ensure proper management of account-specific features while maintaining common functionality.
+
+7. **Design a class structure for `LibraryItem` as a superclass and `Book` and `Magazine` as subclasses. Implement methods to display unique information for each type of item.**
+   - Challenge: Ensure proper handling of shared and unique properties.
+
+8. **Create a superclass `Employee` with common properties and methods. Create subclasses `FullTimeEmployee` and `PartTimeEmployee`, ensuring the implementation of specific calculations for salary.**
+   - Challenge: Override methods for salary calculation effectively.
+
+9. **Implement a class hierarchy with a `File` superclass, `TextFile`, and `ImageFile` subclasses. Implement methods for reading data specific to each file type.**
+   - Challenge: Ensure correct functionality for file operations across the hierarchy.
+
+10. **Create a `Customer` superclass with properties like `name` and `email`. Derive `RegularCustomer` and `VIPCustomer` subclasses with additional benefits and methods.**
+    - Challenge: Ensure proper access to base properties while introducing new benefits.
+
+11. **Design a `Restaurant` superclass with properties and methods. Create subclasses `FastFoodRestaurant` and `FineDiningRestaurant`, each implementing unique behavior.**
+    - Challenge: Ensure that each subclass can access and override methods from the `Restaurant` superclass.
+
+12. **Implement a class hierarchy with a `Product` superclass and `Electronics`, `Clothing`, and `Grocery` subclasses, each with unique properties.**
+    - Challenge: Implement a method that calculates total price based on category-specific discounts.
+
+13. **Create a class hierarchy with a `Person` superclass and `Student`, `Teacher`, and `Administrator` subclasses. Implement role-specific methods.**
+    - Challenge: Ensure that all roles correctly access shared properties.
+
+14. **Implement a `Database` superclass with methods for connection management. Create subclasses `SQLDatabase` and `NoSQLDatabase`, each implementing specific query methods.**
+    - Challenge: Ensure that connection management is properly inherited and utilized.
+
+15. **Design a class structure with a `Building` superclass, `House`, and `Office` subclasses. Implement methods that return specific information about each type of building.**
+    - Challenge: Ensure correct information is returned based on the type of building.
+
+------------------------------------------------------------------------------------------------
