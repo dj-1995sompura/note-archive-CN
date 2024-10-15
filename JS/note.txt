@@ -1,1 +1,3240 @@
-===================== Jquery==========================
+========================= Oop (Object orianted programming) concept in JS =========================
+### Topic: Property to an Object Literal in JavaScript
+
+#### **Brief Explanation:**
+In JavaScript, objects are collections of key-value pairs where keys are referred to as **properties**. There are two primary ways to add properties to an object literal:
+1. **Dot Notation**
+2. **Bracket Notation**
+
+You can either add a property when declaring the object or after the object is created.
+
+#### **Coding Example:**
+
+```javascript
+// 1. Creating an object and adding properties directly
+const car = {
+    make: 'Tesla',
+    model: 'Model S',
+};
+
+// 2. Adding a new property using dot notation
+car.year = 2023;
+
+// 3. Adding a new property using bracket notation
+car['color'] = 'red';
+
+console.log(car);
+// Output: { make: 'Tesla', model: 'Model S', year: 2023, color: 'red' }
+```
+
+In this example, we initially create the object `car` with two properties: `make` and `model`. Later, we add two more properties (`year` and `color`) using dot and bracket notation, respectively.
+
+#### **15 Interview Questions**:
+
+1. **What are object literals in JavaScript?**
+   - Object literals are a way to define an object and its properties using key-value pairs.
+
+2. **How can you add a property to an object in JavaScript after it's been created?**
+   - Using dot notation (`object.property = value`) or bracket notation (`object['property'] = value`).
+
+3. **What is the difference between dot notation and bracket notation?**
+   - Dot notation is used for known property names, while bracket notation allows you to use dynamic property names (e.g., variables).
+
+4. **Can object properties in JavaScript be functions?**
+   - Yes, when an object property is a function, it is referred to as a method.
+
+5. **What happens if you try to access a property that doesn’t exist in an object?**
+   - It returns `undefined`.
+
+6. **How can you check if a property exists in an object?**
+   - Using the `in` operator or `hasOwnProperty()` method.
+
+7. **What is a computed property in JavaScript objects?**
+   - Computed properties allow you to define property keys dynamically, using expressions inside brackets.
+
+8. **How do you iterate over the properties of an object?**
+   - Using `for...in` loop or `Object.keys()` method.
+
+9. **What are getter and setter properties in JavaScript?**
+   - Getters retrieve a value and setters allow you to set a value for object properties.
+
+10. **Can you add multiple properties to an object at once?**
+    - Yes, using `Object.assign()` or the spread operator.
+
+11. **How does `Object.defineProperty()` work in JavaScript?**
+    - It allows you to define or modify a property with more control, such as setting it as non-enumerable or read-only.
+
+12. **What is property shorthand in ES6?**
+    - If the property name matches the variable name, you can omit writing the property (`{name}` instead of `{name: name}`).
+
+13. **Can you add properties to an object at runtime in JavaScript?**
+    - Yes, properties can be added or modified at any point after the object is created.
+
+14. **What is the difference between a property and a method in an object?**
+    - A property holds a value (string, number, etc.), whereas a method is a function stored as a property.
+
+15. **How do you delete a property from an object?**
+    - Using the `delete` operator (`delete object.property`).
+
+#### **15 Tricky Challenges/Questions**:
+
+1. **What happens if you use a number as a property key? How does JavaScript handle it?**
+
+2. **How do you merge two objects, while ensuring no property is overwritten?**
+
+3. **How can you deeply clone an object, including nested objects?**
+
+4. **How can you prevent new properties from being added to an object?**
+   - (Hint: Use `Object.freeze()` or `Object.seal()`).
+
+5. **How can you iterate over an object's keys in a specific order?**
+
+6. **What will the following code output?**
+   ```javascript
+   const obj = {};
+   obj[true] = 'a';
+   obj[1] = 'b';
+   obj['1'] = 'c';
+   console.log(obj);
+   ```
+
+7. **How do you handle objects where property names are unknown or dynamically generated?**
+
+8. **What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?**
+
+9. **What happens if you try to reassign a property of a frozen object?**
+
+10. **How can you implement a custom setter that validates the value before assigning it to an object property?**
+
+11. **How can you create an immutable object in JavaScript?**
+
+12. **How can you add a property to all instances of an object created using a constructor function?**
+
+13. **What happens if you use `null` or `undefined` as a property key?**
+
+14. **Can you access a property name stored in a variable without using bracket notation?**
+
+15. **Explain how prototypical inheritance affects object properties.**
+---------------------------------------------------------------------------------------------------------
+
+### Topic: Shallow Copy vs Deep Copy in JavaScript Objects
+
+#### **Brief Explanation:**
+In JavaScript, copying an object means creating a new object with the same properties. There are two types of object copies:
+
+- **Shallow Copy**: Copies the object’s immediate properties, but any nested objects or arrays within the object are not duplicated. Instead, they still reference the same objects in memory.
+- **Deep Copy**: Copies an object and all of its nested objects or arrays, ensuring that the original and the copy are entirely independent.
+
+#### **Coding Example:**
+
+1. **Shallow Copy Example:**
+   Using `Object.assign()` or the spread operator (`...`), you create a shallow copy.
+
+```javascript
+// Shallow copy using Object.assign
+const original = {
+    name: 'Alice',
+    address: { city: 'Wonderland' }
+};
+
+const shallowCopy = Object.assign({}, original);
+shallowCopy.address.city = 'Neverland';
+
+console.log(original.address.city); // Output: 'Neverland' (changes in the nested object reflect in the original)
+```
+
+2. **Deep Copy Example:**
+   A deep copy ensures even nested objects are copied. You can use `JSON.parse(JSON.stringify())` for this in most cases or a custom solution for handling functions and non-serializable objects.
+
+```javascript
+// Deep copy using JSON methods
+const original = {
+    name: 'Alice',
+    address: { city: 'Wonderland' }
+};
+
+const deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.address.city = 'Neverland';
+
+console.log(original.address.city); // Output: 'Wonderland' (deep copy does not affect the original)
+```
+
+#### **15 Interview Questions**:
+
+1. **What is a shallow copy of an object in JavaScript?**
+   - A shallow copy copies only the top-level properties, but references to nested objects remain shared.
+
+2. **What is a deep copy of an object in JavaScript?**
+   - A deep copy recursively copies all levels of an object, including nested objects, ensuring no references are shared.
+
+3. **How do you create a shallow copy in JavaScript?**
+   - Using `Object.assign()`, the spread operator (`...`), or `Array.slice()` for arrays.
+
+4. **How do you create a deep copy of an object in JavaScript?**
+   - You can use `JSON.parse(JSON.stringify())`, or use libraries like Lodash (`_.cloneDeep()`), or write a custom recursive function.
+
+5. **What are the limitations of `JSON.parse(JSON.stringify())` for deep copying?**
+   - It does not handle functions, undefined values, circular references, `Date` objects, `Map`, or `Set` objects.
+
+6. **What is the difference between a shallow copy and a reference copy?**
+   - A shallow copy creates a new object with the same properties (with references to nested objects), while a reference copy only assigns the reference to the original object.
+
+7. **What is the spread operator (`...`) used for in shallow copies?**
+   - It spreads the properties of an object into a new object, creating a shallow copy.
+
+8. **Can a shallow copy be converted to a deep copy?**
+   - No, a shallow copy only copies the first level. You need a different approach for deep copying, such as recursion or using a deep-copying library.
+
+9. **Why does modifying a nested object in a shallow copy affect the original object?**
+   - Because in a shallow copy, the nested objects are still referencing the same memory location as in the original object.
+
+10. **How does deep copying avoid changes to the original object?**
+    - A deep copy creates independent clones of all nested objects, ensuring no shared references between the original and the copy.
+
+11. **What is the performance implication of deep copying large objects?**
+    - Deep copying large or complex objects can be resource-intensive and may affect performance, as it requires recursively copying each nested object.
+
+12. **What are circular references, and why do they cause issues with deep copying?**
+    - Circular references occur when an object refers to itself. This can cause errors like stack overflow in recursive deep copying.
+
+13. **What library in JavaScript helps with deep copying objects, especially with circular references?**
+    - Lodash provides `_.cloneDeep()`, which handles deep copying, including circular references.
+
+14. **Can shallow copy methods like `Object.assign()` be used for arrays as well?**
+    - Yes, but only the array's top-level elements will be shallow copied.
+
+15. **What are some real-world use cases for deep copying?**
+    - Deep copying is useful in scenarios where you need to work with mutable objects, such as updating the state in a React app without modifying the original state object.
+
+#### **15 Tricky Challenges/Questions**:
+
+1. **How would you create a custom deep copy function to handle non-serializable objects like Dates, Maps, or Sets?**
+
+2. **What will be the output of the following code?**
+   ```javascript
+   const arr = [1, 2, [3, 4]];
+   const shallowArr = [...arr];
+   shallowArr[2][0] = 100;
+   console.log(arr); // ?
+   ```
+
+3. **Why does `JSON.parse(JSON.stringify())` not work for functions or circular references?**
+
+4. **What issues arise when deep copying an object containing a DOM element reference?**
+
+5. **How do you deep copy an object that contains methods or prototype chain properties?**
+
+6. **Can deep copying be used for immutability in state management? If so, how?**
+
+7. **How can you implement deep copying for an object with circular references?**
+
+8. **What happens if you attempt to deep copy an object that references a function or `undefined` using `JSON.parse(JSON.stringify())`?**
+
+9. **Given an object with several nested levels, how would you optimize deep copying for performance?**
+
+10. **How would you deep copy a function (considering the function body and its closure)?**
+
+11. **How can you ensure that a deep copy doesn't lose special object types like `Date`, `Map`, `Set`, or `RegExp`?**
+
+12. **What is the difference between a deep copy and serializing an object?**
+
+13. **Explain how garbage collection is affected by shallow copies vs deep copies.**
+
+14. **What will happen if you shallow copy an array of objects, then modify one of the objects inside the array?**
+
+15. **What are some challenges associated with deep copying large graphs or trees of objects?**
+
+------------------------------------------------------------------------------------------------------------------
+
+### Topic: `.reduce()` in JavaScript
+
+#### **Brief Explanation:**
+The `.reduce()` method in JavaScript is an array method that executes a reducer function (that you provide) on each element of the array, resulting in a single output value. It is particularly useful for accumulating values, transforming data, or combining arrays into a single value.
+
+The `reduce` method takes two arguments:
+1. **A callback function**: This function is called for each element in the array.
+2. **An optional initial value**: This value is used as the first argument to the first call of the callback function.
+
+#### **Syntax:**
+```javascript
+array.reduce(callback, initialValue);
+```
+
+#### **Callback Function Signature:**
+```javascript
+function callback(accumulator, currentValue, currentIndex, array) {
+    // logic to compute and return the new accumulator value
+}
+```
+
+#### **Coding Example:**
+
+1. **Summing an Array of Numbers:**
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// Using reduce to sum all numbers in the array
+const sum = numbers.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+}, 0); // Initial value is 0
+
+console.log(sum); // Output: 15
+```
+
+2. **Flattening an Array of Arrays:**
+```javascript
+const nestedArrays = [[1, 2], [3, 4], [5]];
+
+// Using reduce to flatten the nested arrays
+const flattened = nestedArrays.reduce((accumulator, currentValue) => {
+    return accumulator.concat(currentValue);
+}, []); // Initial value is an empty array
+
+console.log(flattened); // Output: [1, 2, 3, 4, 5]
+```
+
+3. **Counting Occurrences of Items in an Array:**
+```javascript
+const fruits = ['apple', 'banana', 'orange', 'banana', 'apple'];
+
+// Using reduce to count occurrences of each fruit
+const count = fruits.reduce((accumulator, currentValue) => {
+    accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
+    return accumulator;
+}, {}); // Initial value is an empty object
+
+console.log(count); // Output: { apple: 2, banana: 2, orange: 1 }
+```
+
+#### **15 Interview Questions**:
+
+1. **What does the `.reduce()` method do in JavaScript?**
+   - It processes an array and returns a single value by executing a reducer function on each element.
+
+2. **What are the parameters of the callback function in `.reduce()`?**
+   - The accumulator, the current value, the current index, and the original array.
+
+3. **How does the initial value affect the output of `.reduce()`?**
+   - It sets the starting value of the accumulator. If not provided, the first element of the array is used as the initial accumulator.
+
+4. **Can you use `.reduce()` on an array of objects?**
+   - Yes, you can use it to transform or aggregate properties of objects in the array.
+
+5. **What happens if the array is empty and no initial value is provided to `.reduce()`?**
+   - It will throw a `TypeError` because there is no initial value to start the accumulation.
+
+6. **How can `.reduce()` be used to find the maximum value in an array?**
+   - You can compare the current value with the accumulator and return the larger of the two.
+
+7. **Can you chain `.reduce()` with other array methods?**
+   - Yes, you can chain `.reduce()` with methods like `.filter()`, `.map()`, etc.
+
+8. **What is a common mistake when using `.reduce()`?**
+   - Not providing an initial value can lead to unexpected results, especially with empty arrays.
+
+9. **How can you use `.reduce()` to group objects by a property?**
+   - You can accumulate objects into an object keyed by the desired property.
+
+10. **How does `.reduce()` handle asynchronous operations?**
+    - It cannot inherently handle asynchronous operations, so you may need to use Promises or async/await.
+
+11. **Can `.reduce()` mutate the original array?**
+    - No, it does not modify the original array; it creates and returns a new value.
+
+12. **How does `.reduce()` differ from `.map()` and `.filter()`?**
+    - `.map()` transforms each element into a new array, while `.filter()` creates a new array with only elements that pass a condition. `.reduce()` combines elements into a single value.
+
+13. **What is the output of the following code?**
+   ```javascript
+   const arr = [1, 2, 3];
+   const result = arr.reduce((acc, val) => {
+       return acc + val;
+   });
+   console.log(result);
+   ```
+
+14. **How can you use `.reduce()` to create a cumulative sum array from an array of numbers?**
+    - You can keep track of the running total and return an array of cumulative sums.
+
+15. **What are some performance considerations when using `.reduce()` on large datasets?**
+    - `.reduce()` processes each element sequentially, which can be inefficient for very large datasets compared to other methods.
+
+#### **15 Tricky Challenges/Questions**:
+
+1. **What will the output of the following code be?**
+   ```javascript
+   const numbers = [1, 2, 3];
+   const result = numbers.reduce((acc, val) => acc + val, 10);
+   console.log(result); // ?
+   ```
+
+2. **How can you modify the `.reduce()` method to flatten an array with nested levels?**
+
+3. **What happens if you pass a string instead of an array to `.reduce()`?**
+
+4. **Can you use `.reduce()` to transform an array into a multi-dimensional array? If so, how?**
+
+5. **How can you implement a `filter` method using `.reduce()`?**
+
+6. **What is the significance of using `return` in the reducer function?**
+
+7. **What is the time complexity of the `.reduce()` method?**
+
+8. **How can you prevent side effects when using `.reduce()`?**
+
+9. **Explain how to use `.reduce()` to compute the average of an array of numbers.**
+
+10. **What are the differences between the results of the following two `.reduce()` calls?**
+    ```javascript
+    const arr = [1, 2, 3];
+    arr.reduce((a, b) => a + b); // and
+    arr.reduce((a, b) => a + b, 0);
+    ```
+
+11. **How can you use `.reduce()` to implement a simple voting system?**
+
+12. **What will be the output of this code?**
+    ```javascript
+    const arr = [1, 2, 3, 4];
+    const result = arr.reduce((acc, val) => {
+        acc.push(val * 2);
+        return acc;
+    }, []);
+    console.log(result); // ?
+    ```
+
+13. **How can you combine `.reduce()` with destructuring for improved readability?**
+
+14. **Can you use `.reduce()` to create an object where keys are derived from array values? How?**
+
+15. **What will be the output of the following code?**
+    ```javascript
+    const arr = ['a', 'b', 'c'];
+    const result = arr.reduce((acc, val) => acc + val, '');
+    console.log(result); // ?
+    ```
+-----------------------------------------------------------------------------------------------------------
+### Topic: Extracting a Method from an Object in JavaScript
+
+#### **Brief Explanation:**
+In JavaScript, a method is a function that is a property of an object. Extracting a method from an object means taking that method and using it independently, which may lead to changes in how `this` is handled. When a method is extracted, it no longer has access to the object it was originally part of unless it is bound to that object.
+
+#### **Example of Extracting a Method:**
+
+1. **Basic Method Extraction:**
+```javascript
+const person = {
+    name: 'Alice',
+    greet() {
+        console.log(`Hello, my name is ${this.name}`);
+    }
+};
+
+// Calling the method normally
+person.greet(); // Output: Hello, my name is Alice
+
+// Extracting the method
+const greet = person.greet;
+
+// Calling the extracted method
+greet(); // Output: Hello, my name is undefined
+```
+In this example, when `greet()` is called independently, `this` refers to the global object (or `undefined` in strict mode) rather than the `person` object, leading to an undefined name.
+
+2. **Using `bind()` to Preserve `this`:**
+```javascript
+// Binding the extracted method to the person object
+const boundGreet = greet.bind(person);
+boundGreet(); // Output: Hello, my name is Alice
+```
+
+3. **Using Arrow Functions:**
+Arrow functions do not have their own `this` context, so they can be used to preserve the context of the parent scope.
+```javascript
+const person = {
+    name: 'Alice',
+    greet: function() {
+        const innerGreet = () => {
+            console.log(`Hello, my name is ${this.name}`);
+        };
+        innerGreet();
+    }
+};
+
+person.greet(); // Output: Hello, my name is Alice
+```
+
+#### **15 Interview Questions:**
+
+1. **What is a method in JavaScript?**
+   - A method is a function that is associated with an object and can operate on the object's properties.
+
+2. **What happens to `this` when a method is extracted from its object?**
+   - The context of `this` is lost, leading to `undefined` or the global object, depending on the execution context.
+
+3. **How can you preserve the context of `this` when extracting a method?**
+   - By using `.bind()`, `.call()`, or `.apply()`, or by using arrow functions to capture the lexical context.
+
+4. **What is the difference between a method and a function in JavaScript?**
+   - A method is a function that is a property of an object, while a function is a standalone block of code.
+
+5. **How do you use `.bind()` to change the context of `this`?**
+   - `.bind()` creates a new function that, when called, has its `this` keyword set to the provided value.
+
+6. **What is the significance of using arrow functions with methods?**
+   - Arrow functions do not have their own `this` context, allowing them to inherit `this` from the surrounding function.
+
+7. **Can you extract a method from an object and invoke it as a standalone function? What are the implications?**
+   - Yes, but invoking it as a standalone function will lose its object context unless bound.
+
+8. **How can you avoid `this` issues when passing methods as callbacks?**
+   - By binding the method to the appropriate context or using an arrow function.
+
+9. **What will be the output of the following code?**
+   ```javascript
+   const obj = { x: 10, getX: function() { return this.x; } };
+   const getX = obj.getX;
+   console.log(getX()); // ?
+   ```
+
+10. **How can you use `call()` to invoke a method with a different context?**
+    - `call()` allows you to call a function with a specified `this` value and arguments.
+
+11. **What are the consequences of losing context in event handlers?**
+    - If a method is used as an event handler, `this` will refer to the event target instead of the original object.
+
+12. **How does method extraction affect inheritance in JavaScript?**
+    - When methods are extracted, they may not have access to inherited properties unless appropriately bound.
+
+13. **What is method chaining, and how can it be affected by extracting methods?**
+    - Method chaining is a technique where multiple methods are called on the same object. Extracting methods can break the chain if context is lost.
+
+14. **Can you create a utility function that extracts methods from objects? How would you do it?**
+
+15. **What will happen if you extract a method that modifies an object's properties?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of the following code?**
+   ```javascript
+   const car = {
+       brand: 'Toyota',
+       getBrand: function() {
+           return this.brand;
+       }
+   };
+   const getBrand = car.getBrand;
+   console.log(getBrand()); // ?
+   ```
+
+2. **How would you implement a solution to handle `this` correctly in a callback that uses an extracted method?**
+
+3. **What happens if you pass an extracted method as a callback to a setTimeout function?**
+
+4. **Can you use `.call()` on an arrow function? What would be the outcome?**
+
+5. **How would you extract and then reassign a method to the same object without losing context?**
+
+6. **What is the difference between using `.bind()` and an arrow function in terms of method extraction?**
+
+7. **How can you make an extracted method work with multiple objects of the same type?**
+
+8. **What are the implications of method extraction in terms of performance?**
+
+9. **How can you use `Object.assign()` to combine methods from multiple objects?**
+
+10. **What will the output of this code be?**
+    ```javascript
+    const person = {
+        name: 'Bob',
+        sayName: function() {
+            console.log(this.name);
+        }
+    };
+    const sayName = person.sayName;
+    person = null; // simulate removing the object
+    sayName(); // ?
+    ```
+
+11. **What are closures, and how can they help when extracting methods?**
+
+12. **How does the use of methods in JavaScript affect memory management?**
+
+13. **What is a possible solution to bind `this` permanently to an extracted method?**
+
+14. **How can you use the `apply()` method in the context of method extraction?**
+
+15. **In what scenarios might extracting a method be advantageous?**
+
+-----------------------------------------------------------------------------------------------------
+### Topic: Standalone Function in JavaScript
+
+#### **Brief Explanation:**
+A standalone function in JavaScript is a function that is defined independently of any object or class. It can be called anywhere in your code, provided it's in scope. Standalone functions can accept parameters, return values, and can be passed around as first-class citizens, meaning they can be assigned to variables, passed as arguments to other functions, or returned from other functions.
+
+#### **Characteristics of Standalone Functions:**
+1. **Global or Local Scope**: Standalone functions can be defined in the global scope (accessible anywhere in the script) or within another function (local scope).
+2. **No Implicit `this` Binding**: Unlike methods defined within an object, standalone functions do not have an implicit `this` context tied to an object.
+3. **First-Class Citizens**: They can be treated as values—assigned to variables, passed to other functions, or returned from functions.
+
+#### **Coding Example:**
+
+1. **Defining a Standalone Function:**
+```javascript
+// A simple standalone function
+function add(a, b) {
+    return a + b;
+}
+
+// Calling the standalone function
+const result = add(5, 3);
+console.log(result); // Output: 8
+```
+
+2. **Passing a Standalone Function as an Argument:**
+```javascript
+// A higher-order function that takes another function as an argument
+function operate(fn, x, y) {
+    return fn(x, y);
+}
+
+// Passing the standalone function to another function
+const sum = operate(add, 10, 20);
+console.log(sum); // Output: 30
+```
+
+3. **Returning a Standalone Function:**
+```javascript
+// A function that returns another function
+function multiplier(factor) {
+    return function(x) {
+        return x * factor;
+    };
+}
+
+// Creating a new standalone function
+const double = multiplier(2);
+console.log(double(5)); // Output: 10
+```
+
+#### **15 Interview Questions:**
+
+1. **What is a standalone function in JavaScript?**
+   - A function defined independently of any object, accessible by its name throughout its scope.
+
+2. **How does the `this` context behave in standalone functions?**
+   - In standalone functions, `this` is either `undefined` (in strict mode) or refers to the global object (in non-strict mode).
+
+3. **What are first-class functions in JavaScript?**
+   - Functions that can be assigned to variables, passed as arguments, or returned from other functions.
+
+4. **How can you create a standalone function that accepts multiple arguments?**
+   - You can define the function with multiple parameters separated by commas.
+
+5. **What happens when you call a standalone function without providing the required arguments?**
+   - The function will execute, but any missing parameters will be `undefined`.
+
+6. **How can you convert a method into a standalone function?**
+   - By defining it outside of its object context and ensuring it’s called appropriately.
+
+7. **Can standalone functions access variables from an outer scope?**
+   - Yes, they can access outer scope variables due to JavaScript's closure mechanism.
+
+8. **What is the difference between a standalone function and an arrow function?**
+   - Both can be standalone, but arrow functions do not have their own `this` context.
+
+9. **What will happen if you call a standalone function before it's defined?**
+   - You can call it before its definition if it's a function declaration (not a function expression) due to hoisting.
+
+10. **How can you use standalone functions for modular code organization?**
+    - By defining utility functions that can be imported and reused across different modules.
+
+11. **Can standalone functions be stored in objects? If so, how?**
+    - Yes, they can be stored as properties in objects, becoming methods.
+
+12. **What are the benefits of using standalone functions instead of methods?**
+    - Standalone functions can be simpler, more reusable, and less dependent on the state of an object.
+
+13. **What is the role of the `return` statement in a standalone function?**
+    - It specifies the value that the function will output when called.
+
+14. **How can you create a self-invoking standalone function?**
+    - By wrapping the function definition in parentheses and appending `()` to invoke it immediately.
+
+15. **What is the purpose of using the `strict` mode in a standalone function?**
+    - To enforce stricter parsing and error handling in your JavaScript code.
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will the output of the following code be?**
+   ```javascript
+   function foo() {
+       console.log(this);
+   }
+   foo(); // ?
+   ```
+
+2. **How would you modify a standalone function to make it accept any number of arguments?**
+
+3. **Can you use a standalone function as a constructor? If so, how?**
+
+4. **What will happen if you declare a standalone function inside another function? Can it be accessed outside?**
+
+5. **How can you prevent a standalone function from being invoked multiple times?**
+
+6. **What will be the output of the following code?**
+   ```javascript
+   let value = 5;
+   function test() {
+       return value + 10;
+   }
+   console.log(test()); // ?
+   ```
+
+7. **How can you use a standalone function to simulate private variables?**
+
+8. **What is the difference between function declarations and function expressions in JavaScript?**
+
+9. **What will happen if you call a standalone function with an object as its context using `call()`?**
+
+10. **How can you use a standalone function to debounce an event?**
+
+11. **Can you invoke a standalone function inside an object method? What would be the `this` context?**
+
+12. **How can you use a standalone function to generate a series of Fibonacci numbers?**
+
+13. **What is hoisting, and how does it apply to standalone functions?**
+
+14. **How can you create a standalone function that returns another standalone function?**
+
+15. **What will be the output of the following code?**
+   ```javascript
+   var counter = 0;
+   function increment() {
+       counter++;
+       return counter;
+   }
+   console.log(increment()); // ?
+   ```
+
+-----------------------------------------------------------------------------------------------------
+### Topic: ES6 Concise Method Syntax
+
+#### **Brief Explanation:**
+In ECMAScript 6 (ES6), concise method syntax allows you to define methods within object literals in a more succinct way. This new syntax removes the need for the `function` keyword, making the code cleaner and more readable. The concise method syntax can be used when defining methods in objects, classes, and prototypes.
+
+#### **Example of Concise Method Syntax:**
+
+1. **Basic Example:**
+```javascript
+const person = {
+    name: 'Alice',
+    greet() { // Concise method syntax
+        console.log(`Hello, my name is ${this.name}`);
+    }
+};
+
+// Calling the method
+person.greet(); // Output: Hello, my name is Alice
+```
+
+2. **With Parameters:**
+```javascript
+const mathOperations = {
+    add(a, b) { // Concise method syntax
+        return a + b;
+    },
+    subtract(a, b) {
+        return a - b;
+    }
+};
+
+// Calling the methods
+console.log(mathOperations.add(5, 3)); // Output: 8
+console.log(mathOperations.subtract(5, 3)); // Output: 2
+```
+
+3. **Using with Class:**
+```javascript
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() { // Concise method syntax in class
+        console.log(`${this.name} makes a noise.`);
+    }
+}
+
+const dog = new Animal('Dog');
+dog.speak(); // Output: Dog makes a noise.
+```
+
+4. **Using Object Methods with Computed Property Names:**
+```javascript
+const methodName = 'greet';
+const obj = {
+    [methodName]() {
+        console.log('Hello!');
+    }
+};
+
+obj.greet(); // Output: Hello!
+```
+
+#### **15 Interview Questions:**
+
+1. **What is ES6 concise method syntax?**
+   - A shorthand way to define methods in object literals or classes without the `function` keyword.
+
+2. **What are the advantages of using concise method syntax?**
+   - It leads to cleaner and more readable code by reducing boilerplate.
+
+3. **How does the `this` keyword behave in concise methods?**
+   - In concise methods, `this` refers to the object that the method is called on.
+
+4. **Can you use concise method syntax for getter and setter methods?**
+   - Yes, ES6 allows you to define getter and setter methods using concise syntax.
+
+5. **How would you define a method in a class using concise syntax?**
+   - Simply use the method name followed by parentheses and a block without the `function` keyword.
+
+6. **Can you define an arrow function using concise method syntax?**
+   - No, arrow functions have their own syntax and do not have the same behavior with `this`.
+
+7. **What happens if you try to use concise method syntax with an invalid method name?**
+   - It will throw a syntax error if the method name does not follow valid identifier rules.
+
+8. **What is the difference between concise methods and traditional function expressions in objects?**
+   - Concise methods are cleaner and automatically bind `this` to the object, while function expressions require the `function` keyword.
+
+9. **Can you use concise method syntax in prototypes?**
+   - Yes, you can define methods using concise syntax in object prototypes.
+
+10. **What will happen if you define a method using both concise and traditional syntax in the same object?**
+    - Both will work independently, but the traditional syntax is more verbose.
+
+11. **How can you define a method that takes parameters using concise syntax?**
+    - Just declare the method name followed by parentheses containing the parameters.
+
+12. **Can you use concise method syntax with computed property names?**
+    - Yes, you can use computed property names with concise methods.
+
+13. **How do concise methods affect inheritance in JavaScript?**
+    - Concise methods can be inherited by subclasses in the same way as traditional methods.
+
+14. **What will be the output of the following code?**
+    ```javascript
+    const obj = {
+        greet() {
+            return 'Hello!';
+        },
+        farewell: function() {
+            return 'Goodbye!';
+        }
+    };
+    console.log(obj.greet()); // ?
+    console.log(obj.farewell()); // ?
+    ```
+
+15. **How does ES6 concise method syntax enhance object-oriented programming in JavaScript?**
+    - It provides a more straightforward and intuitive way to define methods, making the code more organized and easier to maintain.
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will the output of the following code be?**
+   ```javascript
+   const person = {
+       name: 'Bob',
+       greet() {
+           console.log(this.name);
+       }
+   };
+   const greet = person.greet;
+   greet(); // ?
+   ```
+
+2. **How would you implement inheritance using ES6 concise method syntax?**
+
+3. **What will happen if you use concise method syntax to define a method but forget to use `this`?**
+
+4. **How can you combine concise method syntax with destructuring?**
+
+5. **What is the output of the following code?**
+   ```javascript
+   const obj = {
+       value: 42,
+       logValue() {
+           console.log(this.value);
+       }
+   };
+   const log = obj.logValue;
+   log(); // ?
+   ```
+
+6. **How would you create an object with both concise methods and traditional methods? What is the impact on `this`?**
+
+7. **Can you define a method using concise syntax and then redefine it with traditional syntax? What will happen?**
+
+8. **How can you handle method overloading with ES6 concise method syntax?**
+
+9. **What will the output of the following code be?**
+   ```javascript
+   const myObj = {
+       a: 1,
+       b: 2,
+       sum() {
+           return this.a + this.b;
+       }
+   };
+   const getSum = myObj.sum;
+   console.log(getSum()); // ?
+   ```
+
+10. **How does using concise methods impact memory usage compared to traditional methods?**
+
+11. **What will happen if you define an object with a method using the same name as a property?**
+
+12. **Can you use concise method syntax in conjunction with async/await? If so, how?**
+
+13. **How would you define an object with multiple concise methods that depend on each other?**
+
+14. **What is the significance of using concise method syntax in class definitions?**
+
+15. **How does concise method syntax affect readability and maintainability in large codebases?**
+
+-----------------------------------------------------------------------------------------------------
+### Topic: Factory Function in JavaScript
+
+#### **Brief Explanation:**
+A factory function is a function that creates and returns objects. Unlike constructors, factory functions do not use the `new` keyword and can be more flexible in terms of object creation. They can encapsulate private data and behavior, returning an object with public methods that interact with this data. Factory functions are useful for creating multiple instances of similar objects without using classes.
+
+#### **Key Features:**
+1. **Encapsulation**: They can hide implementation details and expose only necessary properties and methods.
+2. **Flexibility**: You can create objects with different structures or behaviors based on input parameters.
+3. **No `this` Binding**: Since they are not constructor functions, factory functions do not require `this`, which simplifies context management.
+
+#### **Coding Example:**
+
+1. **Basic Factory Function:**
+```javascript
+function createPerson(name, age) {
+    return {
+        name,
+        age,
+        greet() {
+            console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+        }
+    };
+}
+
+// Creating instances
+const alice = createPerson('Alice', 30);
+const bob = createPerson('Bob', 25);
+
+// Calling methods
+alice.greet(); // Output: Hello, my name is Alice and I am 30 years old.
+bob.greet();   // Output: Hello, my name is Bob and I am 25 years old.
+```
+
+2. **Factory Function with Private Variables:**
+```javascript
+function createCounter() {
+    let count = 0; // Private variable
+
+    return {
+        increment() {
+            count++;
+            return count;
+        },
+        decrement() {
+            count--;
+            return count;
+        },
+        getCount() {
+            return count;
+        }
+    };
+}
+
+// Creating a counter instance
+const counter = createCounter();
+console.log(counter.increment()); // Output: 1
+console.log(counter.increment()); // Output: 2
+console.log(counter.getCount());  // Output: 2
+console.log(counter.decrement()); // Output: 1
+```
+
+3. **Factory Function with Default Values:**
+```javascript
+function createCar(model, year = 2022) {
+    return {
+        model,
+        year,
+        drive() {
+            console.log(`Driving a ${this.year} ${this.model}.`);
+        }
+    };
+}
+
+// Creating instances
+const car1 = createCar('Toyota Camry');
+const car2 = createCar('Honda Accord', 2023);
+
+// Calling methods
+car1.drive(); // Output: Driving a 2022 Toyota Camry.
+car2.drive(); // Output: Driving a 2023 Honda Accord.
+```
+
+4. **Using Factory Functions with Prototypes:**
+```javascript
+function createAnimal(type, sound) {
+    return {
+        type,
+        speak() {
+            console.log(`${this.type} says ${sound}`);
+        }
+    };
+}
+
+// Creating instances
+const dog = createAnimal('Dog', 'Woof');
+const cat = createAnimal('Cat', 'Meow');
+
+// Calling methods
+dog.speak(); // Output: Dog says Woof
+cat.speak(); // Output: Cat says Meow
+```
+
+#### **15 Interview Questions:**
+
+1. **What is a factory function in JavaScript?**
+   - A factory function is a function that returns an object, allowing for the creation of multiple instances with shared behavior.
+
+2. **How does a factory function differ from a constructor function?**
+   - Factory functions do not require the `new` keyword and do not bind `this` implicitly, making them simpler and more flexible.
+
+3. **What are the advantages of using factory functions?**
+   - They allow encapsulation of private data, provide flexibility in object creation, and eliminate the need for `this` binding issues.
+
+4. **Can you create an object with a factory function that has private properties? How?**
+   - Yes, by defining variables within the factory function's scope and returning methods that access them.
+
+5. **What is the output of the following code?**
+   ```javascript
+   function createObject() {
+       return { value: 1 };
+   }
+   const obj = createObject();
+   console.log(obj.value); // ?
+   ```
+
+6. **How can you use factory functions to create a singleton object?**
+
+7. **What will happen if you call a factory function without any arguments?**
+
+8. **How can you enhance a factory function to accept configuration options?**
+
+9. **What is the output of the following code?**
+   ```javascript
+   function createNumber() {
+       let num = 0;
+       return {
+           increment() {
+               num++;
+           },
+           getNum() {
+               return num;
+           }
+       };
+   }
+   const counter = createNumber();
+   counter.increment();
+   console.log(counter.getNum()); // ?
+   ```
+
+10. **How do factory functions facilitate the creation of objects with similar behavior?**
+
+11. **Can you use a factory function to create instances of different object types? How?**
+
+12. **What are the potential drawbacks of using factory functions?**
+
+13. **How can you use factory functions in combination with closures?**
+
+14. **What will be the output of the following code?**
+   ```javascript
+   const person1 = createPerson('Alice', 30);
+   const person2 = createPerson('Bob', 25);
+   console.log(person1 === person2); // ?
+   ```
+
+15. **How does the use of factory functions improve code organization and modularity?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **How can you create a factory function that generates objects with unique IDs?**
+
+2. **What will be the output of the following code?**
+   ```javascript
+   const factory = createPerson('Charlie', 22);
+   const newFactory = createPerson('Charlie', 22);
+   console.log(factory === newFactory); // ?
+   ```
+
+3. **Can you modify an object created by a factory function? If so, how?**
+
+4. **How can you implement inheritance using factory functions?**
+
+5. **What will happen if you try to access a private variable defined in a factory function from outside the function?**
+
+6. **How can you refactor a constructor function into a factory function?**
+
+7. **What is the output of the following code?**
+   ```javascript
+   const counterA = createCounter();
+   const counterB = createCounter();
+   counterA.increment();
+   console.log(counterB.getCount()); // ?
+   ```
+
+8. **How can you use factory functions to implement the module pattern?**
+
+9. **What is the significance of using `return` in a factory function?**
+
+10. **Can a factory function return different object types based on input? If so, how?**
+
+11. **What happens if you define methods directly on the object returned by the factory function?**
+
+12. **How can you handle multiple properties with default values in a factory function?**
+
+13. **What will be the output of the following code?**
+   ```javascript
+   const animal = createAnimal('Dog', 'Bark');
+   const cat = createAnimal('Cat', 'Meow');
+   animal.speak();
+   cat.speak(); // ?
+   ```
+
+14. **Can you use a factory function to create a nested object? If so, how?**
+
+15. **How do factory functions help in creating testable code?**
+
+-------------------------------------------------------------------------------------------------------
+### Topic: Instance with a Constructor Function in JavaScript
+
+#### **Brief Explanation:**
+In JavaScript, a constructor function is a special type of function that is used to create and initialize objects. When called with the `new` keyword, a constructor function creates a new object instance, assigns it to `this`, and can return that object or another object if explicitly returned. Constructor functions are commonly used to implement object-oriented programming principles in JavaScript.
+
+#### **Key Features:**
+1. **`new` Keyword**: The `new` keyword is used to invoke a constructor function. It creates a new object, sets its prototype, and binds `this` to the new object.
+2. **Prototype Chain**: Constructor functions allow for the creation of instances that share properties and methods via the prototype.
+3. **Instance Creation**: Each time you call a constructor function with `new`, a new instance of the object is created.
+
+#### **Coding Example:**
+
+1. **Basic Constructor Function:**
+```javascript
+function Person(name, age) {
+    this.name = name; // Assigning name to the instance
+    this.age = age;   // Assigning age to the instance
+}
+
+// Creating instances of Person
+const alice = new Person('Alice', 30);
+const bob = new Person('Bob', 25);
+
+// Accessing properties
+console.log(alice.name); // Output: Alice
+console.log(bob.age);    // Output: 25
+```
+
+2. **Adding Methods to the Prototype:**
+```javascript
+function Car(model, year) {
+    this.model = model;
+    this.year = year;
+}
+
+// Adding a method to the Car prototype
+Car.prototype.drive = function() {
+    console.log(`Driving a ${this.year} ${this.model}.`);
+};
+
+// Creating instances of Car
+const car1 = new Car('Toyota', 2020);
+const car2 = new Car('Honda', 2021);
+
+// Calling the method
+car1.drive(); // Output: Driving a 2020 Toyota.
+car2.drive(); // Output: Driving a 2021 Honda.
+```
+
+3. **Constructor with Default Values:**
+```javascript
+function Book(title, author, year = new Date().getFullYear()) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+}
+
+// Creating instances of Book
+const book1 = new Book('1984', 'George Orwell');
+const book2 = new Book('Brave New World', 'Aldous Huxley', 1932);
+
+// Accessing properties
+console.log(book1.year); // Output: Current year
+console.log(book2.year); // Output: 1932
+```
+
+4. **Constructor Function with Inheritance:**
+```javascript
+function Animal(type) {
+    this.type = type;
+}
+
+Animal.prototype.speak = function() {
+    console.log(`${this.type} makes a noise.`);
+};
+
+function Dog(name) {
+    Animal.call(this, 'Dog'); // Calling the parent constructor
+    this.name = name;
+}
+
+// Setting up inheritance
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function() {
+    console.log(`${this.name} barks!`);
+};
+
+// Creating an instance of Dog
+const dog = new Dog('Buddy');
+dog.speak(); // Output: Dog makes a noise.
+dog.bark();  // Output: Buddy barks!
+```
+
+#### **15 Interview Questions:**
+
+1. **What is a constructor function in JavaScript?**
+   - A constructor function is a function used to create and initialize objects, typically invoked with the `new` keyword.
+
+2. **How do you create an instance using a constructor function?**
+   - Use the `new` keyword followed by the constructor function name, e.g., `const instance = new ConstructorFunction();`.
+
+3. **What happens when you call a constructor function without the `new` keyword?**
+   - Without `new`, `this` will refer to the global object (or `undefined` in strict mode), and properties will not be assigned to the new instance.
+
+4. **How does prototype inheritance work with constructor functions?**
+   - By setting the prototype of one constructor function to an instance of another, you can enable instances of the child constructor to inherit methods and properties from the parent.
+
+5. **What will the output of the following code be?**
+   ```javascript
+   function Person(name) {
+       this.name = name;
+   }
+   const person1 = new Person('Alice');
+   const person2 = new Person('Bob');
+   console.log(person1.name); // ?
+   ```
+
+6. **How can you add methods to the prototype of a constructor function?**
+
+7. **What is the difference between instance properties and prototype properties?**
+
+8. **How can you set default values in a constructor function?**
+
+9. **What is the output of the following code?**
+   ```javascript
+   function Counter() {
+       this.count = 0;
+   }
+   const counter1 = new Counter();
+   const counter2 = new Counter();
+   counter1.count++;
+   console.log(counter2.count); // ?
+   ```
+
+10. **Can constructor functions return non-object types? What happens?**
+
+11. **What will happen if you do not explicitly return an object from a constructor function?**
+
+12. **How can you implement private properties in a constructor function?**
+
+13. **What is the significance of the `this` keyword in constructor functions?**
+
+14. **Can you create multiple constructors for the same type of object? How?**
+
+15. **What are some advantages of using constructor functions over factory functions?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What is the output of the following code?**
+   ```javascript
+   function Person(name) {
+       this.name = name;
+   }
+   const person = new Person('Alice');
+   console.log(typeof person); // ?
+   ```
+
+2. **How would you implement a constructor function for a simple game character?**
+
+3. **What will happen if you modify the prototype of a constructor function after creating instances?**
+
+4. **Can you use a constructor function to create an object that has both properties and methods? If so, how?**
+
+5. **What will be the output of the following code?**
+   ```javascript
+   function Animal() {
+       this.type = 'Animal';
+   }
+   Animal.prototype.speak = function() {
+       console.log('Animal speaks');
+   };
+   const dog = new Animal();
+   dog.speak(); // ?
+   ```
+
+6. **How can you prevent the modification of properties on instances created by a constructor function?**
+
+7. **What will be the output of the following code?**
+   ```javascript
+   function Car(model) {
+       this.model = model;
+   }
+   Car.prototype = {
+       start() {
+           console.log(`${this.model} started.`);
+       }
+   };
+   const car1 = new Car('Toyota');
+   car1.start(); // ?
+   ```
+
+8. **How can you create a constructor function that supports multiple inheritance?**
+
+9. **What is the significance of the `constructor` property in the prototype of a constructor function?**
+
+10. **How do you check if an object is an instance of a particular constructor?**
+
+11. **What will be the output of the following code?**
+   ```javascript
+   function User(name) {
+       this.name = name;
+   }
+   User.prototype.getName = function() {
+       return this.name;
+   };
+   const user = new User('Alice');
+   console.log(user.getName()); // ?
+   ```
+
+12. **How can you implement method chaining with constructor functions?**
+
+13. **What will be the output of the following code?**
+   ```javascript
+   function Point(x, y) {
+       this.x = x;
+       this.y = y;
+   }
+   const point1 = new Point(1, 2);
+   const point2 = new Point(3, 4);
+   console.log(point1 === point2); // ?
+   ```
+
+14. **How can you extend a constructor function to include additional properties or methods later?**
+
+15. **What is the impact of changing the `prototype` of a constructor function after instances have been created?**
+
+-----------------------------------------------------------------------------------------------
+### Topic: Prototype in JavaScript
+
+#### **Brief Explanation:**
+In JavaScript, the prototype is an object that is associated with every function and object. It is a core feature of the language that facilitates inheritance and allows objects to share properties and methods. Each object in JavaScript has an internal link to its prototype, enabling the object to inherit features from the prototype chain. 
+
+When you attempt to access a property or method on an object, JavaScript first checks if that property exists on the object itself. If not, it looks for it in the object’s prototype, and then continues up the prototype chain until it either finds the property or reaches the end (null).
+
+#### **Key Features:**
+1. **Prototype Chain**: Allows for object inheritance. An object can inherit properties and methods from another object through its prototype.
+2. **Prototype Properties and Methods**: You can define properties and methods on a constructor's prototype, making them accessible to all instances created from that constructor.
+3. **Dynamic Nature**: You can add or modify properties and methods on the prototype at any time, affecting all instances that inherit from that prototype.
+
+#### **Coding Example:**
+
+1. **Basic Prototype Example:**
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+// Adding a method to the prototype
+Person.prototype.greet = function() {
+    console.log(`Hello, my name is ${this.name}.`);
+};
+
+// Creating an instance
+const alice = new Person('Alice');
+alice.greet(); // Output: Hello, my name is Alice.
+```
+
+2. **Prototype Inheritance:**
+```javascript
+function Animal(name) {
+    this.name = name;
+}
+
+Animal.prototype.speak = function() {
+    console.log(`${this.name} makes a noise.`);
+};
+
+function Dog(name) {
+    Animal.call(this, name); // Call the parent constructor
+}
+
+// Set Dog's prototype to an instance of Animal
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog; // Correct the constructor reference
+
+Dog.prototype.speak = function() {
+    console.log(`${this.name} barks.`);
+};
+
+// Creating an instance of Dog
+const dog = new Dog('Buddy');
+dog.speak(); // Output: Buddy barks.
+```
+
+3. **Modifying Prototype Properties:**
+```javascript
+function Car(model) {
+    this.model = model;
+}
+
+// Adding a method to the prototype
+Car.prototype.start = function() {
+    console.log(`${this.model} started.`);
+};
+
+// Creating an instance
+const car1 = new Car('Toyota');
+car1.start(); // Output: Toyota started.
+
+// Modifying the prototype method
+Car.prototype.start = function() {
+    console.log(`${this.model} is now running!`);
+};
+
+car1.start(); // Output: Toyota is now running!
+```
+
+4. **Checking Prototypes:**
+```javascript
+const object = {
+    name: 'John'
+};
+
+const prototypeObject = {
+    greet() {
+        console.log(`Hello, ${this.name}`);
+    }
+};
+
+// Set the prototype of object
+Object.setPrototypeOf(object, prototypeObject);
+
+// Accessing prototype method
+object.greet(); // Output: Hello, John
+```
+
+5. **Using Object.create():**
+```javascript
+const animal = {
+    speak() {
+        console.log(`${this.name} makes a noise.`);
+    }
+};
+
+const dog = Object.create(animal); // Create dog with animal as its prototype
+dog.name = 'Rex';
+dog.speak(); // Output: Rex makes a noise.
+```
+
+#### **15 Interview Questions:**
+
+1. **What is a prototype in JavaScript?**
+   - A prototype is an object that is associated with every function and object, allowing for inheritance and shared properties/methods.
+
+2. **How does prototype inheritance work in JavaScript?**
+   - Objects inherit properties and methods from their prototype chain. If a property isn't found on an object, JavaScript looks for it on the object's prototype, and continues up the chain.
+
+3. **What is the difference between an object's own properties and its prototype properties?**
+
+4. **How do you add a method to an object's prototype?**
+
+5. **What will be the output of the following code?**
+   ```javascript
+   function Person() {}
+   Person.prototype.age = 30;
+   const alice = new Person();
+   console.log(alice.age); // ?
+   ```
+
+6. **What happens if you modify a prototype property after instances have been created?**
+
+7. **How can you check if an object is an instance of a particular constructor?**
+
+8. **What is the output of the following code?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype.speak = function() {
+       console.log('Animal speaks');
+   };
+   const cat = new Animal();
+   cat.speak(); // ?
+   ```
+
+9. **What will be the output of the following code?**
+   ```javascript
+   const obj = {};
+   console.log(obj.__proto__ === Object.prototype); // ?
+   ```
+
+10. **Can you use the prototype to create private properties? If so, how?**
+
+11. **What is the significance of `Object.create()` in relation to prototypes?**
+
+12. **How can you prevent modifications to an object's prototype?**
+
+13. **What will happen if you set the prototype of an object to null?**
+
+14. **How can you check the prototype of an object?**
+
+15. **What is the prototype chain and how does it work in JavaScript?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What is the output of the following code?**
+   ```javascript
+   function A() {}
+   function B() {}
+   B.prototype = new A();
+   const b = new B();
+   console.log(b instanceof A); // ?
+   ```
+
+2. **How does the `constructor` property of a prototype work?**
+
+3. **What will be the output of the following code?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype = { speak() { console.log('Animal speaks'); } };
+   const dog = new Animal();
+   dog.speak(); // ?
+   ```
+
+4. **What happens if you create an object using a function with no prototype?**
+
+5. **How can you determine if a property exists on an object or its prototype?**
+
+6. **What is the output of the following code?**
+   ```javascript
+   function Car() {}
+   Car.prototype.color = 'red';
+   const myCar = new Car();
+   myCar.color = 'blue';
+   console.log(myCar.color); // ?
+   ```
+
+7. **Can you modify the prototype of an object after it has been created? How?**
+
+8. **What happens if you set a prototype to an instance of itself?**
+
+9. **How can you ensure that all instances of a constructor have a shared property?**
+
+10. **What will happen to the instances of a constructor if you change the prototype after instances have been created?**
+
+11. **What will be the output of the following code?**
+   ```javascript
+   const obj = { name: 'Alice' };
+   const proto = { name: 'Bob' };
+   Object.setPrototypeOf(obj, proto);
+   console.log(obj.name); // ?
+   ```
+
+12. **How can you use prototypes to implement method overriding?**
+
+13. **What will be the output of the following code?**
+   ```javascript
+   function Foo() {}
+   Foo.prototype = { bar() { return 'bar'; } };
+   const foo = new Foo();
+   console.log(foo.bar()); // ?
+   ```
+
+14. **What happens if you create an object with a constructor that has no prototype?**
+
+15. **How do prototypes facilitate code reuse in JavaScript?**
+
+------------------------------------------------------------------------------------------------
+### Topic: `__proto__` in JavaScript
+
+#### **Brief Explanation:**
+`__proto__` is a property available on all JavaScript objects that points to the prototype of the object. It is a way to access the prototype chain directly. While it's widely used for understanding and manipulating inheritance in JavaScript, it is considered a non-standard feature and its use is generally discouraged in favor of `Object.getPrototypeOf()` and `Object.setPrototypeOf()` methods for better code clarity and compatibility.
+
+#### **Key Features:**
+1. **Prototype Access**: `__proto__` allows access to an object's prototype, letting you inspect or modify the prototype chain directly.
+2. **Inheritance**: When accessing a property or method on an object, JavaScript checks the object itself first; if not found, it checks the `__proto__` property to look for it in the prototype.
+3. **Non-Standard**: While `__proto__` is widely supported in browsers, it is not part of the ECMAScript specification. Developers are encouraged to use standard methods.
+
+#### **Coding Example:**
+
+1. **Accessing `__proto__`:**
+```javascript
+const animal = {
+    speak() {
+        console.log('Animal speaks');
+    }
+};
+
+const dog = Object.create(animal); // dog’s prototype is animal
+dog.bark = function() {
+    console.log('Woof!');
+};
+
+// Accessing __proto__ to call the method from the prototype
+dog.speak(); // Output: Animal speaks
+dog.bark();  // Output: Woof!
+console.log(dog.__proto__ === animal); // Output: true
+```
+
+2. **Modifying Prototype Using `__proto__`:**
+```javascript
+const car = {
+    drive() {
+        console.log('Driving');
+    }
+};
+
+const myCar = {};
+myCar.__proto__ = car; // Setting prototype
+
+myCar.drive(); // Output: Driving
+```
+
+3. **Checking Prototypes:**
+```javascript
+const obj = { a: 1 };
+const proto = { b: 2 };
+obj.__proto__ = proto;
+
+console.log(obj.a); // Output: 1
+console.log(obj.b); // Output: 2
+console.log(obj.__proto__.b); // Output: 2
+console.log(obj.__proto__ === proto); // Output: true
+```
+
+4. **`__proto__` and Inheritance:**
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.greet = function() {
+    console.log(`Hello, my name is ${this.name}.`);
+};
+
+const alice = new Person('Alice');
+
+console.log(alice.__proto__ === Person.prototype); // Output: true
+alice.greet(); // Output: Hello, my name is Alice.
+```
+
+5. **Use of `__proto__` for Property Lookup:**
+```javascript
+const vehicle = {
+    wheels: 4
+};
+
+const bike = Object.create(vehicle);
+console.log(bike.wheels); // Output: 4 (inherited from vehicle)
+bike.wheels = 2; // Own property
+console.log(bike.wheels); // Output: 2
+console.log(bike.__proto__.wheels); // Output: 4
+```
+
+#### **15 Interview Questions:**
+
+1. **What is `__proto__` in JavaScript?**
+   - `__proto__` is a property that references the prototype of an object, allowing access to its prototype chain.
+
+2. **How does `__proto__` relate to the prototype chain?**
+
+3. **What is the difference between `__proto__` and `Object.getPrototypeOf()`?**
+
+4. **Why is the use of `__proto__` generally discouraged?**
+
+5. **What will the following code output?**
+   ```javascript
+   const obj = {};
+   console.log(obj.__proto__); // ?
+   ```
+
+6. **How can you set an object's prototype using `__proto__`?**
+
+7. **What happens if you change an object's `__proto__` after it has been created?**
+
+8. **What is the output of the following code?**
+   ```javascript
+   const a = { x: 1 };
+   const b = Object.create(a);
+   console.log(b.__proto__ === a); // ?
+   ```
+
+9. **How does `__proto__` facilitate inheritance in JavaScript?**
+
+10. **Can you use `__proto__` to access properties that are not defined on the object itself? How?**
+
+11. **What happens if you set `__proto__` to null?**
+
+12. **What will be the output of the following code?**
+   ```javascript
+   const obj = { a: 1 };
+   const proto = { a: 2 };
+   obj.__proto__ = proto;
+   console.log(obj.a); // ?
+   ```
+
+13. **How can `__proto__` be used to override inherited properties?**
+
+14. **What is the performance impact of using `__proto__` to access properties?**
+
+15. **How can you check if an object is a direct instance of another object using `__proto__`?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What is the output of the following code?**
+   ```javascript
+   const animal = { sound: 'roar' };
+   const lion = Object.create(animal);
+   console.log(lion.sound); // ?
+   ```
+
+2. **What happens when you directly modify `__proto__`? Does it affect all instances?**
+
+3. **What is the output of the following code?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype.type = 'mammal';
+   const dog = new Animal();
+   dog.__proto__.type = 'reptile';
+   console.log(dog.type); // ?
+   ```
+
+4. **How does `__proto__` behave when multiple prototypes are set?**
+
+5. **Can `__proto__` be used to create a circular prototype chain? What happens?**
+
+6. **What will be the output of the following code?**
+   ```javascript
+   const obj1 = { a: 1 };
+   const obj2 = Object.create(obj1);
+   obj1.a = 2;
+   console.log(obj2.a); // ?
+   ```
+
+7. **What happens if you try to set `__proto__` to an object that does not have a prototype?**
+
+8. **What will be the output of the following code?**
+   ```javascript
+   const a = { b: 1 };
+   const c = Object.create(a);
+   c.b = 2;
+   console.log(c.b); // ?
+   ```
+
+9. **How can you use `__proto__` to check for property existence?**
+
+10. **What will happen if you create an object with `Object.create(null)`? Can you use `__proto__`?**
+
+11. **What is the significance of using `__proto__` in terms of prototype-based inheritance?**
+
+12. **What is the output of the following code?**
+   ```javascript
+   const obj = { a: 1 };
+   const proto = { a: 2 };
+   Object.setPrototypeOf(obj, proto);
+   console.log(obj.a); // ?
+   ```
+
+13. **How can `__proto__` lead to unexpected behavior if not used carefully?**
+
+14. **What happens if you set `__proto__` to an array?**
+
+15. **What will be the output of the following code?**
+   ```javascript
+   const x = { a: 1 };
+   const y = { a: 2 };
+   Object.setPrototypeOf(y, x);
+   console.log(y.a); // ?
+   ```
+
+--------------------------------------------------------------------------------------------------
+### Topic: Prototype Chain in JavaScript
+
+#### **Brief Explanation:**
+The prototype chain is a fundamental concept in JavaScript that defines how objects inherit properties and methods from one another. Every object in JavaScript has a prototype, which is itself an object. When you attempt to access a property or method on an object, JavaScript first checks the object itself. If the property is not found, it looks up the prototype chain, checking the object's prototype, and then the prototype of that prototype, and so on, until it either finds the property or reaches the end of the chain (usually `null`).
+
+#### **Key Features:**
+1. **Inheritance**: The prototype chain enables inheritance in JavaScript, allowing objects to share properties and methods.
+2. **Dynamic Lookup**: The property lookup is dynamic, meaning that if a property is added to an object or its prototype at any time, it will be accessible through the prototype chain.
+3. **Null Prototype**: At the end of the prototype chain is `Object.prototype`, which has a prototype of `null`. This marks the end of the chain.
+
+#### **Coding Example:**
+
+1. **Basic Prototype Chain Example:**
+```javascript
+const animal = {
+    speak() {
+        console.log('Animal speaks');
+    }
+};
+
+const dog = Object.create(animal); // dog's prototype is animal
+dog.bark = function() {
+    console.log('Woof!');
+};
+
+dog.speak(); // Output: Animal speaks (inherited from animal)
+dog.bark();  // Output: Woof!
+console.log(dog.__proto__ === animal); // Output: true
+```
+
+2. **Prototype Chain with Constructors:**
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.greet = function() {
+    console.log(`Hello, my name is ${this.name}.`);
+};
+
+const alice = new Person('Alice');
+
+console.log(alice.greet()); // Output: Hello, my name is Alice.
+console.log(alice.__proto__ === Person.prototype); // Output: true
+console.log(alice.__proto__.__proto__ === Object.prototype); // Output: true
+```
+
+3. **Inspecting the Prototype Chain:**
+```javascript
+const car = {
+    wheels: 4
+};
+
+const bike = Object.create(car); // bike's prototype is car
+console.log(bike.wheels); // Output: 4 (inherited from car)
+console.log(bike.__proto__ === car); // Output: true
+console.log(bike.__proto__.__proto__ === Object.prototype); // Output: true
+```
+
+4. **Modifying the Prototype Chain:**
+```javascript
+const vehicle = {
+    drive() {
+        console.log('Driving');
+    }
+};
+
+const truck = Object.create(vehicle);
+truck.load = function() {
+    console.log('Loading cargo');
+};
+
+truck.drive(); // Output: Driving (inherited from vehicle)
+truck.load();  // Output: Loading cargo
+
+// Changing the prototype of the truck
+truck.__proto__ = {
+    drive() {
+        console.log('Truck is driving');
+    }
+};
+
+truck.drive(); // Output: Truck is driving
+```
+
+5. **Prototype Chain and `Object.getPrototypeOf()`:**
+```javascript
+const obj = { a: 1 };
+const proto = { b: 2 };
+Object.setPrototypeOf(obj, proto);
+
+console.log(Object.getPrototypeOf(obj) === proto); // Output: true
+console.log(obj.b); // Output: 2 (inherited from proto)
+```
+
+#### **15 Interview Questions:**
+
+1. **What is the prototype chain in JavaScript?**
+   - The prototype chain is a mechanism by which JavaScript objects inherit properties and methods from other objects through their prototypes.
+
+2. **How does JavaScript determine the property of an object?**
+
+3. **What happens if a property is not found in the object itself?**
+
+4. **What is the role of `Object.prototype` in the prototype chain?**
+
+5. **Can you modify the prototype chain after an object has been created? If so, how?**
+
+6. **What is the output of the following code?**
+   ```javascript
+   function Animal() {}
+   Animal.prototype.speak = function() {
+       console.log('Animal speaks');
+   };
+   const dog = new Animal();
+   console.log(dog.speak()); // ?
+   ```
+
+7. **How can you check the prototype of an object?**
+
+8. **What will be the output of the following code?**
+   ```javascript
+   const obj = {};
+   console.log(obj.__proto__ === Object.prototype); // ?
+   ```
+
+9. **What happens if you set an object’s prototype to null?**
+
+10. **How can you use `Object.create()` to create a prototype chain?**
+
+11. **What is the significance of `Object.getPrototypeOf()` in relation to the prototype chain?**
+
+12. **Can the prototype chain be circular? What happens?**
+
+13. **What happens when a property is added to an object that is also defined on its prototype?**
+
+14. **What will be the output of the following code?**
+   ```javascript
+   const a = { b: 1 };
+   const c = Object.create(a);
+   a.b = 2;
+   console.log(c.b); // ?
+   ```
+
+15. **How can you prevent properties in the prototype chain from being overridden?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What is the output of the following code?**
+   ```javascript
+   const parent = { value: 'parent' };
+   const child = Object.create(parent);
+   child.value = 'child';
+   console.log(child.value); // ?
+   ```
+
+2. **What will happen if you try to access a property that doesn't exist on the object or its prototype?**
+
+3. **How does JavaScript handle method overriding in the prototype chain?**
+
+4. **What will be the output of the following code?**
+   ```javascript
+   function Base() {
+       this.baseProperty = 'base';
+   }
+   Base.prototype.getBaseProperty = function() {
+       return this.baseProperty;
+   };
+   function Derived() {
+       this.derivedProperty = 'derived';
+   }
+   Derived.prototype = new Base();
+   const instance = new Derived();
+   console.log(instance.getBaseProperty()); // ?
+   ```
+
+5. **What happens if you delete a property from an object in the prototype chain?**
+
+6. **What is the output of the following code?**
+   ```javascript
+   const obj = { a: 1 };
+   const proto = { a: 2 };
+   Object.setPrototypeOf(obj, proto);
+   console.log(obj.a); // ?
+   ```
+
+7. **Can you have multiple objects with the same prototype? What implications does this have?**
+
+8. **What will be the output of the following code?**
+   ```javascript
+   const a = { x: 1 };
+   const b = Object.create(a);
+   const c = Object.create(b);
+   console.log(c.x); // ?
+   ```
+
+9. **How can you change the prototype of an object after it has been created?**
+
+10. **What will be the output of the following code?**
+    ```javascript
+    const obj1 = { a: 1 };
+    const obj2 = { a: 2 };
+    Object.setPrototypeOf(obj1, obj2);
+    console.log(obj1.a); // ?
+    ```
+
+11. **What will happen if you set the prototype of an object to itself?**
+
+12. **What is the difference between using `__proto__` and `Object.getPrototypeOf()`?**
+
+13. **How does the prototype chain facilitate polymorphism in JavaScript?**
+
+14. **What happens if you access a method on an instance that is not defined on the instance itself or its prototypes?**
+
+15. **Can the prototype chain be used to implement private methods? If so, how?**
+
+------------------------------------------------------------------------------------------------------
+### Topic: `Object.getPrototypeOf()` in JavaScript
+
+#### **Brief Explanation:**
+`Object.getPrototypeOf()` is a built-in JavaScript method that returns the prototype (i.e., the internal `[[Prototype]]` property) of a specified object. This method allows you to inspect the prototype chain of an object, making it easier to understand inheritance in JavaScript. It is part of the ECMAScript 5 specification and is preferred over the non-standard `__proto__` property for accessing the prototype.
+
+#### **Key Features:**
+1. **Retrieve Prototype**: It returns the prototype of the specified object, which can be useful for understanding an object’s inheritance structure.
+2. **Standard Method**: Unlike `__proto__`, which is non-standard, `Object.getPrototypeOf()` is a standard method, providing better compatibility and readability.
+3. **Returns Null**: If the specified object is the base object (e.g., created with `Object.create(null)`), it will return `null` as the prototype.
+
+#### **Coding Example:**
+
+1. **Basic Usage:**
+```javascript
+const obj = { a: 1 };
+const proto = { b: 2 };
+
+// Setting the prototype of obj
+Object.setPrototypeOf(obj, proto);
+
+// Using Object.getPrototypeOf() to get the prototype of obj
+console.log(Object.getPrototypeOf(obj) === proto); // Output: true
+```
+
+2. **Checking Prototype Chain:**
+```javascript
+function Animal() {}
+Animal.prototype.speak = function() {
+    console.log('Animal speaks');
+};
+
+const dog = new Animal();
+
+// Getting the prototype of the dog instance
+console.log(Object.getPrototypeOf(dog) === Animal.prototype); // Output: true
+```
+
+3. **Accessing Prototype of a Standard Object:**
+```javascript
+const array = [1, 2, 3];
+console.log(Object.getPrototypeOf(array) === Array.prototype); // Output: true
+```
+
+4. **Using with Object.create:**
+```javascript
+const parent = { value: 'parent' };
+const child = Object.create(parent);
+
+// Accessing the prototype of child
+console.log(Object.getPrototypeOf(child) === parent); // Output: true
+```
+
+5. **Getting the Prototype of a Null Prototype Object:**
+```javascript
+const objWithNullProto = Object.create(null);
+console.log(Object.getPrototypeOf(objWithNullProto)); // Output: null
+```
+
+6. **Combining with `instanceof`:**
+```javascript
+function Vehicle() {}
+const car = new Vehicle();
+
+console.log(car instanceof Vehicle); // Output: true
+console.log(Object.getPrototypeOf(car) === Vehicle.prototype); // Output: true
+```
+
+7. **Iterating through Prototype Chain:**
+```javascript
+const base = { baseProp: 'base' };
+const derived = Object.create(base);
+derived.derivedProp = 'derived';
+
+let obj = derived;
+while (obj) {
+    console.log(obj);
+    obj = Object.getPrototypeOf(obj);
+}
+// Output: derived object, then base object, then null
+```
+
+#### **15 Interview Questions:**
+
+1. **What does `Object.getPrototypeOf()` do in JavaScript?**
+   - It retrieves the prototype of a specified object.
+
+2. **How is `Object.getPrototypeOf()` different from `__proto__`?**
+
+3. **What will be the output of the following code?**
+   ```javascript
+   const obj = { a: 1 };
+   console.log(Object.getPrototypeOf(obj)); // ?
+   ```
+
+4. **What happens when you call `Object.getPrototypeOf()` on an object created with `Object.create(null)`?**
+
+5. **Can you modify the prototype of an object using `Object.getPrototypeOf()`? Why or why not?**
+
+6. **What is the output of the following code?**
+   ```javascript
+   function Person() {}
+   const john = new Person();
+   console.log(Object.getPrototypeOf(john) === Person.prototype); // ?
+   ```
+
+7. **What happens if you call `Object.getPrototypeOf()` on a primitive value?**
+
+8. **Can you use `Object.getPrototypeOf()` with built-in objects like `Array` or `Date`? Provide an example.**
+
+9. **How would you check if an object has a specific prototype in its chain?**
+
+10. **What is the significance of the prototype chain in JavaScript?**
+
+11. **Can you change the prototype of an object after it has been created? If so, how?**
+
+12. **What will be the output of the following code?**
+    ```javascript
+    const array = [1, 2, 3];
+    console.log(Object.getPrototypeOf(array) === Array.prototype); // ?
+    ```
+
+13. **What happens if you use `Object.getPrototypeOf()` on a function?**
+
+14. **What will be the output of the following code?**
+    ```javascript
+    const myObj = {};
+    Object.setPrototypeOf(myObj, { a: 1 });
+    console.log(Object.getPrototypeOf(myObj).a); // ?
+    ```
+
+15. **How does `Object.getPrototypeOf()` relate to inheritance in JavaScript?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of the following code?**
+   ```javascript
+   const obj1 = { x: 1 };
+   const obj2 = Object.create(obj1);
+   console.log(Object.getPrototypeOf(obj2) === obj1); // ?
+   ```
+
+2. **What happens if you call `Object.getPrototypeOf()` on an object that has been frozen?**
+
+3. **How can you use `Object.getPrototypeOf()` to determine if an object is an instance of a specific constructor?**
+
+4. **What will be the output of the following code?**
+   ```javascript
+   const base = { a: 1 };
+   const derived = Object.create(base);
+   base.a = 2;
+   console.log(derived.a); // ?
+   ```
+
+5. **How does `Object.getPrototypeOf()` help in debugging prototype chain issues?**
+
+6. **What is the output of the following code?**
+   ```javascript
+   const obj = Object.create(null);
+   console.log(Object.getPrototypeOf(obj)); // ?
+   ```
+
+7. **What happens if you try to get the prototype of a function? Does it return its own prototype?**
+
+8. **How does the prototype chain affect property lookup in objects?**
+
+9. **What will be the output of the following code?**
+   ```javascript
+   const foo = { bar: 1 };
+   const baz = Object.create(foo);
+   console.log(baz.bar); // ?
+   ```
+
+10. **How does `Object.getPrototypeOf()` relate to the `instanceof` operator?**
+
+11. **What will be the output of the following code?**
+    ```javascript
+    const obj = {};
+    Object.setPrototypeOf(obj, { a: 2 });
+    console.log(Object.getPrototypeOf(obj).a); // ?
+    ```
+
+12. **Can `Object.getPrototypeOf()` be used to check for private properties? Why or why not?**
+
+13. **What will be the output of the following code?**
+    ```javascript
+    const obj = {};
+    Object.defineProperty(obj, 'prop', {
+        value: 42,
+        enumerable: false
+    });
+    console.log(Object.getPrototypeOf(obj).prop); // ?
+    ```
+
+14. **How does changing the prototype of an object affect the properties and methods of the object?**
+
+15. **What will be the output of the following code?**
+    ```javascript
+    const parent = { value: 1 };
+    const child = Object.create(parent);
+    parent.value = 2;
+    console.log(child.value); // ?
+    ```
+
+--------------------------------------------------------------------------------------------------
+### Topic: `Object.assign()` Method in JavaScript
+
+#### **Brief Explanation:**
+`Object.assign()` is a built-in JavaScript method that is used to copy the properties from one or more source objects to a target object. It performs a **shallow copy** and merges the enumerable properties of the source objects into the target object. The target object is modified and returned after the operation. If multiple source objects have the same property, the last one overrides the others.
+
+#### **Key Features:**
+1. **Shallow Copy**: It copies only the property values at the first level. If the property is an object or array, it copies the reference rather than creating a deep clone.
+2. **Merging Objects**: It can be used to merge multiple source objects into a single target object.
+3. **Overwriting Properties**: If a property exists in both the target and the source, the value from the source will overwrite the target's property.
+
+#### **Syntax:**
+```javascript
+Object.assign(target, ...sources)
+```
+
+- **target**: The object to receive the properties.
+- **sources**: One or more source objects whose properties will be copied to the target.
+
+#### **Coding Example:**
+
+1. **Basic Usage:**
+```javascript
+const target = { a: 1, b: 2 };
+const source = { b: 3, c: 4 };
+
+const result = Object.assign(target, source);
+console.log(result);  // Output: { a: 1, b: 3, c: 4 }
+console.log(target);  // Output: { a: 1, b: 3, c: 4 } (modified target)
+```
+
+2. **Copying Multiple Objects:**
+```javascript
+const obj1 = { a: 1 };
+const obj2 = { b: 2 };
+const obj3 = { c: 3 };
+
+const result = Object.assign({}, obj1, obj2, obj3);
+console.log(result);  // Output: { a: 1, b: 2, c: 3 }
+```
+
+3. **Shallow Copy (Reference for Nested Objects):**
+```javascript
+const target = { a: 1, nested: { x: 10 } };
+const source = { b: 2, nested: { y: 20 } };
+
+Object.assign(target, source);
+console.log(target);  // Output: { a: 1, b: 2, nested: { y: 20 } }
+console.log(target.nested === source.nested);  // Output: true (same reference)
+```
+
+4. **Using with Default Values:**
+```javascript
+const defaults = { a: 1, b: 2 };
+const options = { b: 3, c: 4 };
+
+const settings = Object.assign({}, defaults, options);
+console.log(settings);  // Output: { a: 1, b: 3, c: 4 }
+```
+
+5. **Cloning an Object (Shallow Copy):**
+```javascript
+const original = { a: 1, b: 2 };
+const clone = Object.assign({}, original);
+
+console.log(clone);  // Output: { a: 1, b: 2 }
+console.log(clone === original);  // Output: false (different object references)
+```
+
+6. **Handling Non-Enumerable Properties:**
+```javascript
+const obj = {};
+Object.defineProperty(obj, 'hidden', {
+  value: 42,
+  enumerable: false
+});
+
+const copy = Object.assign({}, obj);
+console.log(copy.hidden);  // Output: undefined (non-enumerable properties are not copied)
+```
+
+7. **Overwriting Primitive Values:**
+```javascript
+const target = { a: 1 };
+const source = { a: undefined };
+
+Object.assign(target, source);
+console.log(target);  // Output: { a: undefined }
+```
+
+#### **15 Interview Questions:**
+
+1. **What does the `Object.assign()` method do in JavaScript?**
+   - It copies enumerable properties from one or more source objects to a target object.
+
+2. **What type of copy does `Object.assign()` perform: shallow or deep?**
+   - It performs a shallow copy.
+
+3. **What happens if two source objects have the same property?**
+   - The property from the last source object will overwrite the previous ones.
+
+4. **How would you use `Object.assign()` to clone an object?**
+
+5. **Can `Object.assign()` be used to merge multiple objects? Give an example.**
+
+6. **What will be the output of the following code?**
+   ```javascript
+   const target = { a: 1 };
+   const source1 = { b: 2 };
+   const source2 = { c: 3 };
+   Object.assign(target, source1, source2);
+   console.log(target);  // ?
+   ```
+
+7. **What happens to the properties of the target object if they exist in the source object?**
+
+8. **Can `Object.assign()` copy non-enumerable properties?**
+
+9. **What will be the output of the following code?**
+   ```javascript
+   const target = { a: 1 };
+   const source = { a: undefined };
+   Object.assign(target, source);
+   console.log(target);  // ?
+   ```
+
+10. **How does `Object.assign()` behave with null or undefined as the target?**
+
+11. **What will happen if you pass primitive values as sources to `Object.assign()`?**
+
+12. **How would you use `Object.assign()` to implement a default settings pattern?**
+
+13. **What happens if one of the sources passed to `Object.assign()` is `null` or `undefined`?**
+
+14. **How would you create a shallow copy of an object with nested objects using `Object.assign()`?**
+
+15. **Is there any situation where `Object.assign()` might lead to unexpected behavior?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of the following code, and why?**
+   ```javascript
+   const target = {};
+   Object.assign(target, null, { a: 1 });
+   console.log(target);  // ?
+   ```
+
+2. **What will happen if one of the properties in the source object is a getter?**
+   ```javascript
+   const source = {
+       get foo() {
+           return 'bar';
+       }
+   };
+   const target = Object.assign({}, source);
+   console.log(target.foo);  // ?
+   ```
+
+3. **How does `Object.assign()` handle symbols as keys in source objects?**
+
+4. **What will be the output of the following code?**
+   ```javascript
+   const target = { a: 1 };
+   const source = { a: { nested: true } };
+   Object.assign(target, source);
+   target.a.nested = false;
+   console.log(source.a.nested);  // ?
+   ```
+
+5. **What happens if you pass a string as a source object?**
+
+6. **How would you prevent `Object.assign()` from copying `undefined` properties?**
+
+7. **What will be the output of the following code?**
+   ```javascript
+   const source1 = { a: 1, b: 2 };
+   const source2 = { a: 3, c: 4 };
+   const target = Object.assign({}, source1, source2);
+   console.log(target);  // ?
+   ```
+
+8. **How would you use `Object.assign()` to add properties to an existing object without modifying it directly?**
+
+9. **What will happen if one of the sources has a non-writable property?**
+
+10. **Can `Object.assign()` create a deep copy of an object? Why or why not?**
+
+11. **What will be the result of assigning an object with circular references using `Object.assign()`?**
+
+12. **What will be the output of the following code?**
+    ```javascript
+    const target = {};
+    const source = { a: 1, b: undefined };
+    Object.assign(target, source);
+    console.log(target);  // ?
+    ```
+
+13. **How would you merge two arrays using `Object.assign()`?**
+
+14. **What will be the result of the following code when merging arrays?**
+    ```javascript
+    const arr1 = [1, 2, 3];
+    const arr2 = [4, 5, 6];
+    const result = Object.assign(arr1, arr2);
+    console.log(result);  // ?
+    ```
+
+15. **How does `Object.assign()` behave when copying accessors (getters/setters)?**
+
+---------------------------------------------------------------------------------------------
+### Topic: `Object.freeze()` Method in JavaScript
+
+#### **Brief Explanation:**
+The `Object.freeze()` method in JavaScript is used to make an object **immutable**. Once an object is frozen, its properties cannot be added, removed, or changed. This is useful when you want to ensure that an object’s values remain constant throughout the execution of your program. However, freezing an object only affects the object itself, not its nested objects (shallow freeze).
+
+#### **Key Features:**
+1. **Prevents Property Modification**: You cannot modify existing properties or their values after freezing.
+2. **Prevents Property Addition/Deletion**: New properties cannot be added, and existing properties cannot be deleted.
+3. **Shallow Freezing**: Only the immediate properties of the object are frozen, meaning if a property is an object, that nested object can still be modified unless frozen separately.
+
+#### **Syntax:**
+```javascript
+Object.freeze(object)
+```
+
+- **object**: The object to be frozen.
+
+#### **Coding Example:**
+
+1. **Basic Freezing:**
+```javascript
+const person = { name: "John", age: 30 };
+Object.freeze(person);
+
+person.age = 25;  // This will not change the value
+console.log(person.age);  // Output: 30
+
+person.city = "New York";  // Adding new properties is not allowed
+console.log(person.city);  // Output: undefined
+```
+
+2. **Attempt to Delete Properties:**
+```javascript
+const car = { brand: "Toyota", model: "Corolla" };
+Object.freeze(car);
+
+delete car.model;  // Deleting properties is not allowed
+console.log(car.model);  // Output: "Corolla"
+```
+
+3. **Freezing Nested Objects:**
+```javascript
+const user = { name: "Alice", details: { age: 25, city: "Paris" } };
+Object.freeze(user);
+
+user.details.age = 30;  // This will still change because `details` is not frozen
+console.log(user.details.age);  // Output: 30
+```
+
+4. **Checking if an Object is Frozen:**
+You can check if an object has been frozen using `Object.isFrozen()`:
+```javascript
+const obj = { prop: 42 };
+Object.freeze(obj);
+
+console.log(Object.isFrozen(obj));  // Output: true
+```
+
+5. **Shallow Freezing Demonstration:**
+```javascript
+const person = { name: "Jane", address: { city: "London" } };
+Object.freeze(person);
+
+person.name = "Alice";  // This won't change
+console.log(person.name);  // Output: "Jane"
+
+person.address.city = "Paris";  // Nested objects can still be modified
+console.log(person.address.city);  // Output: "Paris"
+```
+
+#### **15 Interview Questions:**
+
+1. **What does the `Object.freeze()` method do?**
+   - It makes an object immutable, preventing any modifications to its properties.
+
+2. **Can you modify properties of a frozen object?**
+   - No, you cannot modify, add, or delete properties of a frozen object.
+
+3. **What type of freezing does `Object.freeze()` perform: shallow or deep?**
+   - It performs a shallow freeze.
+
+4. **What will be the output of the following code?**
+   ```javascript
+   const obj = { a: 1, b: 2 };
+   Object.freeze(obj);
+   obj.a = 10;
+   console.log(obj.a);  // ?
+   ```
+
+5. **How would you make sure that an object is frozen in JavaScript?**
+
+6. **Does `Object.freeze()` work on nested objects? Explain with an example.**
+
+7. **What will happen if you try to add new properties to a frozen object?**
+
+8. **How can you check if an object is frozen?**
+
+9. **What will happen if you use `delete` to remove a property from a frozen object?**
+
+10. **What happens when you pass a non-object (like a number or string) to `Object.freeze()`?**
+
+11. **What will be the result of the following code?**
+   ```javascript
+   const obj = Object.freeze({ a: 1, b: { nested: 2 } });
+   obj.b.nested = 3;
+   console.log(obj.b.nested);  // ?
+   ```
+
+12. **Is it possible to unfreeze a frozen object?**
+
+13. **What will happen if you try to reassign a frozen object to a new value?**
+
+14. **How would you freeze an array in JavaScript? What are the implications?**
+
+15. **What are the limitations of `Object.freeze()` when dealing with complex objects?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of the following code and why?**
+   ```javascript
+   const obj = Object.freeze({ name: "Alice" });
+   obj.name = "Bob";
+   console.log(obj.name);  // ?
+   ```
+
+2. **What happens if you try to freeze a primitive value using `Object.freeze()`?**
+   ```javascript
+   const str = "Hello";
+   Object.freeze(str);
+   console.log(str);  // ?
+   ```
+
+3. **How would you implement a deep freeze in JavaScript to freeze nested objects?**
+
+4. **What is the difference between `Object.seal()` and `Object.freeze()`?**
+
+5. **What will be the result of the following code?**
+   ```javascript
+   const obj = { a: 1, b: 2 };
+   Object.freeze(obj);
+   delete obj.a;
+   console.log(obj.a);  // ?
+   ```
+
+6. **What happens if you use `Object.freeze()` on an already frozen object?**
+
+7. **Write a function to deeply freeze an object, including all nested objects.**
+
+8. **Can you modify the prototype of a frozen object?**
+
+9. **What will be the output of the following code?**
+   ```javascript
+   const frozenArray = Object.freeze([1, 2, 3]);
+   frozenArray.push(4);
+   console.log(frozenArray);  // ?
+   ```
+
+10. **How does `Object.freeze()` handle methods inside an object? Can they still be called?**
+
+11. **If a frozen object has a getter/setter, can the value of the property change?**
+
+12. **What will be the result of the following code?**
+   ```javascript
+   const obj = Object.freeze({ x: 1 });
+   obj.x++;
+   console.log(obj.x);  // ?
+   ```
+
+13. **Explain how `Object.freeze()` behaves when used with ES6 classes and inheritance.**
+
+14. **Is it possible to freeze a DOM object using `Object.freeze()`?**
+
+15. **What will happen if you try to assign `undefined` to a property of a frozen object?**
+
+----------------------------------------------------------------------------------------------------
+### Topic: Destructuring and Aliasing Properties in an Object in JavaScript
+
+#### **Brief Explanation:**
+Destructuring is a syntax feature in JavaScript that allows you to unpack values from arrays or properties from objects into distinct variables. When destructuring objects, you can also **alias** properties, meaning you can assign a property’s value to a variable with a different name.
+
+#### **Key Features:**
+1. **Destructuring**: This extracts properties from an object into variables.
+2. **Aliasing**: Allows renaming of extracted properties by assigning them to a variable with a different name.
+
+#### **Syntax for Destructuring an Object:**
+```javascript
+const { property } = object;
+```
+
+#### **Syntax for Aliasing a Property:**
+```javascript
+const { property: alias } = object;
+```
+
+- **property**: The name of the property in the object.
+- **alias**: The new name for the destructured property.
+
+#### **Coding Examples:**
+
+1. **Basic Destructuring:**
+```javascript
+const person = { name: "Alice", age: 25, city: "New York" };
+const { name, age } = person;
+
+console.log(name);  // Output: "Alice"
+console.log(age);   // Output: 25
+```
+
+2. **Aliasing Properties While Destructuring:**
+```javascript
+const person = { name: "Alice", age: 25, city: "New York" };
+const { name: personName, city: location } = person;
+
+console.log(personName);  // Output: "Alice"
+console.log(location);    // Output: "New York"
+```
+
+3. **Destructuring with Default Values:**
+You can provide a default value for a property if it doesn’t exist in the object.
+```javascript
+const person = { name: "Alice", age: 25 };
+const { name, country = "USA" } = person;
+
+console.log(country);  // Output: "USA"
+```
+
+4. **Nested Object Destructuring:**
+You can destructure nested objects by providing the nested structure in the destructuring pattern.
+```javascript
+const person = { name: "Alice", address: { city: "New York", zip: 10001 } };
+const { address: { city, zip } } = person;
+
+console.log(city);  // Output: "New York"
+console.log(zip);   // Output: 10001
+```
+
+5. **Combining Destructuring and Aliasing in Nested Objects:**
+```javascript
+const person = { name: "Alice", address: { city: "New York", zip: 10001 } };
+const { address: { city: location, zip: postalCode } } = person;
+
+console.log(location);   // Output: "New York"
+console.log(postalCode); // Output: 10001
+```
+
+6. **Destructuring with Functions:**
+Destructuring can also be used in function parameters.
+```javascript
+function displayPerson({ name, age }) {
+    console.log(`Name: ${name}, Age: ${age}`);
+}
+
+const person = { name: "Alice", age: 25 };
+displayPerson(person);  // Output: "Name: Alice, Age: 25"
+```
+
+#### **15 Interview Questions:**
+
+1. **What is destructuring in JavaScript?**
+   - Destructuring is a syntax that allows unpacking values from arrays or objects into individual variables.
+
+2. **How can you destructure an object and rename its properties?**
+
+3. **What are default values in destructuring, and how do you use them?**
+
+4. **What happens if you try to destructure a property that doesn't exist on the object?**
+
+5. **What will be the result of the following code?**
+   ```javascript
+   const person = { name: "John" };
+   const { age = 30 } = person;
+   console.log(age);  // ?
+   ```
+
+6. **How can you destructure nested objects in JavaScript?**
+
+7. **What does aliasing a property mean in object destructuring?**
+
+8. **Is it possible to destructure and alias a nested property at the same time?**
+
+9. **Explain how destructuring can be used in function parameters.**
+
+10. **What will be the output of this code?**
+    ```javascript
+    const obj = { a: 1, b: 2 };
+    const { a: first, b: second } = obj;
+    console.log(first, second);  // ?
+    ```
+
+11. **Can you destructure an array and rename its elements?**
+
+12. **What is the difference between destructuring objects and arrays in JavaScript?**
+
+13. **Can you destructure an object inside an array in JavaScript?**
+
+14. **What will happen if you destructure an object with a missing property and no default value?**
+
+15. **How would you destructure an object inside a function signature?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of this code, and why?**
+   ```javascript
+   const person = { name: "John", age: undefined };
+   const { age = 30 } = person;
+   console.log(age);  // ?
+   ```
+
+2. **How can you destructure and alias properties in deeply nested objects?**
+
+3. **What is the difference between `const { a: alias } = obj;` and `const alias = obj.a;`?**
+
+4. **What happens if you destructure a null or undefined object?**
+
+5. **How would you use destructuring in combination with a REST operator to extract remaining properties?**
+
+6. **What will happen if you try to destructure a function argument that is not an object?**
+
+7. **How can you destructure an object and provide default values for some properties but not others?**
+
+8. **Explain the following code and its output:**
+   ```javascript
+   const person = { name: "Alice", age: 25 };
+   const { name, gender = "Female" } = person;
+   console.log(gender);  // ?
+   ```
+
+9. **Can you destructure and alias properties in an array?**
+
+10. **How would you destructure a property of an object but still keep the rest of the properties intact in a new variable?**
+
+11. **What will happen if you alias a property that doesn't exist in the object?**
+
+12. **Explain how destructuring is useful in functional programming.**
+
+13. **How would you destructure multiple nested levels at once?**
+
+14. **What would be the output of this code?**
+    ```javascript
+    const { a: { b: x } } = { a: { b: 2 } };
+    console.log(x);  // ?
+    ```
+
+15. **How would you destructure an object and exclude certain properties from the result?**
+
+----------------------------------------------------------------------------------------------
+### Topic: Spread Operator (`...`) in JavaScript
+
+#### **Brief Explanation:**
+The spread operator (`...`) in JavaScript allows for the expansion of an array, object, or iterable into individual elements. It is commonly used to copy arrays or objects, concatenate arrays, or pass an array as individual arguments to a function.
+
+#### **Key Features:**
+1. **Expands Arrays/Objects**: Breaks down an array or object into its individual elements or properties.
+2. **Combines Arrays/Objects**: Merges arrays or objects into new ones.
+3. **Pass Arguments**: Passes elements of an array as individual arguments in function calls.
+
+#### **Syntax:**
+```javascript
+...iterable
+```
+
+#### **Examples of Using the Spread Operator:**
+
+1. **Copying Arrays:**
+The spread operator allows you to create a shallow copy of an array.
+```javascript
+const numbers = [1, 2, 3];
+const copyNumbers = [...numbers];
+console.log(copyNumbers);  // Output: [1, 2, 3]
+```
+
+2. **Merging Arrays:**
+You can combine multiple arrays into one using the spread operator.
+```javascript
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const mergedArray = [...arr1, ...arr2];
+console.log(mergedArray);  // Output: [1, 2, 3, 4]
+```
+
+3. **Expanding Arguments in Function Calls:**
+If a function expects multiple arguments, you can pass an array using the spread operator.
+```javascript
+const numbers = [1, 2, 3];
+console.log(Math.max(...numbers));  // Output: 3
+```
+
+4. **Copying Objects (Shallow Copy):**
+The spread operator can be used to make shallow copies of objects.
+```javascript
+const person = { name: "Alice", age: 25 };
+const copyPerson = { ...person };
+console.log(copyPerson);  // Output: { name: "Alice", age: 25 }
+```
+
+5. **Merging Objects:**
+You can combine multiple objects into one using the spread operator.
+```javascript
+const person = { name: "Alice", age: 25 };
+const contact = { phone: "123-456", email: "alice@example.com" };
+const mergedObject = { ...person, ...contact };
+console.log(mergedObject);  
+// Output: { name: "Alice", age: 25, phone: "123-456", email: "alice@example.com" }
+```
+
+6. **Adding Elements to an Array:**
+The spread operator can add new elements to an existing array while copying it.
+```javascript
+const numbers = [1, 2, 3];
+const newNumbers = [0, ...numbers, 4];
+console.log(newNumbers);  // Output: [0, 1, 2, 3, 4]
+```
+
+7. **Using Spread in Function Arguments:**
+The spread operator can be used to pass multiple arguments to functions dynamically.
+```javascript
+function sum(a, b, c) {
+    return a + b + c;
+}
+const nums = [1, 2, 3];
+console.log(sum(...nums));  // Output: 6
+```
+
+8. **Rest Parameter vs Spread Operator:**
+While the rest parameter (`...args`) gathers remaining elements into an array, the spread operator expands an array into individual elements.
+```javascript
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+}
+console.log(sum(1, 2, 3));  // Output: 6
+```
+
+#### **15 Interview Questions:**
+
+1. **What is the spread operator in JavaScript?**
+   - It is a syntax that allows the expansion of arrays, objects, or iterables into individual elements.
+
+2. **What are some common use cases for the spread operator?**
+
+3. **How does the spread operator differ from the rest parameter in JavaScript?**
+
+4. **What will be the result of the following code?**
+   ```javascript
+   const arr1 = [1, 2];
+   const arr2 = [...arr1, 3, 4];
+   console.log(arr2);  // ?
+   ```
+
+5. **Explain how the spread operator can be used to pass an array of arguments to a function.**
+
+6. **What will happen when you try to spread a non-iterable, like an object, into an array?**
+
+7. **How does the spread operator handle nested objects or arrays when copying?**
+
+8. **Can the spread operator be used to combine objects? How does it work?**
+
+9. **What are the differences between using the spread operator and `Object.assign()` to copy objects?**
+
+10. **What will be the result of this code?**
+    ```javascript
+    const person = { name: "Alice" };
+    const copy = { ...person, age: 30 };
+    console.log(copy);  // ?
+    ```
+
+11. **What will happen if you spread an array with undefined elements into another array?**
+
+12. **Can the spread operator be used inside a function definition to handle variable-length arguments?**
+
+13. **What will be the result of the following code?**
+    ```javascript
+    const arr = [..."hello"];
+    console.log(arr);  // ?
+    ```
+
+14. **Explain the difference between shallow copy and deep copy when using the spread operator.**
+
+15. **Can the spread operator be used on strings?**
+
+#### **15 Tricky Challenges/Questions:**
+
+1. **What will be the output of this code?**
+   ```javascript
+   const arr = [1, 2, 3];
+   const copy = [...arr];
+   copy.push(4);
+   console.log(arr, copy);  // ?
+   ```
+
+2. **How can you merge two objects into a new object while also adding a new property?**
+
+3. **What will happen if you use the spread operator to spread a string into an array?**
+   ```javascript
+   const str = "Hello";
+   const letters = [...str];
+   console.log(letters);  // ?
+   ```
+
+4. **How can the spread operator be used to flatten a nested array?**
+
+5. **What will happen when you try to spread an empty object into another object?**
+
+6. **What will be the result of this code?**
+   ```javascript
+   const arr = [1, 2, 3];
+   console.log(Math.max(...arr));  // ?
+   ```
+
+7. **How does the spread operator affect the copying of objects with reference types, like arrays within an object?**
+
+8. **Write a function that takes any number of arrays and combines them using the spread operator.**
+
+9. **What happens if you spread an array into a function that expects more arguments than the array has?**
+
+10. **Can the spread operator be used to clone a Set or Map?**
+
+11. **What will be the result of this code?**
+    ```javascript
+    const person = { name: "Alice", age: 25 };
+    const newPerson = { ...person, age: 30 };
+    console.log(person.age);  // ?
+    console.log(newPerson.age);  // ?
+    ```
+
+12. **Explain how the spread operator works when copying an object with nested objects.**
+
+13. **What is the difference between spreading an array and using the `concat()` method?**
+
+14. **How would you use the spread operator to add new properties to an object without mutating the original object?**
+
+15. **What is the output of this code and why?**
+    ```javascript
+    const arr1 = [1, 2];
+    const arr2 = [...arr1, ...[3, 4]];
+    console.log(arr2);  // ?
+    ```
+
+----------------------------------------------------------------------------------------------------
+Topic:- call, apply and bind method in js
+In JavaScript, `call()`, `apply()`, and `bind()` are methods used to manipulate the `this` context (the value of `this`) in functions, allowing you to call a function with a specific `this` value. Here's an overview of how each works and the differences between them:
+
+### 1. **`call()` Method**
+
+The `call()` method invokes a function with a given `this` value and arguments passed individually.
+
+**Syntax:**
+```js
+functionName.call(thisArg, arg1, arg2, ...);
+```
+
+- **thisArg**: The value to be used as `this` inside the function.
+- **arg1, arg2, ...**: Arguments passed to the function individually.
+
+**Example:**
+```js
+function greet(greeting, name) {
+    console.log(`${greeting}, ${name}!`);
+}
+
+greet.call(null, 'Hello', 'Alice'); // Output: "Hello, Alice!"
+```
+
+### 2. **`apply()` Method**
+
+The `apply()` method is similar to `call()`, but instead of passing arguments individually, it takes an array of arguments.
+
+**Syntax:**
+```js
+functionName.apply(thisArg, [argsArray]);
+```
+
+- **thisArg**: The value of `this` inside the function.
+- **argsArray**: An array (or array-like object) of arguments.
+
+**Example:**
+```js
+function greet(greeting, name) {
+    console.log(`${greeting}, ${name}!`);
+}
+
+greet.apply(null, ['Hi', 'Bob']); // Output: "Hi, Bob!"
+```
+
+### 3. **`bind()` Method**
+
+The `bind()` method doesn't immediately invoke the function. Instead, it returns a new function where the `this` value and, optionally, some initial arguments are pre-set.
+
+**Syntax:**
+```js
+const newFunction = functionName.bind(thisArg, arg1, arg2, ...);
+```
+
+- **thisArg**: The value to be used as `this` inside the function.
+- **arg1, arg2, ...**: Arguments to partially apply to the function.
+
+**Example:**
+```js
+function greet(greeting, name) {
+    console.log(`${greeting}, ${name}!`);
+}
+
+const greetAlice = greet.bind(null, 'Hello', 'Alice');
+greetAlice(); // Output: "Hello, Alice!"
+```
+
+### **Differences:**
+
+| Feature          | `call()`                              | `apply()`                             | `bind()`                               |
+|------------------|---------------------------------------|---------------------------------------|----------------------------------------|
+| **Invocation**   | Invokes the function immediately.     | Invokes the function immediately.     | Returns a new function for later use.  |
+| **Arguments**    | Arguments passed individually.        | Arguments passed as an array.         | Allows partial application of arguments. |
+| **Return Value** | Returns the result of the function.   | Returns the result of the function.   | Returns a new function.                |
+| **Use Case**     | Use when you want to call a function with a specific `this` and individual arguments. | Use when you want to call a function with a specific `this` and arguments as an array. | Use when you want to create a new function with pre-set `this` and/or arguments. |
+
+
+### Example of All Three:
+
+```js
+const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    getFullName: function() {
+        return this.firstName + ' ' + this.lastName;
+    }
+};
+
+const anotherPerson = {
+    firstName: 'Jane',
+    lastName: 'Smith'
+};
+
+// Using call()
+console.log(person.getFullName.call(anotherPerson)); // "Jane Smith"
+
+// Using apply()
+console.log(person.getFullName.apply(anotherPerson)); // "Jane Smith"
+
+// Using bind()
+const getFullNameForJane = person.getFullName.bind(anotherPerson);
+console.log(getFullNameForJane()); // "Jane Smith"
+```
+
+In summary:
+- `call()` and `apply()` immediately invoke the function with a specified `this` context, differing in how they handle arguments.
+- `bind()` returns a new function with `this` and arguments preset but doesn't invoke the function right away.
+
+-------------------------------------------------------------------------------------------------
+### **Binding and Assignment Pattern in JavaScript Object Destructuring**
+
+**Object Destructuring** is a feature in JavaScript that allows you to unpack properties from objects into distinct variables. The **binding** and **assignment patterns** within destructuring help you to assign values from an object’s properties to new or existing variables, often in a cleaner and more readable way.
+
+### **1. Basic Syntax:**
+
+The simplest form of object destructuring involves extracting properties from an object into variables with the same name as the object’s keys.
+
+```js
+const person = { name: 'John', age: 30 };
+
+// Destructuring assignment
+const { name, age } = person;
+
+console.log(name); // 'John'
+console.log(age);  // 30
+```
+
+### **2. Binding Pattern:**
+The **binding pattern** refers to how you bind variables to specific properties of an object when destructuring.
+
+- The syntax uses curly braces `{}` to define which properties to bind.
+- The variable names must match the property names unless you use an alias (more on this below).
+
+### **3. Assignment Pattern:**
+The **assignment pattern** allows you to unpack the properties of an object and assign them to variables, even giving them **different names** or **default values**.
+
+**a. Aliasing (Assigning to Different Variable Names):**
+
+You can assign a property to a variable with a different name by using a colon `:`.
+
+```js
+const person = { name: 'John', age: 30 };
+
+// Assign `name` property to variable `firstName`
+const { name: firstName, age } = person;
+
+console.log(firstName); // 'John'
+console.log(age);  // 30
+```
+
+**b. Default Values:**
+
+If the property doesn't exist on the object, you can assign a default value using the `=` syntax.
+
+```js
+const person = { name: 'John' };
+
+// Assign default value 25 to `age`
+const { name, age = 25 } = person;
+
+console.log(name); // 'John'
+console.log(age);  // 25
+```
+
+### **4. Nested Destructuring:**
+You can destructure **nested objects** as well by providing the appropriate nested pattern.
+
+```js
+const user = {
+  id: 101,
+  profile: {
+    username: 'john_doe',
+    email: 'john@example.com',
+  }
+};
+
+// Destructuring nested properties
+const { profile: { username, email } } = user;
+
+console.log(username); // 'john_doe'
+console.log(email);    // 'john@example.com'
+```
+
+### **5. Combining with Rest Parameters:**
+You can use the **rest operator** (`...`) to collect the remaining properties into another object.
+
+```js
+const person = { name: 'John', age: 30, city: 'New York' };
+
+// Destructure name and collect the rest in `others`
+const { name, ...others } = person;
+
+console.log(name);    // 'John'
+console.log(others);  // { age: 30, city: 'New York' }
+```
+
+### **6. Mutating Variables After Declaration:**
+
+If variables are already declared, you need to wrap the destructuring assignment in parentheses to avoid JavaScript treating it as a block statement.
+
+```js
+let name, age;
+const person = { name: 'Alice', age: 25 };
+
+({ name, age } = person);
+
+console.log(name); // 'Alice'
+console.log(age);  // 25
+```
+
+### **7. Destructuring Function Parameters:**
+You can destructure an object directly in a function's parameter list to extract specific values, improving clarity.
+
+```js
+function greet({ name, age }) {
+  console.log(`Hello ${name}, you are ${age} years old!`);
+}
+
+const person = { name: 'Bob', age: 40 };
+greet(person); // "Hello Bob, you are 40 years old!"
+```
+
+---
+
+## **15 Interview Questions on Binding and Assignment in Object Destructuring:**
+
+1. **What is object destructuring, and how is it used in JavaScript?**
+2. **How can you assign a property from an object to a variable with a different name?**
+3. **What happens if you try to destructure a property that does not exist in an object?**
+4. **How can you provide default values for properties when destructuring an object?**
+5. **Explain the difference between object destructuring and array destructuring.**
+6. **How can you destructure a nested object and assign properties from deep within it?**
+7. **What is the rest operator in object destructuring, and how does it work?**
+8. **How can you destructure an object in a function's parameter list?**
+9. **What will happen if you try to destructure an object without wrapping it in parentheses when variables are already declared?**
+10. **Can you destructure objects with dynamic property names? How?**
+11. **How do you handle undefined or null objects during destructuring without throwing an error?**
+12. **Explain how to combine destructuring with the rest parameter to collect remaining properties.**
+13. **How can destructuring be used to swap variable values?**
+14. **What will be the output of the following code?**
+    ```js
+    const { name: firstName = 'Anonymous', age = 30 } = { name: 'John' };
+    console.log(firstName, age);
+    ```
+15. **Can you destructure an object and omit specific properties from being assigned to variables? How?**
+
+---
+
+## **15 Tricky Problems/Challenges:**
+
+1. **Write a function that takes an object and destructures its properties, returning the sum of the first and second properties.**
+   ```js
+   function sumProperties({ a, b }) {
+     return a + b;
+   }
+   ```
+
+2. **Given an object with nested properties, write a function that destructures it to extract values from two different levels.**
+   ```js
+   const obj = { level1: { level2: { prop: 'value' } }, other: 'test' };
+   ```
+
+3. **Write a function that destructures a configuration object passed to it, setting default values for missing configuration options.**
+
+4. **Using object destructuring, swap the values of two variables without using a temporary variable.**
+
+5. **Write a function that takes an object as a parameter, destructures it, and assigns default values if some properties are missing, and then logs those values.**
+
+6. **Given an array of objects, use destructuring inside a loop to extract certain properties and print them.**
+
+7. **Write a function that takes an object representing a rectangle and destructures it to compute the area, assuming default values if width or height are missing.**
+
+8. **Using destructuring, create a function that accepts an object with unknown properties, but extracts the first two keys and returns their values.**
+
+9. **Given an object with varying properties, write a function that extracts only the numeric properties using destructuring and returns their sum.**
+
+10. **Create a function that uses destructuring to extract specific elements from a nested array of objects.**
+
+11. **Write a function that accepts an object, uses destructuring to pick properties, and if a property is undefined, assigns a default value and returns the object.**
+
+12. **Using destructuring, write a function that collects all remaining properties of an object and returns them in a new object.**
+
+13. **Write a function that takes a deeply nested object and uses destructuring to extract values, throwing an error if any property is undefined.**
+
+14. **Given a function with a parameter object, use destructuring to handle default values and ensure that all required properties are extracted and logged.**
+
+15. **Use object destructuring in combination with the rest operator to remove specific properties from an object, returning a new object without those properties.**
+
+-------------------------------------------------------------------------------------------------------------
